@@ -1,0 +1,57 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = '窓ガラスの割れ替えなら神戸のMADOA（株式会社三喜）。最短即日対応・適正価格・50年の実績で安心の施工をお届けします。' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body class="font-sans text-gray-800 bg-white pb-16 md:pb-0">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white shadow-sm">
+      <div class="max-w-5xl mx-auto px-4 flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="/" class="flex items-center">
+          <div class="bg-primary-500 rounded px-3 py-1.5">
+            <img src="/images/logo.svg" alt="MADOA" class="h-8" />
+          </div>
+        </a>
+        <!-- Phone + CTA -->
+        <div class="flex items-center gap-4">
+          <a href="tel:078-597-2722" class="flex items-center gap-2 text-primary-500 hover:text-primary-600 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+            </svg>
+            <span class="font-bold text-lg hidden sm:inline">078-597-2722</span>
+          </a>
+          <a
+            href="#contact"
+            class="hidden md:inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-black font-bold px-5 py-2 rounded-full text-sm transition-all hover:scale-105"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            無料相談
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,75 @@
+---
+const cases = [
+  {
+    title: '浴室窓リフォーム',
+    description: '型板ガラス 4mm / 浴室用防湿仕様',
+    detail: '浴室の古い窓ガラスを断熱・防湿性の高いガラスに交換。結露の軽減と保温性向上を実現しました。',
+    image: '/images/window-thumb-01.png',
+    imageAlt: '浴室窓リフォームの施工写真',
+  },
+  {
+    title: 'ルーバー窓交換',
+    description: 'ルーバーガラス交換 / 複数枚対応',
+    detail: '劣化したルーバー窓のガラスを全枚交換。通風性を維持しながら、防犯性も向上させました。',
+    image: '/images/window-thumb-02.png',
+    imageAlt: 'ルーバー窓交換の施工写真',
+  },
+  {
+    title: '雨戸取付工事',
+    description: '後付け雨戸 / 防風・防犯対策',
+    detail: '台風対策として雨戸を新規取付。窓ガラスの保護と防犯性の向上を同時に実現しました。',
+    image: '/images/window-thumb-07.png',
+    imageAlt: '雨戸取付工事の施工写真',
+  },
+];
+---
+
+<section id="cases" class="bg-white py-16 md:py-24">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">施工事例</h2>
+      <p class="text-gray-600 text-lg">実際の施工事例をご紹介します</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {cases.map((item) => (
+        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+          <img
+            src={item.image}
+            alt={item.imageAlt}
+            loading="lazy"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-5">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
+            <p class="text-sm text-primary-600 font-medium mb-2">{item.description}</p>
+            <p class="text-sm text-gray-600 leading-relaxed">{item.detail}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Mini CTA -->
+    <div class="text-center mt-12 bg-primary-50 rounded-xl p-8">
+      <p class="text-gray-800 font-bold text-lg mb-2">あなたの窓も、きれいに直ります。</p>
+      <p class="text-gray-600 text-sm mb-5">まずは無料でお見積もり。お気軽にご連絡ください。</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a
+          href="tel:078-597-2722"
+          class="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded-full transition-all hover:scale-105 text-sm"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+          </svg>
+          078-597-2722
+        </a>
+        <a
+          href="#contact"
+          class="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-black font-bold px-6 py-3 rounded-full transition-all hover:scale-105 text-sm"
+        >
+          無料で相談する
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

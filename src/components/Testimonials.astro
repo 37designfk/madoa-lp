@@ -1,0 +1,118 @@
+---
+const testimonials = [
+  {
+    comment:
+      '夜中に窓が割れてパニックでしたが、翌朝一番で来てくれました。見積もりもその場で出してくれて、午前中には新しいガラスに。対応の速さに驚きました。',
+    name: 'K.S.様',
+    area: '神戸市東灘区',
+    tag: '戸建て',
+  },
+  {
+    comment:
+      '他社では見積もりに1週間かかると言われましたが、MADOAさんは翌日には見積もり、3日で施工完了。費用も他社より2割ほど安かったです。',
+    name: 'M.T.様',
+    area: '神戸市中央区',
+    tag: 'マンション',
+  },
+  {
+    comment:
+      'マンションの高層階でしたが、管理組合への手続きも含めてすべて対応いただけました。追加費用も一切なく、最初の見積もり通りでした。',
+    name: 'Y.H.様',
+    area: '神戸市灘区',
+    tag: 'マンション',
+  },
+  {
+    comment:
+      '子供が窓にボールをぶつけてしまい、慌てて電話。すぐに仮養生に来てくれて、翌日には交換完了。本当に助かりました。',
+    name: 'A.N.様',
+    area: '芦屋市',
+    tag: '戸建て',
+  },
+];
+---
+
+<section id="testimonials" class="bg-gray-50 py-16 md:py-24">
+  <div class="max-w-5xl mx-auto px-4">
+    <!-- Voice photo decoration -->
+    <div class="flex justify-center mb-8">
+      <figure class="text-center">
+        <img
+          src="/images/top-img-voice.png"
+          alt="実際にご利用いただいたお客様とそのご家族"
+          class="max-w-xs md:max-w-sm rounded-xl shadow-lg mx-auto"
+          loading="lazy"
+        />
+        <figcaption class="text-gray-500 text-sm mt-3">
+          実際にご利用いただいたお客様とそのご家族
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">お客様の声</h2>
+      <p class="text-gray-600 text-lg mb-6">ご利用いただいたお客様からの声をご紹介します</p>
+      <div class="inline-flex items-center gap-3 bg-white rounded-full shadow-md px-6 py-3">
+        <span class="text-sm font-semibold text-gray-700">Google口コミ平均</span>
+        <div class="flex gap-0.5">
+          {[...Array(5)].map(() => (
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-500" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          ))}
+        </div>
+        <span class="text-2xl font-bold text-gray-900">4.8</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      {testimonials.map((item) => (
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex gap-0.5">
+              {[...Array(5)].map(() => (
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-500" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              ))}
+            </div>
+            <span class="text-xs font-semibold text-primary-700 bg-primary-50 px-3 py-1 rounded-full">
+              {item.tag}
+            </span>
+          </div>
+          <p class="text-gray-700 leading-relaxed mb-6">{item.comment}</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
+              <span class="text-primary-700 font-bold text-sm">{item.name.charAt(0)}</span>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-900 text-sm">{item.name}</p>
+              <p class="text-gray-500 text-xs">{item.area}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Mini CTA -->
+    <div class="text-center mt-12">
+      <p class="text-gray-700 font-semibold mb-4">あなたも安心の施工を体験しませんか？</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a
+          href="tel:078-597-2722"
+          class="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded-full transition-all hover:scale-105 text-sm"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+          </svg>
+          今すぐ電話する
+        </a>
+        <a
+          href="#contact"
+          class="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-black font-bold px-6 py-3 rounded-full transition-all hover:scale-105 text-sm"
+        >
+          無料で相談する
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

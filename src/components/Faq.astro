@@ -1,0 +1,85 @@
+---
+const faqs = [
+  {
+    question: '費用はどれくらいかかりますか？',
+    answer: 'ガラスの種類やサイズにより異なりますが、一般的な単板ガラスの場合、○○円〜が目安です。現地確認後に正確なお見積もりをお出しします。',
+  },
+  {
+    question: '対応エリアはどこですか？',
+    answer: '神戸市全域を中心に、芦屋市・西宮市・明石市など近隣エリアも対応しております。',
+  },
+  {
+    question: '即日対応は可能ですか？',
+    answer: 'はい、在庫状況や現場の状況にもよりますが、最短即日での対応が可能です。まずはお電話ください。',
+  },
+  {
+    question: '保険は使えますか？',
+    answer: '火災保険の適用が可能な場合があります。保険申請のサポートも行っておりますので、お気軽にご相談ください。',
+  },
+  {
+    question: '見積もりは無料ですか？',
+    answer: 'はい、お見積もりは無料です。現地確認も無料で行っておりますので、お気軽にお問い合わせください。',
+  },
+];
+---
+
+<section id="faq" class="bg-white py-16 md:py-24">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">よくある質問</h2>
+      <p class="text-gray-600 text-lg">お客様からよくいただくご質問にお答えします</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto divide-y divide-gray-200">
+      {faqs.map((item) => (
+        <details class="group">
+          <summary class="flex items-center justify-between cursor-pointer py-5 text-left">
+            <span class="font-semibold text-gray-900 pr-4">Q. {item.question}</span>
+            <span class="shrink-0 ml-2 text-gray-400 transition-transform duration-300 group-open:rotate-180">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+          </summary>
+          <div class="pb-5 pr-12">
+            <p class="text-gray-600 leading-relaxed mb-3">A. {item.answer}</p>
+            <a
+              href="#contact"
+              class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-500 hover:text-primary-600 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              詳しくはお気軽にご相談ください
+            </a>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details summary {
+    list-style: none;
+  }
+
+  details[open] > summary ~ div {
+    animation: faq-open 0.3s ease-in-out;
+  }
+
+  @keyframes faq-open {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

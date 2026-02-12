@@ -1,0 +1,101 @@
+---
+const reasons = [
+  {
+    title: 'スピード対応',
+    subtitle: '最短即日対応',
+    bigNumber: '最短30分',
+    bigNumberSub: 'で駆けつけ',
+    description:
+      'お電話一本で迅速に駆けつけます。急なガラスのトラブルにも最短即日で対応。お客様をお待たせしません。',
+    iconPath: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+    color: 'primary',
+  },
+  {
+    title: '安心の施工',
+    subtitle: '50年の実績・年間700件',
+    bigNumber: '35,000件+',
+    bigNumberSub: 'の施工実績',
+    description:
+      '創業50年、年間700件以上の施工実績。経験豊富な職人が丁寧に作業いたします。施工後の保証も万全です。',
+    iconPath:
+      'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+    color: 'green',
+  },
+  {
+    title: '適正価格',
+    subtitle: '明朗会計・追加費用なし',
+    bigNumber: '追加費用0円',
+    bigNumberSub: '保証',
+    description:
+      'お見積もり金額以上の請求は一切ありません。事前に明確な料金をご提示し、ご納得いただいてから施工します。',
+    iconPath:
+      'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1',
+    color: 'accent',
+  },
+];
+
+const colorMap: Record<string, { bg: string; iconBg: string; iconText: string; badge: string; numberText: string }> = {
+  primary: {
+    bg: 'bg-primary-50',
+    iconBg: 'bg-primary-100',
+    iconText: 'text-primary-600',
+    badge: 'bg-primary-600',
+    numberText: 'text-primary-600',
+  },
+  green: {
+    bg: 'bg-green-50',
+    iconBg: 'bg-green-100',
+    iconText: 'text-green-600',
+    badge: 'bg-green-600',
+    numberText: 'text-green-600',
+  },
+  accent: {
+    bg: 'bg-accent-50',
+    iconBg: 'bg-orange-100',
+    iconText: 'text-accent-600',
+    badge: 'bg-accent-500',
+    numberText: 'text-accent-600',
+  },
+};
+---
+
+<section class="py-16 md:py-24 bg-white">
+  <div class="max-w-5xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
+      MADOAが<span class="text-primary-600">選ばれる3つの理由</span>
+    </h2>
+    <p class="text-gray-500 text-center mb-12">多くのお客様にご満足いただいている理由をご紹介します</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+      {reasons.map((reason) => {
+        const colors = colorMap[reason.color];
+        return (
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 text-center hover:shadow-md transition-shadow">
+            <div class={`w-16 h-16 ${colors.iconBg} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class={`h-8 w-8 ${colors.iconText}`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d={reason.iconPath} />
+              </svg>
+            </div>
+            <div class="mb-4">
+              <span class={`text-4xl font-bold ${colors.numberText}`}>{reason.bigNumber}</span>
+              <span class="text-base text-gray-600">{reason.bigNumberSub}</span>
+            </div>
+            <span class={`inline-block ${colors.badge} text-white text-xs font-bold px-3 py-1 rounded-full mb-3`}>
+              {reason.subtitle}
+            </span>
+            <h3 class="text-xl font-bold text-gray-800 mb-3">{reason.title}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{reason.description}</p>
+          </div>
+        );
+      })}
+    </div>
+    <p class="text-xs text-gray-400 text-center mt-6">※対応エリア・状況により異なります</p>
+  </div>
+</section>

@@ -1,0 +1,408 @@
+---
+---
+
+<section class="bg-primary-50 py-16 md:py-24">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <span class="inline-flex items-center gap-2 bg-green-500 text-white text-sm font-bold px-4 py-1.5 rounded-full mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+        </svg>
+        1分で完了
+      </span>
+      <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-4">
+        割れ替え簡単チェック表
+      </h2>
+      <p class="text-gray-600 text-lg">
+        まずはチェック表で確認してみましょう
+      </p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-10">
+      <!-- Progress Bar -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-bold text-gray-600">回答の進捗</span>
+          <span class="text-sm font-bold text-primary-600" id="progress-count">0 / 4</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+          <div id="progress-bar" class="h-full bg-gradient-to-r from-primary-500 to-primary-600 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Question 1 -->
+      <div class="mb-8" data-checklist-group="glass-type">
+        <h3 class="text-lg font-bold text-gray-800 mb-1">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary-600 text-white text-sm font-bold mr-2">1</span>
+          ガラスの種類
+        </h3>
+        <p class="text-sm text-gray-500 mb-4 ml-9">該当するものを選択してください</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 ml-9">
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="glass-type" value="single" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">単板ガラス</span>
+                <p class="text-xs text-gray-500">一般的な一枚ガラス</p>
+              </div>
+            </div>
+          </label>
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="glass-type" value="pair" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">ペアガラス</span>
+                <p class="text-xs text-gray-500">二重構造の断熱ガラス</p>
+              </div>
+            </div>
+          </label>
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="glass-type" value="security" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">防犯ガラス</span>
+                <p class="text-xs text-gray-500">防犯フィルム入りガラス</p>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="mb-8" data-checklist-group="break-type">
+        <h3 class="text-lg font-bold text-gray-800 mb-1">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary-600 text-white text-sm font-bold mr-2">2</span>
+          割れの状態
+        </h3>
+        <p class="text-sm text-gray-500 mb-4 ml-9">現在の状態に近いものを選択してください</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 ml-9">
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="break-type" value="crack" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">ヒビ</span>
+                <p class="text-xs text-gray-500">ガラスにヒビが入った状態</p>
+              </div>
+            </div>
+          </label>
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="break-type" value="broken" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">完全破損</span>
+                <p class="text-xs text-gray-500">ガラスが完全に割れた状態</p>
+              </div>
+            </div>
+          </label>
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="break-type" value="chip" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">欠け</span>
+                <p class="text-xs text-gray-500">一部が欠けた状態</p>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="mb-8" data-checklist-group="window-size">
+        <h3 class="text-lg font-bold text-gray-800 mb-1">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary-600 text-white text-sm font-bold mr-2">3</span>
+          窓のサイズ
+        </h3>
+        <p class="text-sm text-gray-500 mb-4 ml-9">窓の大きさを選択してください</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 ml-9">
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="window-size" value="small" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">小窓</span>
+                <p class="text-xs text-gray-500">トイレ・浴室など</p>
+              </div>
+            </div>
+          </label>
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="window-size" value="medium" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">腰窓</span>
+                <p class="text-xs text-gray-500">一般的な窓サイズ</p>
+              </div>
+            </div>
+          </label>
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="window-size" value="large" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">掃き出し窓</span>
+                <p class="text-xs text-gray-500">床まである大きな窓</p>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="mb-8" data-checklist-group="urgency">
+        <h3 class="text-lg font-bold text-gray-800 mb-1">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary-600 text-white text-sm font-bold mr-2">4</span>
+          緊急度
+        </h3>
+        <p class="text-sm text-gray-500 mb-4 ml-9">ご希望の対応時期を選択してください</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 ml-9">
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="urgency" value="now" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">今すぐ</span>
+                <p class="text-xs text-gray-500">至急対応が必要</p>
+              </div>
+            </div>
+          </label>
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="urgency" value="few-days" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">数日以内</span>
+                <p class="text-xs text-gray-500">近いうちに対応したい</p>
+              </div>
+            </div>
+          </label>
+          <label class="checklist-card group cursor-pointer">
+            <input type="radio" name="urgency" value="consult" class="sr-only peer" />
+            <div class="flex items-center gap-3 border-2 border-gray-200 rounded-xl p-4 transition-all peer-checked:border-primary-500 peer-checked:bg-primary-50 hover:border-primary-300">
+              <span class="flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-300 peer-checked:group-[]:border-primary-500 peer-checked:group-[]:bg-primary-500 transition-colors flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-white hidden" viewBox="0 0 20 20" fill="currentColor" data-check-icon>
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <div>
+                <span class="font-bold text-gray-800">相談したい</span>
+                <p class="text-xs text-gray-500">まずは相談から</p>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Progress indicator (dots) -->
+      <div class="flex items-center justify-center gap-2 mb-6" id="checklist-progress">
+        <span class="text-sm text-gray-500">選択状況:</span>
+        <span class="w-3 h-3 rounded-full bg-gray-200 transition-colors" data-progress="glass-type"></span>
+        <span class="w-3 h-3 rounded-full bg-gray-200 transition-colors" data-progress="break-type"></span>
+        <span class="w-3 h-3 rounded-full bg-gray-200 transition-colors" data-progress="window-size"></span>
+        <span class="w-3 h-3 rounded-full bg-gray-200 transition-colors" data-progress="urgency"></span>
+      </div>
+
+      <!-- Result area: urgent -->
+      <div id="checklist-result-urgent" class="hidden">
+        <div class="border-t-2 border-accent-400 pt-8">
+          <div class="bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl p-6 md:p-8 text-center shadow-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 mx-auto mb-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            </svg>
+            <h3 class="text-2xl font-bold text-white mb-3">緊急対応が必要です</h3>
+            <p id="result-message-urgent" class="text-lg text-white/90 mb-6"></p>
+            <a
+              href="tel:078-597-2722"
+              class="inline-flex items-center gap-3 bg-white text-accent-600 font-bold py-5 px-10 rounded-full text-xl transition-all shadow-lg hover:shadow-xl hover:scale-105"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+              </svg>
+              今すぐお電話: 078-597-2722
+            </a>
+            <p class="text-white/80 text-sm mt-4 font-bold">最短30分で駆けつけます</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result area: normal -->
+      <div id="checklist-result-normal" class="hidden">
+        <div class="border-t-2 border-primary-200 pt-8">
+          <div class="bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl p-6 md:p-8 text-center shadow-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-14 h-14 mx-auto mb-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 class="text-2xl font-bold text-white mb-3">診断結果</h3>
+            <p id="result-message-normal" class="text-lg text-white/90 mb-6"></p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="#contact"
+                class="inline-flex items-center gap-2 bg-white text-primary-700 font-bold py-4 px-8 rounded-full text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 justify-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+                無料相談する
+              </a>
+              <a
+                href="tel:078-597-2722"
+                class="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-bold py-4 px-8 rounded-full text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 justify-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+                電話で相談する
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const groups = ['glass-type', 'break-type', 'window-size', 'urgency'];
+    const resultUrgentEl = document.getElementById('checklist-result-urgent');
+    const resultNormalEl = document.getElementById('checklist-result-normal');
+    const messageUrgentEl = document.getElementById('result-message-urgent');
+    const messageNormalEl = document.getElementById('result-message-normal');
+    const progressCountEl = document.getElementById('progress-count');
+    const progressBarEl = document.getElementById('progress-bar');
+
+    function updateSelection() {
+      let selectedCount = 0;
+      const values: Record<string, string> = {};
+
+      groups.forEach((group) => {
+        const checked = document.querySelector(`input[name="${group}"]:checked`) as HTMLInputElement | null;
+        const progressDot = document.querySelector(`[data-progress="${group}"]`);
+
+        if (checked) {
+          selectedCount++;
+          values[group] = checked.value;
+          if (progressDot) {
+            progressDot.classList.remove('bg-gray-200');
+            progressDot.classList.add('bg-primary-500');
+          }
+        } else {
+          if (progressDot) {
+            progressDot.classList.remove('bg-primary-500');
+            progressDot.classList.add('bg-gray-200');
+          }
+        }
+      });
+
+      if (progressCountEl) {
+        progressCountEl.textContent = `${selectedCount} / 4`;
+      }
+
+      if (progressBarEl) {
+        progressBarEl.style.width = `${(selectedCount / 4) * 100}%`;
+      }
+
+      // Update check icons
+      document.querySelectorAll('.checklist-card').forEach((card) => {
+        const input = card.querySelector('input[type="radio"]') as HTMLInputElement | null;
+        const icon = card.querySelector('[data-check-icon]');
+        const dot = card.querySelector('span.flex-shrink-0');
+        if (input && icon && dot) {
+          if (input.checked) {
+            icon.classList.remove('hidden');
+            dot.classList.remove('border-gray-300');
+            dot.classList.add('border-primary-500', 'bg-primary-500');
+          } else {
+            icon.classList.add('hidden');
+            dot.classList.add('border-gray-300');
+            dot.classList.remove('border-primary-500', 'bg-primary-500');
+          }
+        }
+      });
+
+      if (selectedCount === 4) {
+        const isUrgent = values['urgency'] === 'now' || values['break-type'] === 'broken';
+
+        if (isUrgent) {
+          if (messageUrgentEl) {
+            messageUrgentEl.textContent = 'すぐにお電話ください！最短即日対応いたします。';
+          }
+          if (resultUrgentEl) {
+            resultUrgentEl.classList.remove('hidden');
+            resultUrgentEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          if (resultNormalEl) resultNormalEl.classList.add('hidden');
+        } else {
+          if (messageNormalEl) {
+            messageNormalEl.textContent = 'まずはお気軽にご相談ください。最適なプランをご提案します。';
+          }
+          if (resultNormalEl) {
+            resultNormalEl.classList.remove('hidden');
+            resultNormalEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          if (resultUrgentEl) resultUrgentEl.classList.add('hidden');
+        }
+      } else {
+        if (resultUrgentEl) resultUrgentEl.classList.add('hidden');
+        if (resultNormalEl) resultNormalEl.classList.add('hidden');
+      }
+    }
+
+    groups.forEach((group) => {
+      const radios = document.querySelectorAll(`input[name="${group}"]`);
+      radios.forEach((radio) => {
+        radio.addEventListener('change', updateSelection);
+      });
+    });
+  });
+</script>
