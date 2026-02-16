@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { title, description = '窓ガラスの割れ替えなら神戸のMADOA（株式会社三喜）。最短即日対応・適正価格・もうすぐ50年の実績で安心の施工をお届けします。' } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
@@ -15,7 +16,7 @@ const { title, description = '窓ガラスの割れ替えなら神戸のMADOA（
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -28,7 +29,7 @@ const { title, description = '窓ガラスの割れ替えなら神戸のMADOA（
         <!-- Logo -->
         <a href="/" class="flex items-center">
           <div class="bg-primary-500 rounded px-3 py-1.5">
-            <img src="/images/logo.svg" alt="MADOA" class="h-8" />
+            <img src={`${base}images/logo.svg`} alt="MADOA" class="h-8" />
           </div>
         </a>
         <!-- Phone + CTA -->

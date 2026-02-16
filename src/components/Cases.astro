@@ -1,24 +1,25 @@
 ---
+const base = import.meta.env.BASE_URL;
 const cases = [
   {
     title: '浴室窓リフォーム',
     description: '型板ガラス 4mm / 浴室用防湿仕様',
     detail: '浴室の古い窓ガラスを断熱・防湿性の高いガラスに交換。結露の軽減と保温性向上を実現しました。',
-    image: '/images/window-thumb-01.png',
+    image: 'images/window-thumb-01.png',
     imageAlt: '浴室窓リフォームの施工写真',
   },
   {
     title: 'ルーバー窓交換',
     description: 'ルーバーガラス交換 / 複数枚対応',
     detail: '劣化したルーバー窓のガラスを全枚交換。通風性を維持しながら、防犯性も向上させました。',
-    image: '/images/window-thumb-02.png',
+    image: 'images/window-thumb-02.png',
     imageAlt: 'ルーバー窓交換の施工写真',
   },
   {
     title: '雨戸取付工事',
     description: '後付け雨戸 / 防風・防犯対策',
     detail: '台風対策として雨戸を新規取付。窓ガラスの保護と防犯性の向上を同時に実現しました。',
-    image: '/images/window-thumb-07.png',
+    image: 'images/window-thumb-07.png',
     imageAlt: '雨戸取付工事の施工写真',
   },
 ];
@@ -35,7 +36,7 @@ const cases = [
       {cases.map((item) => (
         <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
           <img
-            src={item.image}
+            src={`${base}${item.image}`}
             alt={item.imageAlt}
             loading="lazy"
             class="w-full h-48 object-cover"

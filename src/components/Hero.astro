@@ -1,10 +1,11 @@
 ---
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class="relative text-white overflow-hidden">
   <!-- Background image -->
   <div class="absolute inset-0">
-    <img src="/images/mainimage.png" alt="" class="w-full h-full object-cover" />
+    <img src={`${base}images/mainimage.png`} alt="" class="w-full h-full object-cover" />
     <div class="absolute inset-0 bg-primary-800/70"></div>
   </div>
 

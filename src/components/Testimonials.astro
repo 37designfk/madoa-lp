@@ -29,6 +29,7 @@ const testimonials = [
     tag: '戸建て',
   },
 ];
+const base = import.meta.env.BASE_URL;
 ---
 
 <section id="testimonials" class="bg-gray-50 py-16 md:py-24">
@@ -37,7 +38,7 @@ const testimonials = [
     <div class="flex justify-center mb-8">
       <figure class="text-center">
         <img
-          src="/images/top-img-voice.png"
+          src={`${base}images/top-img-voice.png`}
           alt="実際にご利用いただいたお客様とそのご家族"
           class="max-w-xs md:max-w-sm rounded-xl shadow-lg mx-auto"
           loading="lazy"

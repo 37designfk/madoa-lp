@@ -1,11 +1,12 @@
 ---
+const base = import.meta.env.BASE_URL;
 const steps = [
   {
     number: 1,
     title: 'お問い合わせ',
     description:
       'お電話またはメールフォームからお気軽にご連絡ください。状況をお伺いし、最適な対応をご案内します。',
-    image: '/images/mainimage-thum-02.png',
+    image: 'images/mainimage-thum-02.png',
     imageAlt: 'お客様との相談の様子',
   },
   {
@@ -13,7 +14,7 @@ const steps = [
     title: '現地確認・お見積もり',
     description:
       'スタッフが現地にお伺いし、ガラスの状態を確認。その場で正確なお見積もりをご提示します。',
-    image: '/images/mainimage-thum-05.png',
+    image: 'images/mainimage-thum-05.png',
     imageAlt: 'スタッフによる現地確認',
   },
   {
@@ -21,7 +22,7 @@ const steps = [
     title: '施工',
     description:
       '経験豊富な職人が丁寧に窓ガラスの交換作業を行います。作業時間は通常30分〜1時間程度です。',
-    image: '/images/mainimage-thum-06.png',
+    image: 'images/mainimage-thum-06.png',
     imageAlt: '施工作業中の様子',
   },
   {
@@ -29,7 +30,7 @@ const steps = [
     title: '完了・アフターフォロー',
     description:
       '施工完了後、仕上がりをご確認いただきます。施工後の保証もしっかり対応いたしますのでご安心ください。',
-    image: '/images/mainimage-thum-01.png',
+    image: 'images/mainimage-thum-01.png',
     imageAlt: '施工完了のご確認',
   },
 ];
@@ -62,7 +63,7 @@ const steps = [
             <!-- Step image -->
             <div class="mb-4">
               <img
-                src={step.image}
+                src={`${base}${step.image}`}
                 alt={step.imageAlt}
                 loading="lazy"
                 class="w-20 h-20 rounded-full object-cover shadow-md"
