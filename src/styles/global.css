@@ -18,9 +18,10 @@
 
   --color-green-400: #a3d435;
   --color-green-500: #8FC31F;
-  --color-green-600: #7aaa14;
+  --color-green-600: #4a8000;
+  --color-green-700: #3a6600;
 
-  --font-sans: "Noto Sans JP", sans-serif;
+  --font-sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", YuGothic, "Meiryo", sans-serif;
 }
 
 @layer base {

@@ -37,12 +37,17 @@ const base = import.meta.env.BASE_URL;
     <!-- Voice photo decoration -->
     <div class="flex justify-center mb-8">
       <figure class="text-center">
-        <img
-          src={`${base}images/top-img-voice.png`}
-          alt="実際にご利用いただいたお客様とそのご家族"
-          class="max-w-xs md:max-w-sm rounded-xl shadow-lg mx-auto"
-          loading="lazy"
-        />
+        <picture>
+          <source srcset={`${base}images/top-img-voice.webp`} type="image/webp" />
+          <img
+            src={`${base}images/top-img-voice.png`}
+            alt="実際にご利用いただいたお客様とそのご家族"
+            class="max-w-xs md:max-w-sm rounded-xl shadow-lg mx-auto"
+            loading="lazy"
+            width="970"
+            height="500"
+          />
+        </picture>
         <figcaption class="text-gray-500 text-sm mt-3">
           実際にご利用いただいたお客様とそのご家族
         </figcaption>
@@ -100,7 +105,7 @@ const base = import.meta.env.BASE_URL;
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
         <a
           href="tel:078-597-2722"
-          class="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded-full transition-all hover:scale-105 text-sm"
+          class="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-full transition-all hover:scale-105 text-sm"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
             <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />

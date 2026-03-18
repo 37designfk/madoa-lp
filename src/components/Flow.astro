@@ -13,7 +13,7 @@ const steps = [
     number: 2,
     title: '現地確認・お見積もり',
     description:
-      'スタッフが現地にお伺いし、ガラスの状態を確認。その場で正確なお見積もりをご提示します。',
+      'スタッフが現地にお伺いし、ガラスの状態を確認。スピーディにお見積もりをご提示します。',
     image: 'images/mainimage-thum-05.png',
     imageAlt: 'スタッフによる現地確認',
   },
@@ -62,12 +62,17 @@ const steps = [
 
             <!-- Step image -->
             <div class="mb-4">
-              <img
-                src={`${base}${step.image}`}
-                alt={step.imageAlt}
-                loading="lazy"
-                class="w-20 h-20 rounded-full object-cover shadow-md"
-              />
+              <picture>
+                <source srcset={`${base}${step.image.replace('.png', '.webp')}`} type="image/webp" />
+                <img
+                  src={`${base}${step.image}`}
+                  alt={step.imageAlt}
+                  loading="lazy"
+                  width="480"
+                  height="270"
+                  class="w-20 h-20 rounded-full object-cover shadow-md"
+                />
+              </picture>
             </div>
 
             <!-- Text -->

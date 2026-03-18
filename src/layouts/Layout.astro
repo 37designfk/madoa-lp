@@ -6,8 +6,9 @@ interface Props {
   description?: string;
 }
 
-const { title, description = '窓ガラスの割れ替えなら神戸のMADOA（株式会社三喜）。最短即日対応・適正価格・もうすぐ50年の実績で安心の施工をお届けします。' } = Astro.props;
+const { title, description = '窓ガラスの割れ替えなら神戸のMADOA（株式会社三喜）。最短即日対応・適正価格・50年以上の実績で安心の施工をお届けします。' } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const isProduction = import.meta.env.SITE === 'https://lp.madoa.co.jp';
 ---
 
 <!doctype html>
@@ -16,11 +17,11 @@ const base = import.meta.env.BASE_URL;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    {!isProduction && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="preload" as="image" type="image/webp" href={`${base}images/mainimage.webp`} />
     <title>{title}</title>
+    {isProduction && <script src="https://dashboard.37d.jp/api/tag/madoa-lp" defer></script>}
   </head>
   <body class="font-sans text-gray-800 bg-white pb-16 md:pb-0">
     <!-- Header -->
@@ -34,7 +35,7 @@ const base = import.meta.env.BASE_URL;
         </a>
         <!-- Phone + CTA -->
         <div class="flex items-center gap-4">
-          <a href="tel:078-597-2722" class="flex items-center gap-2 text-primary-500 hover:text-primary-600 transition-colors">
+          <a href="tel:078-597-2722" aria-label="電話で問い合わせ: 078-597-2722" class="flex items-center gap-2 text-primary-500 hover:text-primary-600 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
             </svg>
