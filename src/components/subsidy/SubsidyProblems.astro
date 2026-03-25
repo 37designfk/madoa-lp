@@ -1,53 +1,120 @@
 ---
 const problems = [
   {
-    text: '冬、窓際がとにかく寒い...暖房をつけても部屋が温まらない',
+    text: '冬の寒さ・夏の暑さ',
+    sub: '窓際が寒くて暖房が効かない',
     iconPath: 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707',
   },
   {
-    text: '窓の結露がひどく、カビが発生して掃除が大変',
+    text: '毎朝ウンザリする「結露・カビ」',
+    sub: '窓の結露がひどく掃除が大変',
     iconPath: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
   },
   {
-    text: '毎月の光熱費が高くて家計を圧迫している',
-    iconPath: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1',
+    text: '年々高くなる「光熱費」',
+    sub: '毎月の電気代が家計を圧迫',
+    iconPath: 'M13 10V3L4 14h7v7l9-11h-7z',
   },
   {
-    text: '外の車や電車の音がうるさくて落ち着けない',
+    text: '気になる外の「騒音」',
+    sub: '車や電車の音がうるさい',
     iconPath: 'M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z',
-  },
-  {
-    text: '窓のリフォームは高いと思って諦めていた',
-    iconPath: 'M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
   },
 ];
 ---
 
 <section class="py-16 md:py-24 bg-white">
-  <div class="max-w-4xl mx-auto px-4">
-    <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
-      こんな<span class="text-primary-600">窓のお悩み</span>、ありませんか？
-    </h2>
-    <p class="text-gray-500 text-center mb-12">一つでも当てはまる方は、補助金で解決できるかもしれません</p>
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <!-- Left: Illustration -->
+      <div class="flex justify-center">
+        <div class="relative w-full max-w-sm">
+          <!-- Woman thinking illustration -->
+          <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+            <!-- Person body -->
+            <ellipse cx="200" cy="370" rx="60" ry="12" fill="#e5e7eb" opacity="0.5"/>
+            <!-- Body -->
+            <path d="M170 250 C170 230 180 220 200 220 C220 220 230 230 230 250 L230 340 C230 350 225 355 215 355 L185 355 C175 355 170 350 170 340 Z" fill="#93c5fd"/>
+            <!-- Head -->
+            <circle cx="200" cy="195" r="35" fill="#fde68a"/>
+            <!-- Hair -->
+            <path d="M165 190 C165 165 180 155 200 155 C220 155 235 165 235 190 C235 180 225 170 200 170 C175 170 165 180 165 190Z" fill="#92400e"/>
+            <!-- Eyes -->
+            <circle cx="188" cy="195" r="3" fill="#1f2937"/>
+            <circle cx="212" cy="195" r="3" fill="#1f2937"/>
+            <!-- Mouth (thinking) -->
+            <path d="M193 208 Q200 205 207 208" stroke="#1f2937" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- Hand on chin -->
+            <path d="M220 230 L235 215 L238 210" stroke="#fde68a" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <circle cx="238" cy="208" r="5" fill="#fde68a"/>
+            <!-- Arms -->
+            <path d="M170 260 L150 280" stroke="#93c5fd" stroke-width="8" fill="none" stroke-linecap="round"/>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {problems.map((problem) => (
-        <div class="flex items-start gap-4 bg-primary-50 rounded-xl p-5 border border-primary-100">
-          <div class="flex-shrink-0 w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d={problem.iconPath} />
-            </svg>
-          </div>
-          <p class="text-base md:text-lg font-medium text-gray-700">{problem.text}</p>
+            <!-- Thought bubbles -->
+            <circle cx="270" cy="170" r="6" fill="#e5e7eb"/>
+            <circle cx="285" cy="150" r="9" fill="#e5e7eb"/>
+
+            <!-- Thought cloud: Window with cold/heat -->
+            <rect x="270" y="50" width="120" height="100" rx="15" fill="#e5e7eb"/>
+            <!-- Window inside cloud -->
+            <rect x="295" y="65" width="70" height="55" rx="3" fill="white" stroke="#0094DE" stroke-width="2"/>
+            <line x1="330" y1="65" x2="330" y2="120" stroke="#0094DE" stroke-width="1.5"/>
+            <line x1="295" y1="92" x2="365" y2="92" stroke="#0094DE" stroke-width="1.5"/>
+            <!-- Snowflake -->
+            <text x="305" y="88" font-size="16" fill="#60a5fa">❄</text>
+            <!-- Sun/heat -->
+            <text x="340" y="88" font-size="16" fill="#f59e0b">☀</text>
+            <!-- Water drops (結露) -->
+            <text x="310" y="115" font-size="12" fill="#60a5fa">💧</text>
+            <text x="340" y="115" font-size="12" fill="#60a5fa">💧</text>
+
+            <!-- Thought cloud: Money -->
+            <rect x="10" y="70" width="120" height="80" rx="15" fill="#e5e7eb"/>
+            <!-- Yen chart -->
+            <text x="35" y="110" font-size="20" fill="#059669">¥</text>
+            <!-- Arrow going up -->
+            <polyline points="70,130 85,105 100,115 115,90" stroke="#ef4444" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <polygon points="115,90 108,95 112,98" fill="#ef4444"/>
+            <text x="55" y="140" font-size="10" fill="#6b7280">光熱費↑</text>
+
+            <!-- Thought cloud: Noise -->
+            <circle cx="100" cy="180" r="6" fill="#e5e7eb"/>
+            <circle cx="80" cy="165" r="9" fill="#e5e7eb"/>
+            <rect x="15" y="160" width="50" height="40" rx="10" fill="#e5e7eb"/>
+            <text x="25" y="185" font-size="14" fill="#6b7280">♪♪</text>
+          </svg>
         </div>
-      ))}
-    </div>
+      </div>
 
-    <!-- Closing message -->
-    <div class="mt-8 text-center bg-accent-500/10 rounded-xl p-6 border border-accent-500/20">
-      <p class="text-lg md:text-xl font-bold text-gray-800">
-        そのお悩み、<span class="text-primary-600">補助金を使えば最大200万円の補助</span>で解決できます！
-      </p>
+      <!-- Right: Problems list -->
+      <div>
+        <p class="text-primary-600 text-sm font-bold mb-2 tracking-wider">INTRODUCTION</p>
+        <h2 class="text-2xl md:text-3xl font-bold mb-8">
+          ずっと我慢している<br />「窓のお悩み」ありませんか？
+        </h2>
+
+        <div class="space-y-4">
+          {problems.map((problem) => (
+            <div class="flex items-center gap-4 py-4 border-b border-gray-200">
+              <div class="flex-shrink-0 w-10 h-10 bg-primary-50 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d={problem.iconPath} />
+                </svg>
+              </div>
+              <div>
+                <p class="text-lg font-bold text-gray-800">{problem.text}</p>
+                <p class="text-sm text-gray-500">{problem.sub}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-8 bg-primary-50 rounded-xl p-5 border border-primary-100">
+          <p class="text-base text-gray-700 leading-relaxed">
+            実はそれ、家の「窓」を変えるだけでまとめて解決できるかもしれません。さらに今なら！最大<span class="font-bold text-primary-600">200万円</span>の「補助金」を使って、驚くほどお得にリフォームできる大チャンスです。
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>

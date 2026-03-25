@@ -1,95 +1,192 @@
 ---
-const base = import.meta.env.BASE_URL;
 const cases = [
   {
-    title: 'リビング掃出し窓 内窓設置',
-    description: '断熱・結露対策として、リビングの掃出し窓に内窓を設置。冬場の寒さが大幅に改善されました。',
-    normal: '113,000',
-    subsidy: '52,000',
-    actual: '61,000',
-    image: 'images/subsidy/case-living.jpg',
+    title: 'リビング+寝室の内窓リフォーム',
+    badge: '内窓設置',
+    badgeColor: 'bg-primary-600',
+    tags: ['大サイズ × 1', '中サイズ × 1', '2か所施工', '補助金対象'],
+    description: 'リビングと寝室を同時に対策する、バランスのよい人気プランです。生活の中心と休む場所をまとめて快適に整えられます。',
+    normal: '174,000',
+    subsidy: '86,000',
+    actual: '88,000',
+    rooms: ['リビング（大）', '寝室（中）'],
+    illustType: 'living-bedroom',
   },
   {
-    title: '寝室+子供部屋 2箇所セット',
-    description: '2階の寝室と子供部屋に内窓を設置。外の騒音がカットされ、睡眠環境が改善されました。',
+    title: '寝室+子供部屋の内窓リフォーム',
+    badge: '内窓設置',
+    badgeColor: 'bg-primary-600',
+    tags: ['中サイズ × 2', '2部屋施工', '補助金対象'],
+    description: '家族の寝室環境をまとめて改善したい方向けのプランです。結露や寒さが気になる2部屋を無理なく対策できます。',
     normal: '122,000',
     subsidy: '68,000',
     actual: '54,000',
-    image: 'images/subsidy/case-bedroom.jpg',
+    rooms: ['寝室（中）', '子供部屋（中）'],
+    illustType: 'bedroom',
   },
   {
-    title: 'リビング+寝室+浴室 3箇所',
-    description: '家の主要な窓をまとめて内窓設置。光熱費が月々約3,000円削減できました。',
-    normal: '217,000',
-    subsidy: '108,000',
-    actual: '109,000',
-    image: 'images/subsidy/case-set.jpg',
+    title: 'リビング1か所の内窓リフォーム',
+    badge: '内窓設置',
+    badgeColor: 'bg-primary-600',
+    tags: ['大サイズ × 1', 'リビング向け', '補助金対象'],
+    description: 'まずはリビングの1か所だけ試したい方におすすめのプランです。窓際の冷えを抑えながら、費用も抑えて始められます。',
+    normal: '113,000',
+    subsidy: '52,000',
+    actual: '61,000',
+    rooms: ['リビング掃出し窓（大）'],
+    illustType: 'living',
   },
 ];
 ---
 
 <section class="bg-gray-50 py-16 md:py-24">
   <div class="max-w-5xl mx-auto px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">施工事例</h2>
-      <p class="text-gray-600 text-lg">補助金を活用した内窓リフォームの実例</p>
+    <div class="text-center mb-4">
+      <p class="text-primary-600 text-sm font-bold mb-2 tracking-wider">CASE</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">補助金で、実際にここまでできます</h2>
+      <p class="text-gray-600">「どの工事が自分に近いか」「手出しがどれくらい減りそうか」を、<br class="hidden md:inline" />悩み別にわかりやすくまとめました。</p>
+      <p class="text-xs text-gray-400 mt-2">※価格・補助額は条件により変わるため、目安（参考）としてご覧ください。</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
       {cases.map((item) => (
         <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
-          <img
-            src={`${base}${item.image}`}
-            alt={item.title}
-            loading="lazy"
-            width="768"
-            height="512"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-5">
-            <h3 class="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
-            <p class="text-sm text-gray-600 leading-relaxed mb-4">{item.description}</p>
-            <!-- Price comparison -->
-            <div class="bg-gray-50 rounded-lg p-4">
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-sm text-gray-500">通常価格</span>
-                <span class="text-sm text-gray-400 line-through">{item.normal}円〜</span>
-              </div>
-              <div class="flex justify-between items-center mb-2">
-                <span class="text-sm text-primary-600 font-medium">補助金</span>
-                <span class="text-sm text-primary-600 font-bold">-{item.subsidy}円</span>
-              </div>
-              <div class="border-t border-gray-200 pt-2 flex justify-between items-center">
-                <span class="text-sm font-bold text-gray-800">実質負担</span>
-                <span class="text-xl font-bold text-accent-600">{item.actual}円〜</span>
-              </div>
+          <!-- Room illustration -->
+          <div class="w-full h-56 bg-gradient-to-b from-primary-50 to-white flex items-center justify-center p-6">
+            {item.illustType === 'living-bedroom' && (
+              <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <!-- Living room side -->
+                <rect x="10" y="10" width="180" height="160" rx="8" fill="#f0f9ff" stroke="#e0f2fe" stroke-width="1"/>
+                <text x="100" y="28" font-size="10" fill="#0094DE" text-anchor="middle" font-weight="bold">リビング</text>
+                <!-- Sofa -->
+                <rect x="30" y="110" width="80" height="35" rx="6" fill="#93c5fd"/>
+                <rect x="25" y="105" width="90" height="12" rx="4" fill="#60a5fa"/>
+                <!-- Table -->
+                <rect x="130" y="120" width="40" height="25" rx="3" fill="#d4a574"/>
+                <rect x="128" y="115" width="44" height="8" rx="2" fill="#c4956a"/>
+                <!-- Window with inner window -->
+                <rect x="50" y="40" width="60" height="55" rx="2" fill="white" stroke="#0094DE" stroke-width="2"/>
+                <line x1="80" y1="40" x2="80" y2="95" stroke="#0094DE" stroke-width="1.5"/>
+                <line x1="50" y1="67" x2="110" y2="67" stroke="#0094DE" stroke-width="1.5"/>
+                <rect x="53" y="43" width="54" height="21" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <rect x="53" y="71" width="54" height="21" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <text x="60" y="60" font-size="8" fill="#0094DE">✦</text>
+
+                <!-- Bedroom side -->
+                <rect x="210" y="10" width="180" height="160" rx="8" fill="#fef3c7" stroke="#fde68a" stroke-width="1"/>
+                <text x="300" y="28" font-size="10" fill="#92400e" text-anchor="middle" font-weight="bold">寝室</text>
+                <!-- Bed -->
+                <rect x="240" y="100" width="100" height="50" rx="4" fill="#fde68a"/>
+                <rect x="240" y="95" width="100" height="12" rx="3" fill="#fbbf24"/>
+                <rect x="240" y="100" width="25" height="40" rx="3" fill="#f59e0b"/>
+                <!-- Window with inner window -->
+                <rect x="270" y="40" width="50" height="45" rx="2" fill="white" stroke="#0094DE" stroke-width="2"/>
+                <line x1="295" y1="40" x2="295" y2="85" stroke="#0094DE" stroke-width="1.5"/>
+                <line x1="270" y1="62" x2="320" y2="62" stroke="#0094DE" stroke-width="1.5"/>
+                <rect x="273" y="43" width="44" height="16" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <rect x="273" y="66" width="44" height="16" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <text x="280" y="56" font-size="7" fill="#0094DE">✦</text>
+              </svg>
+            )}
+            {item.illustType === 'bedroom' && (
+              <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <!-- Bedroom 1 -->
+                <rect x="10" y="10" width="180" height="160" rx="8" fill="#fef3c7" stroke="#fde68a" stroke-width="1"/>
+                <text x="100" y="28" font-size="10" fill="#92400e" text-anchor="middle" font-weight="bold">寝室</text>
+                <rect x="40" y="100" width="100" height="50" rx="4" fill="#fde68a"/>
+                <rect x="40" y="95" width="100" height="12" rx="3" fill="#fbbf24"/>
+                <rect x="40" y="100" width="25" height="40" rx="3" fill="#f59e0b"/>
+                <rect x="55" y="40" width="50" height="45" rx="2" fill="white" stroke="#0094DE" stroke-width="2"/>
+                <line x1="80" y1="40" x2="80" y2="85" stroke="#0094DE" stroke-width="1.5"/>
+                <line x1="55" y1="62" x2="105" y2="62" stroke="#0094DE" stroke-width="1.5"/>
+                <rect x="58" y="43" width="44" height="16" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <rect x="58" y="66" width="44" height="16" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <text x="65" y="56" font-size="7" fill="#0094DE">✦</text>
+                <!-- Bedroom 2 (kids) -->
+                <rect x="210" y="10" width="180" height="160" rx="8" fill="#ecfdf5" stroke="#d1fae5" stroke-width="1"/>
+                <text x="300" y="28" font-size="10" fill="#065f46" text-anchor="middle" font-weight="bold">子供部屋</text>
+                <!-- Desk -->
+                <rect x="240" y="110" width="70" height="40" rx="3" fill="#a7f3d0"/>
+                <rect x="238" y="105" width="74" height="10" rx="2" fill="#6ee7b7"/>
+                <!-- Chair -->
+                <rect x="320" y="115" width="30" height="30" rx="10" fill="#34d399"/>
+                <rect x="330" y="145" width="10" height="10" rx="1" fill="#6b7280"/>
+                <rect x="280" y="40" width="50" height="45" rx="2" fill="white" stroke="#0094DE" stroke-width="2"/>
+                <line x1="305" y1="40" x2="305" y2="85" stroke="#0094DE" stroke-width="1.5"/>
+                <line x1="280" y1="62" x2="330" y2="62" stroke="#0094DE" stroke-width="1.5"/>
+                <rect x="283" y="43" width="44" height="16" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <rect x="283" y="66" width="44" height="16" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <text x="290" y="56" font-size="7" fill="#0094DE">✦</text>
+              </svg>
+            )}
+            {item.illustType === 'living' && (
+              <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                <!-- Living room -->
+                <rect x="30" y="10" width="340" height="160" rx="8" fill="#f0f9ff" stroke="#e0f2fe" stroke-width="1"/>
+                <text x="200" y="28" font-size="11" fill="#0094DE" text-anchor="middle" font-weight="bold">リビング</text>
+                <!-- Large window with inner window -->
+                <rect x="100" y="38" width="200" height="70" rx="3" fill="white" stroke="#0094DE" stroke-width="2.5"/>
+                <line x1="200" y1="38" x2="200" y2="108" stroke="#0094DE" stroke-width="2"/>
+                <line x1="100" y1="73" x2="300" y2="73" stroke="#0094DE" stroke-width="2"/>
+                <!-- Inner window panels -->
+                <rect x="104" y="42" width="92" height="27" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <rect x="204" y="42" width="92" height="27" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <rect x="104" y="77" width="92" height="27" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <rect x="204" y="77" width="92" height="27" rx="1" fill="#dbeafe" opacity="0.5"/>
+                <text x="140" y="62" font-size="10" fill="#0094DE">✦</text>
+                <text x="250" y="62" font-size="10" fill="#0094DE">✦</text>
+                <!-- Sofa -->
+                <rect x="80" y="125" width="120" height="30" rx="6" fill="#93c5fd"/>
+                <rect x="75" y="120" width="130" height="12" rx="4" fill="#60a5fa"/>
+                <!-- Table -->
+                <rect x="230" y="130" width="80" height="25" rx="3" fill="#d4a574"/>
+                <rect x="228" y="125" width="84" height="8" rx="2" fill="#c4956a"/>
+                <!-- Plant -->
+                <circle cx="340" cy="130" r="15" fill="#86efac"/>
+                <rect x="337" y="140" width="6" height="15" rx="2" fill="#92400e"/>
+              </svg>
+            )}
+          </div>
+
+          <div class="p-6">
+            <span class={`inline-block ${item.badgeColor} text-white text-xs font-bold px-3 py-1 rounded-full mb-3`}>
+              {item.badge}
+            </span>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2 mb-4">
+              {item.tags.map((tag) => (
+                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full border border-gray-200">{tag}</span>
+              ))}
             </div>
+
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">{item.description}</p>
+
+            <!-- Price table -->
+            <div class="bg-primary-600 rounded-t-lg px-4 py-2">
+              <p class="text-white text-sm font-bold text-center">参考価格イメージ</p>
+            </div>
+            <table class="w-full border border-gray-200 text-sm">
+              <thead>
+                <tr class="bg-gray-50">
+                  <th class="py-2 px-3 text-left text-gray-600 font-medium border-b">通常価格</th>
+                  <th class="py-2 px-3 text-left text-gray-600 font-medium border-b">補助金額</th>
+                  <th class="py-2 px-3 text-left font-bold text-primary-600 border-b">実質価格</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="py-3 px-3 text-gray-500">{item.normal}円</td>
+                  <td class="py-3 px-3 text-primary-600 font-medium">-{item.subsidy}円</td>
+                  <td class="py-3 px-3 text-2xl font-bold text-accent-600">{item.actual}<span class="text-sm">円</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="text-xs text-gray-400 mt-2">※現場状況により変動する場合があります。</p>
           </div>
         </div>
       ))}
-    </div>
-
-    <!-- Mini CTA -->
-    <div class="text-center mt-12 bg-primary-50 rounded-xl p-8">
-      <p class="text-gray-800 font-bold text-lg mb-2">あなたの窓も、補助金でお得にリフォームできます。</p>
-      <p class="text-gray-600 text-sm mb-5">まずは無料でお見積もり。補助金対象かの確認もお任せください。</p>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a
-          href="tel:078-597-2722"
-          class="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-full transition-all hover:scale-105 text-sm"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-          </svg>
-          078-597-2722
-        </a>
-        <a
-          href="#contact"
-          class="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-black font-bold px-6 py-3 rounded-full transition-all hover:scale-105 text-sm"
-        >
-          無料で相談する
-        </a>
-      </div>
     </div>
   </div>
 </section>

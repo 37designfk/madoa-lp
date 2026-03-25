@@ -1,59 +1,110 @@
 ---
-const stats = [
-  {
-    number: '最大200万円',
-    label: '1戸あたりの補助上限額',
-    iconPath: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1',
-  },
-  {
-    number: '1,350億円',
-    label: '2025年度補正予算',
-    iconPath: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
-  },
-  {
-    number: '34万件超',
-    label: '全国での累計交付申請件数',
-    iconPath: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
-  },
-];
 ---
 
-<section class="py-16 md:py-24 bg-gray-50">
+<section class="py-16 md:py-24 bg-primary-600 text-white">
   <div class="max-w-5xl mx-auto px-4">
-    <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
-      <span class="text-primary-600">先進的窓リノベ事業</span>とは？
-    </h2>
-    <p class="text-gray-500 text-center mb-12">国の補助金で、窓の断熱リフォームがお得に</p>
-
-    <!-- Stats cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-      {stats.map((stat) => (
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 text-center">
-          <div class="w-14 h-14 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d={stat.iconPath} />
-            </svg>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <!-- Left: Window illustration -->
+      <div class="flex justify-center">
+        <div class="relative w-full max-w-sm">
+          <!-- Subsidy badge -->
+          <div class="absolute -top-4 -left-2 z-10 bg-accent-500 text-gray-900 rounded-full w-40 h-40 flex flex-col items-center justify-center shadow-lg transform -rotate-6">
+            <span class="text-xs font-bold">先進的窓リノベ2026</span>
+            <span class="text-sm font-bold">最大</span>
+            <span class="text-4xl font-bold leading-none">200<span class="text-lg">万円</span></span>
+            <span class="text-xs font-bold">補助が受けられます！</span>
           </div>
-          <p class="text-3xl md:text-4xl font-bold text-primary-600 mb-2">{stat.number}</p>
-          <p class="text-sm text-gray-600">{stat.label}</p>
-        </div>
-      ))}
-    </div>
 
-    <!-- Description -->
-    <div class="max-w-3xl mx-auto">
-      <div class="bg-white rounded-xl p-6 md:p-8 border border-gray-100">
-        <p class="text-gray-700 leading-relaxed mb-4">
-          「先進的窓リノベ事業」は、経済産業省・環境省が推進する住宅の断熱性能向上を目的とした補助金制度です。内窓の設置や窓の交換工事が対象で、窓のサイズ・性能に応じて定額の補助金が支給されます。
-        </p>
-        <div class="bg-accent-500/10 rounded-lg p-4 border border-accent-500/20">
-          <p class="text-sm font-bold text-gray-800 flex items-start gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-600 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-            </svg>
-            予算上限に達し次第、申請受付終了となります。お早めにご相談ください。
-          </p>
+          <svg viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full mt-16">
+            <!-- Before window (left) -->
+            <text x="60" y="20" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Before</text>
+            <!-- Window frame -->
+            <rect x="15" y="30" width="100" height="140" rx="3" fill="white" stroke="#94a3b8" stroke-width="3"/>
+            <line x1="65" y1="30" x2="65" y2="170" stroke="#94a3b8" stroke-width="2"/>
+            <line x1="15" y1="100" x2="115" y2="100" stroke="#94a3b8" stroke-width="2"/>
+            <!-- Cold air arrows -->
+            <path d="M30 55 L20 55" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3 2"/>
+            <path d="M30 75 L15 75" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3 2"/>
+            <text x="5" y="58" font-size="10" fill="#93c5fd">❄</text>
+            <!-- Water drops (結露) -->
+            <circle cx="40" cy="90" r="2" fill="#93c5fd" opacity="0.7"/>
+            <circle cx="50" cy="95" r="1.5" fill="#93c5fd" opacity="0.7"/>
+            <circle cx="80" cy="88" r="2" fill="#93c5fd" opacity="0.7"/>
+            <circle cx="90" cy="93" r="1.5" fill="#93c5fd" opacity="0.7"/>
+            <circle cx="45" cy="145" r="2" fill="#93c5fd" opacity="0.7"/>
+            <circle cx="85" cy="150" r="1.5" fill="#93c5fd" opacity="0.7"/>
+
+            <!-- Arrow -->
+            <path d="M135 100 L160 100" stroke="white" stroke-width="3" marker-end="url(#arrowhead)"/>
+            <defs>
+              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="white"/>
+              </marker>
+            </defs>
+
+            <!-- After window (right) - with inner window -->
+            <text x="260" y="20" font-size="12" fill="white" text-anchor="middle" font-weight="bold">After</text>
+            <!-- Outer window frame -->
+            <rect x="190" y="30" width="130" height="140" rx="3" fill="white" stroke="#0094DE" stroke-width="3"/>
+            <line x1="255" y1="30" x2="255" y2="170" stroke="#0094DE" stroke-width="2"/>
+            <line x1="190" y1="100" x2="320" y2="100" stroke="#0094DE" stroke-width="2"/>
+            <!-- Inner window (内窓) -->
+            <rect x="200" y="38" width="110" height="55" rx="2" fill="#dbeafe" stroke="#0094DE" stroke-width="1.5" opacity="0.6"/>
+            <rect x="200" y="107" width="110" height="55" rx="2" fill="#dbeafe" stroke="#0094DE" stroke-width="1.5" opacity="0.6"/>
+            <!-- Sparkles -->
+            <text x="210" y="75" font-size="14" fill="#0094DE">✦</text>
+            <text x="280" y="75" font-size="10" fill="#0094DE">✦</text>
+            <text x="240" y="145" font-size="12" fill="#0094DE">✦</text>
+            <!-- Air gap label -->
+            <rect x="325" y="65" width="30" height="50" rx="3" fill="none" stroke="white" stroke-width="1" stroke-dasharray="3 2"/>
+            <text x="332" y="95" font-size="8" fill="white" writing-mode="tb">空気層</text>
+
+            <!-- Labels below -->
+            <text x="65" y="200" font-size="11" fill="#93c5fd" text-anchor="middle">単板ガラス</text>
+            <text x="65" y="215" font-size="10" fill="#93c5fd" text-anchor="middle" opacity="0.7">結露・寒さ</text>
+
+            <text x="255" y="200" font-size="11" fill="white" text-anchor="middle" font-weight="bold">内窓（二重窓）</text>
+            <text x="255" y="215" font-size="10" fill="#bfdbfe" text-anchor="middle">断熱・結露防止・防音</text>
+
+            <!-- Bottom comparison -->
+            <rect x="15" y="235" width="330" height="35" rx="8" fill="white" opacity="0.15"/>
+            <text x="180" y="258" font-size="12" fill="white" text-anchor="middle" font-weight="bold">内窓を設置するだけで、窓の断熱性能が大幅にアップ！</text>
+          </svg>
         </div>
+      </div>
+
+      <!-- Right: Overview text -->
+      <div>
+        <p class="text-primary-200 text-sm font-bold mb-2 tracking-wider">SUBSIDY</p>
+        <h2 class="text-2xl md:text-3xl font-bold mb-6">先進的窓リノベ2026の概要</h2>
+
+        <p class="text-primary-100 leading-relaxed mb-6">
+          国の先進的窓リノベ2026では、内窓設置・外窓交換・ガラス交換などの断熱リフォーム費用が最大200万円まで補助されます。補助額は窓の性能やサイズにより変わり、申請や受け取りは登録済みの窓リノベ事業者が代行する仕組みです。
+        </p>
+
+        <p class="text-accent-400 font-bold mb-6">全国で累計34万件超の申請があり、安心して利用できる補助金です</p>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          <div class="bg-white/10 rounded-xl p-4 text-center backdrop-blur-sm">
+            <p class="text-xs text-primary-200">2025年度補正予算</p>
+            <p class="text-2xl font-bold">1,350<span class="text-sm">億円</span></p>
+          </div>
+          <div class="bg-white/10 rounded-xl p-4 text-center backdrop-blur-sm">
+            <p class="text-xs text-primary-200">累計交付申請件数</p>
+            <p class="text-2xl font-bold">345,291<span class="text-sm">件</span></p>
+          </div>
+          <div class="bg-white/10 rounded-xl p-4 text-center backdrop-blur-sm">
+            <p class="text-xs text-primary-200">累計交付申請戸数</p>
+            <p class="text-2xl font-bold">365,555<span class="text-sm">戸</span></p>
+          </div>
+          <div class="bg-white/10 rounded-xl p-4 text-center backdrop-blur-sm">
+            <p class="text-xs text-primary-200">累計交付申請金額</p>
+            <p class="text-2xl font-bold">約991<span class="text-sm">億円</span></p>
+          </div>
+        </div>
+
+        <p class="text-xs text-primary-300">※公表値は交付申請・予約の累計など定義があります。対象可否・補助額は要件により異なります。</p>
       </div>
     </div>
   </div>
