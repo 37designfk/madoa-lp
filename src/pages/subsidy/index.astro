@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import SubsidyStickyBar from '../../components/subsidy/SubsidyStickyBar.astro';
 import SubsidyHero from '../../components/subsidy/SubsidyHero.astro';
 import SubsidyProblems from '../../components/subsidy/SubsidyProblems.astro';
 import SubsidyOverview from '../../components/subsidy/SubsidyOverview.astro';
@@ -10,12 +11,12 @@ import SubsidyReasons from '../../components/subsidy/SubsidyReasons.astro';
 import SubsidyCases from '../../components/subsidy/SubsidyCases.astro';
 import SubsidyFlow from '../../components/subsidy/SubsidyFlow.astro';
 import SubsidyFaq from '../../components/subsidy/SubsidyFaq.astro';
-import Cta from '../../components/Cta.astro';
+import SubsidyForm from '../../components/subsidy/SubsidyForm.astro';
 import Footer from '../../components/Footer.astro';
-import StickyContact from '../../components/StickyContact.astro';
 ---
 
 <Layout title="窓の補助金リフォームなら神戸のMADOA | 先進的窓リノベ事業対応">
+  <SubsidyStickyBar />
   <SubsidyHero />
   <SubsidyProblems />
   <SubsidyOverview />
@@ -28,13 +29,13 @@ import StickyContact from '../../components/StickyContact.astro';
   <SubsidyCta />
   <SubsidyFlow />
   <SubsidyFaq />
-  <Cta />
+  <SubsidyForm />
   <Footer />
-  <StickyContact />
 </Layout>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // Scroll fade-in
     const sections = document.querySelectorAll('section');
     sections.forEach((section) => {
       section.classList.add('scroll-fade-in');
@@ -57,5 +58,18 @@ import StickyContact from '../../components/StickyContact.astro';
     sections.forEach((section) => {
       observer.observe(section);
     });
+
+    // Show desktop urgency bar only after scrolling past hero
+    const urgencyBar = document.getElementById('urgency-bar');
+    if (urgencyBar) {
+      urgencyBar.style.display = 'none';
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          urgencyBar.style.display = 'block';
+        } else {
+          urgencyBar.style.display = 'none';
+        }
+      });
+    }
   });
 </script>

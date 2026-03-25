@@ -1,0 +1,54 @@
+---
+---
+
+<!-- Urgency bar - desktop top -->
+<div class="hidden md:block fixed top-0 left-0 right-0 z-50 bg-accent-500 text-gray-900 text-center py-2 text-sm font-bold shadow-sm" id="urgency-bar">
+  <span class="animate-pulse inline-block mr-2">&#9888;</span>
+  予算上限に達し次第、受付終了！お早めにご相談ください
+  <a href="#contact" class="ml-4 bg-primary-600 text-white px-4 py-1 rounded-full text-xs font-bold hover:bg-primary-700 transition-colors">
+    無料で対象チェック →
+  </a>
+</div>
+
+<!-- Sticky CTA bar - mobile -->
+<div class="fixed bottom-0 left-0 right-0 z-50 md:hidden shadow-[0_-4px_12px_rgba(0,0,0,0.15)]" id="mobile-sticky">
+  <div class="bg-primary-700 text-white text-center py-1 text-xs font-bold">
+    <span class="animate-pulse inline-block mr-1">&#9888;</span> 補助金の予算残りわずか！
+  </div>
+  <div class="flex">
+    <a
+      href="tel:078-597-2722"
+      class="flex items-center justify-center gap-2 w-1/2 bg-green-600 hover:bg-green-700 text-white font-bold py-4 transition-colors"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+      </svg>
+      今すぐ電話
+    </a>
+    <a
+      href="#contact"
+      class="flex items-center justify-center gap-2 w-1/2 bg-accent-500 hover:bg-accent-600 text-gray-900 font-bold py-4 transition-colors"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+      </svg>
+      30秒で対象チェック
+    </a>
+  </div>
+</div>
+
+<!-- Spacer for mobile sticky -->
+<div class="h-20 md:hidden"></div>
+<!-- Spacer for desktop urgency bar -->
+<div class="hidden md:block h-10"></div>
+
+<style>
+  @keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+  }
+  #urgency-bar {
+    animation: slideDown 0.5s ease-out;
+  }
+</style>

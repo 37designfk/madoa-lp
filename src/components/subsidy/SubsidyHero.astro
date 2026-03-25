@@ -5,7 +5,7 @@ const base = import.meta.env.BASE_URL;
 <section class="relative text-white overflow-hidden min-h-[600px] md:min-h-[700px]">
   <div class="absolute inset-0">
     <img src={`${base}images/subsidy/hero.jpg`} alt="窓際で過ごす家族" class="w-full h-full object-cover" width="1477" height="1108" fetchpriority="high" />
-    <div class="absolute inset-0 bg-gradient-to-r from-primary-900/60 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-primary-900/70 via-primary-900/40 to-transparent"></div>
   </div>
 
   <div class="relative max-w-5xl mx-auto px-4 py-24 md:py-36">
@@ -13,11 +13,12 @@ const base = import.meta.env.BASE_URL;
       <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6 animate-fade-in-up">
         補助金で、窓から<br />暮らしの質を上げる。
       </h1>
-      <p class="text-lg text-white/90 mb-10 animate-fade-in-up animate-delay-100">
+      <p class="text-lg text-white/90 mb-8 animate-fade-in-up animate-delay-100">
         補助金を活用した窓リフォームで、<br />今の暮らしに合った、無理のない整え方を。
       </p>
 
-      <div class="flex flex-wrap gap-4 animate-fade-in-up animate-delay-200">
+      <!-- Trust badges -->
+      <div class="flex flex-wrap gap-4 mb-8 animate-fade-in-up animate-delay-200">
         <div class="bg-white rounded-full w-28 h-28 flex flex-col items-center justify-center shadow-lg">
           <span class="text-primary-600 text-[10px] font-bold">先進的窓リノベ2026</span>
           <span class="text-primary-600 text-xs">最大</span>
@@ -32,6 +33,39 @@ const base = import.meta.env.BASE_URL;
           <span class="text-primary-600 text-sm font-bold">全域に対応</span>
         </div>
       </div>
+
+      <!-- Hero CTA -->
+      <div class="flex flex-col sm:flex-row gap-3 animate-fade-in-up animate-delay-300">
+        <a
+          href="#contact"
+          class="inline-flex items-center justify-center gap-2 bg-accent-500 hover:bg-accent-600 text-gray-900 font-bold py-4 px-8 rounded-full text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 hero-cta-pulse"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+          </svg>
+          30秒で補助金対象をチェック
+        </a>
+        <a
+          href="tel:078-597-2722"
+          class="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-full text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+          </svg>
+          078-597-2722
+        </a>
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  @keyframes heroPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(252, 200, 0, 0.7); }
+    50% { box-shadow: 0 0 0 12px rgba(252, 200, 0, 0); }
+  }
+  .hero-cta-pulse {
+    animation: heroPulse 2s infinite;
+  }
+</style>

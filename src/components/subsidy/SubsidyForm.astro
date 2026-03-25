@@ -1,0 +1,144 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<section id="contact" class="py-16 md:py-24 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-4">
+    <!-- Staff photo + message -->
+    <div class="text-center mb-8">
+      <p class="text-primary-600 text-sm font-bold mb-2">無料相談・お見積もり</p>
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">まずは無料で対象チェック</h2>
+      <p class="text-gray-600 text-sm mb-6">※返信目安：1〜2営業日 ※お急ぎの場合はお電話でも受付できます。</p>
+      <p class="text-gray-600 text-sm">窓の寒さ・暑さ・結露・外の音など、まずは「どの工事が近いか」と「補助金が使えそうか」を整理します。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Left: CTA buttons + staff -->
+      <div class="flex flex-col items-center gap-6">
+        <a
+          href="#subsidy-form"
+          class="w-full bg-accent-500 hover:bg-accent-600 text-gray-900 font-bold py-5 px-8 rounded-2xl text-lg transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] text-center block"
+        >
+          <span class="block text-2xl mb-1">30秒で対象チェック</span>
+          <span class="text-sm font-medium opacity-80">補助金対象＋概算を無料で確認</span>
+        </a>
+
+        <a
+          href="tel:078-597-2722"
+          class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-2xl text-lg transition-all shadow-lg hover:shadow-xl text-center flex items-center justify-center gap-3"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+          </svg>
+          078-597-2722
+        </a>
+        <p class="text-gray-500 text-xs">お急ぎの方はお電話でもご相談いただけます！<br />受付時間：8:30〜17:30（土日祝休み）</p>
+
+        <img
+          src={`${base}images/subsidy/staff.jpg`}
+          alt="MADOAのスタッフ"
+          loading="lazy"
+          class="w-full max-w-xs rounded-xl"
+        />
+      </div>
+
+      <!-- Right: Inline form -->
+      <div id="subsidy-form" class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8">
+        <div class="text-center mb-6">
+          <p class="text-primary-600 font-bold text-lg">かんたん質問（30秒）</p>
+        </div>
+
+        <form action="https://madoa.co.jp/contact/" method="GET" class="space-y-5">
+          <!-- お住まいの地域 -->
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">お住まいの地域</label>
+            <select name="area" class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+              <option value="神戸市中央区">神戸市中央区</option>
+              <option value="神戸市東灘区">神戸市東灘区</option>
+              <option value="神戸市灘区">神戸市灘区</option>
+              <option value="神戸市兵庫区">神戸市兵庫区</option>
+              <option value="神戸市長田区">神戸市長田区</option>
+              <option value="神戸市須磨区">神戸市須磨区</option>
+              <option value="神戸市垂水区">神戸市垂水区</option>
+              <option value="神戸市北区">神戸市北区</option>
+              <option value="神戸市西区">神戸市西区</option>
+              <option value="その他（要相談）">その他（要相談）</option>
+            </select>
+          </div>
+
+          <!-- 窓の数 -->
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">窓の数（だいたいでOK）</label>
+            <select name="window_count" class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+              <option value="1〜2箇所">1〜2箇所</option>
+              <option value="3〜5箇所">3〜5箇所</option>
+              <option value="6〜10箇所">6〜10箇所</option>
+              <option value="わからない">わからない</option>
+            </select>
+          </div>
+
+          <!-- お困りごと -->
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-2">お困りごと</label>
+            <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2.5 cursor-pointer hover:bg-primary-50 transition-colors border border-gray-200">
+                <input type="checkbox" name="concerns[]" value="冬、窓際が寒い" class="rounded text-primary-600 focus:ring-primary-500" />
+                <span class="text-sm text-gray-700">冬、窓際が寒い</span>
+              </label>
+              <label class="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2.5 cursor-pointer hover:bg-primary-50 transition-colors border border-gray-200">
+                <input type="checkbox" name="concerns[]" value="夏、冷房が効きにくい" class="rounded text-primary-600 focus:ring-primary-500" />
+                <span class="text-sm text-gray-700">夏、冷房が効かない</span>
+              </label>
+              <label class="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2.5 cursor-pointer hover:bg-primary-50 transition-colors border border-gray-200">
+                <input type="checkbox" name="concerns[]" value="結露・カビが気になる" class="rounded text-primary-600 focus:ring-primary-500" />
+                <span class="text-sm text-gray-700">結露・カビ</span>
+              </label>
+              <label class="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2.5 cursor-pointer hover:bg-primary-50 transition-colors border border-gray-200">
+                <input type="checkbox" name="concerns[]" value="外の音が気になる" class="rounded text-primary-600 focus:ring-primary-500" />
+                <span class="text-sm text-gray-700">外の音が気になる</span>
+              </label>
+              <label class="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2.5 cursor-pointer hover:bg-primary-50 transition-colors border border-gray-200">
+                <input type="checkbox" name="concerns[]" value="光熱費を抑えたい" class="rounded text-primary-600 focus:ring-primary-500" />
+                <span class="text-sm text-gray-700">光熱費を抑えたい</span>
+              </label>
+              <label class="flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2.5 cursor-pointer hover:bg-primary-50 transition-colors border border-gray-200">
+                <input type="checkbox" name="concerns[]" value="防犯が不安" class="rounded text-primary-600 focus:ring-primary-500" />
+                <span class="text-sm text-gray-700">防犯が不安</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 名前 -->
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">お名前</label>
+            <input type="text" name="name" placeholder="例）山田 太郎" class="w-full border border-gray-300 rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary-500 focus:border-primary-500" />
+          </div>
+
+          <!-- 電話番号 -->
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">電話番号</label>
+            <input type="tel" name="tel" placeholder="例）090-1234-5678" class="w-full border border-gray-300 rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary-500 focus:border-primary-500" />
+          </div>
+
+          <!-- 補足 -->
+          <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1">補足（任意）</label>
+            <textarea name="note" rows="2" placeholder="例）寝室だけ先に / 浴室の結露がひどいなど" class="w-full border border-gray-300 rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="w-full bg-accent-500 hover:bg-accent-600 text-gray-900 font-bold py-4 px-8 rounded-xl text-lg transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
+          >
+            この内容で送信
+          </button>
+
+          <p class="text-center text-xs text-gray-400">
+            送信後、担当より折り返しご連絡します。<br />無理な営業は行いませんので、安心してご入力ください。
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
