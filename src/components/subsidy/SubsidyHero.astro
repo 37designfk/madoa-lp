@@ -2,98 +2,36 @@
 const base = import.meta.env.BASE_URL;
 ---
 
-<section class="relative text-white overflow-hidden">
-  <!-- Background image -->
+<section class="relative text-white overflow-hidden min-h-[600px] md:min-h-[700px]">
   <div class="absolute inset-0">
-    <picture>
-      <source srcset={`${base}images/mainimage.webp`} type="image/webp" />
-      <img src={`${base}images/mainimage.png`} alt="" class="w-full h-full object-cover" width="1477" height="1108" fetchpriority="high" />
-    </picture>
-    <div class="absolute inset-0 bg-primary-800/70"></div>
+    <img src={`${base}images/subsidy/hero.jpg`} alt="窓際で過ごす家族" class="w-full h-full object-cover" width="1477" height="1108" fetchpriority="high" />
+    <div class="absolute inset-0 bg-gradient-to-r from-primary-900/60 to-transparent"></div>
   </div>
 
-  <div class="relative max-w-5xl mx-auto px-4 py-20 md:py-32">
-    <div class="text-center">
-      <p class="text-primary-200 text-sm md:text-base mb-4 animate-fade-in-up">神戸の窓専門店 MADOA（株式会社三喜）</p>
-
-      <!-- Trust numbers -->
-      <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-6 animate-fade-in-up animate-delay-100">
-        <div class="text-center">
-          <span class="block text-2xl md:text-3xl font-bold text-accent-400">最大200万円補助</span>
-          <span class="text-xs md:text-sm text-primary-200">先進的窓リノベ事業</span>
-        </div>
-        <div class="text-center">
-          <span class="block text-2xl md:text-3xl font-bold text-accent-400">申請代行0円</span>
-          <span class="text-xs md:text-sm text-primary-200">面倒な手続きはお任せ</span>
-        </div>
-      </div>
-
-      <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6 animate-fade-in-up animate-delay-200">
-        補助金で、<br class="md:hidden" />窓から<span class="text-accent-400">暮らしを変える。</span>
+  <div class="relative max-w-5xl mx-auto px-4 py-24 md:py-36">
+    <div class="max-w-lg">
+      <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6 animate-fade-in-up">
+        補助金で、窓から<br />暮らしの質を上げる。
       </h1>
-      <p class="text-lg md:text-xl text-primary-100 mb-8 animate-fade-in-up animate-delay-200">
-        内窓リフォームで<span class="font-bold">断熱・結露・光熱費</span>のお悩みを解決。<br class="hidden md:inline" />
-        最大200万円の補助金で、お得にリフォームできます。
+      <p class="text-lg text-white/90 mb-10 animate-fade-in-up animate-delay-100">
+        補助金を活用した窓リフォームで、<br />今の暮らしに合った、無理のない整え方を。
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up animate-delay-300">
-        <a
-          href="#contact"
-          class="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-gray-900 font-bold py-4 px-8 rounded-full text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-          </svg>
-          補助金の無料相談をする
-        </a>
-        <a
-          href="tel:078-597-2722"
-          class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-full text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-          </svg>
-          078-597-2722
-        </a>
+      <div class="flex flex-wrap gap-4 animate-fade-in-up animate-delay-200">
+        <div class="bg-white rounded-full w-28 h-28 flex flex-col items-center justify-center shadow-lg">
+          <span class="text-primary-600 text-[10px] font-bold">先進的窓リノベ2026</span>
+          <span class="text-primary-600 text-xs">最大</span>
+          <span class="text-primary-600 text-2xl font-bold leading-none">200<span class="text-sm">万円</span></span>
+        </div>
+        <div class="bg-white rounded-full w-28 h-28 flex flex-col items-center justify-center shadow-lg">
+          <span class="text-primary-600 text-lg font-bold">見積無料</span>
+          <span class="text-primary-600 text-[10px]">しつこい営業は行いません！</span>
+        </div>
+        <div class="bg-white rounded-full w-28 h-28 flex flex-col items-center justify-center shadow-lg">
+          <span class="text-primary-600 text-sm font-bold">神戸市</span>
+          <span class="text-primary-600 text-sm font-bold">全域に対応</span>
+        </div>
       </div>
-
-      <!-- Free estimate badge -->
-      <div class="flex flex-wrap justify-center gap-4 mt-4 animate-fade-in-up animate-delay-400">
-        <span class="inline-flex items-center gap-1 bg-white/15 backdrop-blur-sm text-white text-sm font-semibold py-1.5 px-4 rounded-full border border-white/20">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-          </svg>
-          見積無料
-        </span>
-        <span class="inline-flex items-center gap-1 bg-white/15 backdrop-blur-sm text-white text-sm font-semibold py-1.5 px-4 rounded-full border border-white/20">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-          </svg>
-          申請代行無料
-        </span>
-        <span class="inline-flex items-center gap-1 bg-white/15 backdrop-blur-sm text-white text-sm font-semibold py-1.5 px-4 rounded-full border border-white/20">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-          </svg>
-          出張費無料
-        </span>
-      </div>
-
-      <p class="text-primary-300 text-xs mt-3 animate-fade-in-up animate-delay-400">
-        ※しつこい営業は一切いたしません
-      </p>
-
-      <p class="text-primary-200 text-sm mt-4 animate-fade-in-up animate-delay-400">
-        受付時間: 8:30〜17:30（土日祝休み）
-      </p>
     </div>
-  </div>
-
-  <!-- Wave divider -->
-  <div class="absolute bottom-0 left-0 right-0">
-    <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-      <path d="M0 80L60 73.3C120 66.7 240 53.3 360 46.7C480 40 600 40 720 46.7C840 53.3 960 66.7 1080 70C1200 73.3 1320 66.7 1380 63.3L1440 60V80H1380C1320 80 1200 80 1080 80C960 80 840 80 720 80C600 80 480 80 360 80C240 80 120 80 60 80H0Z" fill="white"/>
-    </svg>
   </div>
 </section>

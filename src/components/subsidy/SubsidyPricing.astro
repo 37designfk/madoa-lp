@@ -1,90 +1,115 @@
 ---
-const pricingTable = [
-  { size: '小', example: 'トイレ・浴室等', normal: '43,000', subsidy: '22,000', actual: '21,000' },
-  { size: '中', example: '寝室・子供部屋等', normal: '61,000', subsidy: '34,000', actual: '27,000' },
-  { size: '大', example: 'リビング掃出し窓等', normal: '113,000', subsidy: '52,000', actual: '61,000' },
-  { size: '特大', example: '大型掃出し窓等', normal: '153,000', subsidy: '76,000', actual: '77,000' },
-];
-
-const examples = [
-  {
-    title: 'リビング 1箇所',
-    rooms: 'リビング掃出し窓',
-    normal: '113,000',
-    actual: '61,000',
-    saving: '52,000',
-  },
-  {
-    title: 'リビング+寝室 2箇所',
-    rooms: 'リビング掃出し窓 + 寝室',
-    normal: '174,000',
-    actual: '88,000',
-    saving: '86,000',
-  },
-  {
-    title: '家全体 6箇所セット',
-    rooms: 'リビング+寝室+子供部屋+浴室 等',
-    normal: '400,000',
-    actual: '200,000',
-    saving: '200,000',
-  },
-];
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class="py-16 md:py-24 bg-white">
   <div class="max-w-5xl mx-auto px-4">
+    <p class="text-primary-600 text-sm font-bold text-center mb-2 tracking-wider">CASE</p>
     <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
-      補助金で<span class="text-primary-600">こんなにお得に！</span>
+      補助金で、実際にここまでできます
     </h2>
-    <p class="text-gray-500 text-center mb-12">内窓設置の場合の価格イメージ</p>
+    <p class="text-gray-600 text-center mb-2">「どの工事が自分に近いか」「手出しがどれくらい減りそうか」を、<br class="hidden md:inline" />悩み別にわかりやすくまとめました。</p>
+    <p class="text-xs text-gray-400 text-center mb-12">※価格・補助額は条件により変わるため、目安（参考）としてご覧ください。</p>
 
-    <!-- Price table -->
-    <div class="overflow-x-auto mb-12">
-      <table class="w-full bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <thead>
-          <tr class="bg-primary-600 text-white">
-            <th class="py-3 px-4 text-left text-sm font-bold">サイズ</th>
-            <th class="py-3 px-4 text-left text-sm font-bold">対象窓の例</th>
-            <th class="py-3 px-4 text-right text-sm font-bold">通常価格</th>
-            <th class="py-3 px-4 text-right text-sm font-bold">補助額</th>
-            <th class="py-3 px-4 text-right text-sm font-bold">実質負担</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-100">
-          {pricingTable.map((row) => (
-            <tr class="hover:bg-gray-50">
-              <td class="py-4 px-4 font-bold text-gray-800">{row.size}</td>
-              <td class="py-4 px-4 text-sm text-gray-600">{row.example}</td>
-              <td class="py-4 px-4 text-right text-gray-500 line-through">{row.normal}円〜</td>
-              <td class="py-4 px-4 text-right text-primary-600 font-bold">-{row.subsidy}円</td>
-              <td class="py-4 px-4 text-right text-accent-600 font-bold text-lg">{row.actual}円〜</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Example cards -->
-    <h3 class="text-xl font-bold text-center mb-6">具体的な施工例</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {examples.map((ex) => (
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center hover:shadow-md transition-shadow">
-          <h4 class="text-lg font-bold text-gray-800 mb-2">{ex.title}</h4>
-          <p class="text-sm text-gray-500 mb-4">{ex.rooms}</p>
-          <div class="mb-3">
-            <span class="text-gray-400 line-through text-sm">通常 {ex.normal}円〜</span>
-          </div>
-          <div class="flex items-center justify-center gap-2 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </div>
-          <p class="text-3xl font-bold text-accent-600 mb-1">{ex.actual}<span class="text-lg">円〜</span></p>
-          <p class="inline-block bg-primary-50 text-primary-700 text-sm font-bold px-3 py-1 rounded-full">{ex.saving}円お得！</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- 内窓（ウチリモ） -->
+      <div class="border border-gray-200 rounded-2xl overflow-hidden">
+        <div class="text-center py-3 bg-gray-50">
+          <p class="text-sm text-gray-600">既存窓の内側にもう1枚窓を設置</p>
+          <h3 class="text-2xl font-bold text-primary-600">ウチリモ（内窓）</h3>
         </div>
-      ))}
-    </div>
+        <img
+          src={`${base}images/subsidy/uchimado-product.jpg`}
+          alt="内窓設置のイメージ"
+          loading="lazy"
+          class="w-full h-56 object-cover"
+        />
+        <!-- Price table -->
+        <div class="bg-primary-600 text-white text-center py-2 text-sm font-bold">
+          戸製品代・取付工事費・諸経費・税込コミコミ価格
+        </div>
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="py-2 px-3 text-left font-bold text-primary-600">サイズ</th>
+              <th class="py-2 px-3 text-right text-gray-600">通常価格</th>
+              <th class="py-2 px-3 text-right font-bold text-accent-600">補助後の実質価格</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr>
+              <td class="py-3 px-3"><span class="bg-primary-600 text-white text-xs font-bold px-2 py-0.5 rounded">小</span></td>
+              <td class="py-3 px-3 text-right text-gray-500">43,000<span class="text-xs">円</span></td>
+              <td class="py-3 px-3 text-right"><span class="text-xl font-bold text-accent-600">21,000</span><span class="text-xs text-gray-500">円</span><br /><span class="text-[10px] text-gray-400">補助額：22,000円</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3"><span class="bg-primary-600 text-white text-xs font-bold px-2 py-0.5 rounded">中</span></td>
+              <td class="py-3 px-3 text-right text-gray-500">61,000<span class="text-xs">円</span></td>
+              <td class="py-3 px-3 text-right"><span class="text-xl font-bold text-accent-600">27,000</span><span class="text-xs text-gray-500">円</span><br /><span class="text-[10px] text-gray-400">補助額：34,000円</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3"><span class="bg-primary-600 text-white text-xs font-bold px-2 py-0.5 rounded">大</span></td>
+              <td class="py-3 px-3 text-right text-gray-500">113,000<span class="text-xs">円</span></td>
+              <td class="py-3 px-3 text-right"><span class="text-xl font-bold text-accent-600">61,000</span><span class="text-xs text-gray-500">円</span><br /><span class="text-[10px] text-gray-400">補助額：52,000円</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3"><span class="bg-primary-600 text-white text-xs font-bold px-2 py-0.5 rounded">特大</span></td>
+              <td class="py-3 px-3 text-right text-gray-500">153,000<span class="text-xs">円</span></td>
+              <td class="py-3 px-3 text-right"><span class="text-xl font-bold text-accent-600">77,000</span><span class="text-xs text-gray-500">円</span><br /><span class="text-[10px] text-gray-400">補助額：76,000円</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-[10px] text-gray-400 p-3">※表記はすべて1か所当たりの価格です ※補助後価格は、通常価格から補助金額を差し引いた参考価格です。※現場状況により価格は変動する可能性があります。</p>
+      </div>
 
-    <p class="text-xs text-gray-400 text-center mt-8">※価格は目安です。窓のサイズ・仕様により異なります。正確な金額は無料見積でご確認ください。</p>
+      <!-- 外窓交換（マドリモ） -->
+      <div class="border border-gray-200 rounded-2xl overflow-hidden">
+        <div class="text-center py-3 bg-gray-50">
+          <p class="text-sm text-gray-600">古い窓を新しい窓へ交換</p>
+          <h3 class="text-2xl font-bold text-primary-600">マドリモ（外窓交換・カバー）</h3>
+        </div>
+        <img
+          src={`${base}images/subsidy/madorimo-product.jpg`}
+          alt="外窓交換のイメージ"
+          loading="lazy"
+          class="w-full h-56 object-cover"
+        />
+        <div class="bg-primary-600 text-white text-center py-2 text-sm font-bold">
+          戸製品代・取付工事費・諸経費・税込コミコミ価格
+        </div>
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="py-2 px-3 text-left font-bold text-primary-600">サイズ</th>
+              <th class="py-2 px-3 text-right text-gray-600">通常価格</th>
+              <th class="py-2 px-3 text-right font-bold text-accent-600">補助後の実質価格</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr>
+              <td class="py-3 px-3"><span class="bg-primary-600 text-white text-xs font-bold px-2 py-0.5 rounded">小</span></td>
+              <td class="py-3 px-3 text-right text-gray-500">120,000<span class="text-xs">円</span></td>
+              <td class="py-3 px-3 text-right"><span class="text-xl font-bold text-accent-600">79,000</span><span class="text-xs text-gray-500">円</span><br /><span class="text-[10px] text-gray-400">補助額：41,000円</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3"><span class="bg-primary-600 text-white text-xs font-bold px-2 py-0.5 rounded">中</span></td>
+              <td class="py-3 px-3 text-right text-gray-500">160,000<span class="text-xs">円</span></td>
+              <td class="py-3 px-3 text-right"><span class="text-xl font-bold text-accent-600">94,000</span><span class="text-xs text-gray-500">円</span><br /><span class="text-[10px] text-gray-400">補助額：66,000円</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3"><span class="bg-primary-600 text-white text-xs font-bold px-2 py-0.5 rounded">大</span></td>
+              <td class="py-3 px-3 text-right text-gray-500">265,000<span class="text-xs">円</span></td>
+              <td class="py-3 px-3 text-right"><span class="text-xl font-bold text-accent-600">177,000</span><span class="text-xs text-gray-500">円</span><br /><span class="text-[10px] text-gray-400">補助額：88,000円</span></td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3"><span class="bg-primary-600 text-white text-xs font-bold px-2 py-0.5 rounded">特大</span></td>
+              <td class="py-3 px-3 text-right text-gray-500">352,000<span class="text-xs">円</span></td>
+              <td class="py-3 px-3 text-right"><span class="text-xl font-bold text-accent-600">236,000</span><span class="text-xs text-gray-500">円</span><br /><span class="text-[10px] text-gray-400">補助額：116,000円</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-[10px] text-gray-400 p-3">※補助後価格は、通常価格から補助金額を差し引いた参考価格です。※現場状況により価格は変動する可能性があります。</p>
+      </div>
+    </div>
   </div>
 </section>
