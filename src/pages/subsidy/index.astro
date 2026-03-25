@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SubsidyHero from '../../components/subsidy/SubsidyHero.astro';
+import SubsidyTrustBar from '../../components/subsidy/SubsidyTrustBar.astro';
+import SubsidyProblems from '../../components/subsidy/SubsidyProblems.astro';
+import MidCta from '../../components/MidCta.astro';
+import SubsidyOverview from '../../components/subsidy/SubsidyOverview.astro';
+import SubsidyPricing from '../../components/subsidy/SubsidyPricing.astro';
+import SubsidyBenefits from '../../components/subsidy/SubsidyBenefits.astro';
+import SubsidyReasons from '../../components/subsidy/SubsidyReasons.astro';
+import SubsidyCases from '../../components/subsidy/SubsidyCases.astro';
+import SubsidyFlow from '../../components/subsidy/SubsidyFlow.astro';
+import SubsidyFaq from '../../components/subsidy/SubsidyFaq.astro';
+import Cta from '../../components/Cta.astro';
+import Footer from '../../components/Footer.astro';
+import StickyContact from '../../components/StickyContact.astro';
+---
+
+<Layout title="窓の補助金リフォームなら神戸のMADOA | 先進的窓リノベ事業対応">
+  <SubsidyHero />
+  <SubsidyTrustBar />
+  <SubsidyProblems />
+  <MidCta />
+  <SubsidyOverview />
+  <SubsidyPricing />
+  <MidCta />
+  <SubsidyBenefits />
+  <SubsidyReasons />
+  <SubsidyCases />
+  <MidCta />
+  <SubsidyFlow />
+  <SubsidyFaq />
+  <Cta />
+  <Footer />
+  <StickyContact />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section');
+    sections.forEach((section) => {
+      section.classList.add('scroll-fade-in');
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px',
+      }
+    );
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+  });
+</script>

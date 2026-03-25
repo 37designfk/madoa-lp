@@ -1,0 +1,69 @@
+---
+const benefits = [
+  {
+    title: '断熱効果',
+    subtitle: '一年中快適な室温をキープ',
+    description: '窓は住宅の熱の出入りの約70%を占めます。内窓で断熱性能を大幅にアップし、夏も冬も快適な室温を保ちます。',
+    iconPath: 'M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z',
+    color: 'primary',
+  },
+  {
+    title: '結露抑制',
+    subtitle: '結露を防いでカビ・ダニ対策',
+    description: '二重窓の空気層が結露を防ぎ、お掃除の手間とカビのリスクを軽減。清潔で健康的な住環境を実現します。',
+    iconPath: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z',
+    color: 'green',
+  },
+  {
+    title: '光熱費削減',
+    subtitle: '毎月の電気代を節約',
+    description: '冷暖房効率が上がり、年間の光熱費を大幅に削減。補助金と合わせて、家計にやさしいリフォームです。',
+    iconPath: 'M13 10V3L4 14h7v7l9-11h-7z',
+    color: 'accent',
+  },
+  {
+    title: '防音効果',
+    subtitle: '外の騒音をシャットアウト',
+    description: '二重窓で外部騒音を大幅にカット。幹線道路や線路沿いのお住まいでも、静かで快適な生活環境を実現します。',
+    iconPath: 'M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z',
+    color: 'primary',
+  },
+];
+
+const colorMap: Record<string, { bg: string; iconBg: string; iconText: string }> = {
+  primary: { bg: 'bg-primary-50', iconBg: 'bg-primary-100', iconText: 'text-primary-600' },
+  green: { bg: 'bg-green-50', iconBg: 'bg-green-100', iconText: 'text-green-600' },
+  accent: { bg: 'bg-accent-50', iconBg: 'bg-orange-100', iconText: 'text-accent-600' },
+};
+---
+
+<section class="py-16 md:py-24 bg-gray-50">
+  <div class="max-w-5xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
+      内窓で<span class="text-primary-600">暮らしが変わる</span>4つの効果
+    </h2>
+    <p class="text-gray-500 text-center mb-12">内窓リフォームは、快適さ・健康・家計すべてにメリットがあります</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {benefits.map((benefit) => {
+        const colors = colorMap[benefit.color];
+        return (
+          <div class={`${colors.bg} rounded-2xl p-6 md:p-8 border border-gray-100`}>
+            <div class="flex items-start gap-4">
+              <div class={`flex-shrink-0 w-14 h-14 ${colors.iconBg} rounded-2xl flex items-center justify-center`}>
+                <svg xmlns="http://www.w3.org/2000/svg" class={`h-7 w-7 ${colors.iconText}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d={benefit.iconPath} />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-800 mb-1">{benefit.title}</h3>
+                <p class="text-sm font-medium text-gray-500 mb-3">{benefit.subtitle}</p>
+                <p class="text-gray-600 text-sm leading-relaxed">{benefit.description}</p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
