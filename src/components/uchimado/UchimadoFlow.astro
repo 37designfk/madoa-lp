@@ -1,0 +1,65 @@
+---
+const base = import.meta.env.BASE_URL;
+const steps = [
+  {
+    number: 1,
+    title: '無料相談・現地調査',
+    description: 'お電話またはメールでお問い合わせ。窓の状態を確認し、補助金の対象かどうかを無料で診断します。',
+    image: 'images/uchimado/photo-9.jpg',
+  },
+  {
+    number: 2,
+    title: 'お見積もり・補助金シミュレーション',
+    description: '内窓の種類やグレードに応じた見積もりと、補助金適用後の実質負担額をご提示します。',
+    image: 'images/uchimado/photo-1.jpg',
+  },
+  {
+    number: 3,
+    title: '施工（最短1日）',
+    description: '内窓の取付工事は、1箇所あたり約1時間。普段の生活をしながら工事が可能です。',
+    image: 'images/uchimado/photo-6.jpg',
+  },
+  {
+    number: 4,
+    title: '補助金申請・受取',
+    description: '施工完了後、MADOAが補助金の申請手続きを代行。お客様への還元まで責任を持って対応します。',
+    image: 'images/uchimado/photo-3.jpg',
+  },
+];
+---
+
+<section class="py-16 md:py-24 bg-gray-50">
+  <div class="max-w-5xl mx-auto px-4">
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
+      <span class="text-primary-600">ご利用の流れ</span>
+    </h2>
+    <p class="text-gray-500 text-center mb-12">お問い合わせから補助金受取まで、すべてサポート</p>
+
+    <div class="relative">
+      <div class="hidden md:block absolute top-16 left-[calc(12.5%+20px)] right-[calc(12.5%+20px)] h-0.5 bg-primary-200"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4">
+        {steps.map((step, index) => (
+          <div class="relative flex flex-col items-center text-center">
+            {index < steps.length - 1 && (
+              <div class="md:hidden absolute top-full left-1/2 -translate-x-1/2 w-0.5 h-8 bg-primary-200"></div>
+            )}
+            <div class="relative z-10 w-14 h-14 bg-primary-600 rounded-full flex items-center justify-center mb-4 shadow-md">
+              <span class="text-white font-bold text-lg">{step.number}</span>
+            </div>
+            <div class="mb-4">
+              <img
+                src={`${base}${step.image}`}
+                alt={step.title}
+                loading="lazy"
+                class="w-20 h-20 rounded-full object-cover shadow-md"
+              />
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-2">{step.title}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

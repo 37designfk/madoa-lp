@@ -1,0 +1,52 @@
+---
+const base = import.meta.env.BASE_URL;
+const reasons = [
+  {
+    title: '50年以上の実績 -- 事業所の窓工事も豊富',
+    description: '神戸で50年以上、店舗・オフィス・工場など様々な事業所の窓工事を手がけてきました。年間700件のリフォーム実績で、事業所特有の要件にも柔軟に対応します。',
+    image: 'images/business/photo-5.jpg',
+    imageAlt: '事業所の窓工事実績',
+  },
+  {
+    title: '営業を止めずに施工可能',
+    description: '内窓設置なら1箇所約1時間。営業時間外や休日の施工にも対応。お客様の事業に支障をきたさないスケジュールをご提案します。',
+    image: 'images/business/photo-8.jpg',
+    imageAlt: 'スムーズな施工体制',
+  },
+  {
+    title: '補助金申請もすべて代行',
+    description: '窓リノベ事業の登録事業者として、面倒な補助金申請をすべて代行。経営者様の負担を最小限に抑えます。',
+    image: 'images/business/photo-3.jpg',
+    imageAlt: '補助金申請サポート',
+  },
+];
+---
+
+<section class="py-16 md:py-24 bg-white">
+  <div class="max-w-5xl mx-auto px-4">
+    <p class="text-primary-600 text-sm font-bold text-center mb-2 tracking-wider">POINT</p>
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
+      MADOAが<span class="text-primary-600">選ばれる理由</span>
+    </h2>
+    <p class="text-gray-600 text-center mb-12">事業所の窓リフォームは、経験豊富な専門店にお任せください。</p>
+
+    <div class="space-y-8">
+      {reasons.map((reason, i) => (
+        <div class={`flex flex-col ${i % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center`}>
+          <div class="md:w-1/2">
+            <img
+              src={`${base}${reason.image}`}
+              alt={reason.imageAlt}
+              loading="lazy"
+              class="w-full h-64 object-cover rounded-2xl"
+            />
+          </div>
+          <div class="md:w-1/2">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">{reason.title}</h3>
+            <p class="text-gray-600 leading-relaxed">{reason.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+---
+const base = import.meta.env.BASE_URL;
+const reasons = [
+  {
+    title: '窓の専門店としての技術力と50年以上の実績',
+    description: '神戸で50年以上、窓ガラスのプロとして地域に根ざしたサービスを提供。年間リフォーム実績700件の経験と確かな技術で、安心・納得の内窓リフォームをご提供します。',
+    image: 'images/uchimado/photo-5.jpg',
+    imageAlt: '窓の専門店としての技術力を持つスタッフ',
+  },
+  {
+    title: '補助金申請もすべておまかせ',
+    description: '窓リノベ事業の登録事業者として、補助金の申請手続きをすべて代行。面倒な書類作成は一切不要です。お客様は内窓リフォームの効果を実感するだけです。',
+    image: 'images/uchimado/photo-8.jpg',
+    imageAlt: '補助金申請をサポートするスタッフ',
+  },
+  {
+    title: '素材手配をスムーズに行える体制',
+    description: '建材メーカーと直接取引し資材調達コストを抑えているため、内窓工事をお得にご提供。補助金と合わせて、さらにお得にリフォームできます。',
+    image: 'images/uchimado/photo-7.jpg',
+    imageAlt: '建材を加工する工場の作業風景',
+  },
+];
+---
+
+<section class="py-16 md:py-24 bg-white">
+  <div class="max-w-5xl mx-auto px-4">
+    <p class="text-primary-600 text-sm font-bold text-center mb-2 tracking-wider">POINT</p>
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-4">
+      MADOAが<span class="text-primary-600">選ばれる理由</span>
+    </h2>
+    <p class="text-gray-600 text-center mb-12">「補助金を使うなら、経験と実績のある会社に任せたい」という方へ。</p>
+
+    <div class="space-y-8">
+      {reasons.map((reason, i) => (
+        <div class={`flex flex-col ${i % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center`}>
+          <div class="md:w-1/2">
+            <img
+              src={`${base}${reason.image}`}
+              alt={reason.imageAlt}
+              loading="lazy"
+              class="w-full h-64 object-cover rounded-2xl"
+            />
+          </div>
+          <div class="md:w-1/2">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">{reason.title}</h3>
+            <p class="text-gray-600 leading-relaxed">{reason.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

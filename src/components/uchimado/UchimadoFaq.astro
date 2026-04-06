@@ -1,0 +1,77 @@
+---
+const faqs = [
+  {
+    question: '内窓の工事にはどれくらい時間がかかりますか？',
+    answer: '1箇所あたり約1時間程度です。複数箇所でも1日で完了するケースがほとんどです。大がかりな工事は不要で、日常生活を送りながらリフォームできます。',
+  },
+  {
+    question: '補助金はいくらもらえますか？',
+    answer: '窓のサイズや断熱グレードにより異なりますが、1戸あたり最大100万円の補助が受けられます。例えば、リビングの掃き出し窓（SSグレード）なら1箇所で14万円の補助があります。',
+  },
+  {
+    question: '補助金の申請手続きは自分でやる必要がありますか？',
+    answer: 'いいえ。補助金の申請はMADOAがすべて代行します。面倒な書類作成は一切不要です。',
+  },
+  {
+    question: '賃貸住宅やマンションでも内窓は設置できますか？',
+    answer: '分譲マンションの場合は管理組合への確認が必要ですが、内窓は既存の窓枠に取り付けるため、多くのケースで設置可能です。賃貸の場合はオーナー様のご了承が必要です。',
+  },
+  {
+    question: '対応エリアはどこですか？',
+    answer: '神戸市全域を中心に、芦屋市・西宮市・明石市など近隣エリアも対応しております。',
+  },
+  {
+    question: '補助金の予算がなくなることはありますか？',
+    answer: 'はい、予算上限（1,125億円）に達した時点で受付終了となります。過去の実績から早期に予算が消化されるケースもありますので、お早めのご相談をおすすめします。',
+  },
+];
+---
+
+<section id="faq" class="bg-white py-16 md:py-24">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">よくある質問</h2>
+      <p class="text-gray-600 text-lg">内窓リフォーム・補助金に関するご質問にお答えします</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto divide-y divide-gray-200">
+      {faqs.map((item) => (
+        <details class="group">
+          <summary class="flex items-center justify-between cursor-pointer py-5 text-left">
+            <span class="font-semibold text-gray-900 pr-4">Q. {item.question}</span>
+            <span class="shrink-0 ml-2 text-gray-400 transition-transform duration-300 group-open:rotate-180">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+          </summary>
+          <div class="pb-5 pr-12">
+            <p class="text-gray-600 leading-relaxed mb-3">A. {item.answer}</p>
+            <a
+              href="#contact"
+              class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-500 hover:text-primary-600 transition-colors"
+            >
+              詳しくはお気軽にご相談ください
+            </a>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  details summary::-webkit-details-marker {
+    display: none;
+  }
+  details summary {
+    list-style: none;
+  }
+  details[open] > summary ~ div {
+    animation: faq-open 0.3s ease-in-out;
+  }
+  @keyframes faq-open {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

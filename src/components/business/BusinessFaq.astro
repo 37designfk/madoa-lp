@@ -1,0 +1,66 @@
+---
+const faqs = [
+  {
+    question: '店舗や事務所も本当に補助金の対象ですか？',
+    answer: 'はい。2026年度から非住宅（事業用建物）も先進的窓リノベ事業の対象になりました。店舗・クリニック・事務所・工場など幅広い事業所が対象です。',
+  },
+  {
+    question: '補助金はいくらもらえますか？',
+    answer: '延べ床面積240平米超の建物は最大1,000万円、240平米以下の建物は最大100万円です。窓のサイズ・グレード・箇所数により補助額が変わります。',
+  },
+  {
+    question: '営業しながら工事できますか？',
+    answer: 'はい。内窓設置は1箇所約1時間で完了します。営業時間外や休日の施工も対応可能ですので、事業への影響を最小限に抑えられます。',
+  },
+  {
+    question: '賃貸物件でも対象になりますか？',
+    answer: 'オーナー様（建物所有者）のご了承があれば、賃貸物件でも補助金の対象となります。テナント様からのご相談も承ります。',
+  },
+  {
+    question: '対応エリアはどこですか？',
+    answer: '神戸市全域を中心に、芦屋市・西宮市・明石市など近隣エリアも対応しております。',
+  },
+];
+---
+
+<section id="faq" class="bg-white py-16 md:py-24">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">よくある質問</h2>
+      <p class="text-gray-600 text-lg">事業所の窓リフォーム・補助金に関するご質問にお答えします</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto divide-y divide-gray-200">
+      {faqs.map((item) => (
+        <details class="group">
+          <summary class="flex items-center justify-between cursor-pointer py-5 text-left">
+            <span class="font-semibold text-gray-900 pr-4">Q. {item.question}</span>
+            <span class="shrink-0 ml-2 text-gray-400 transition-transform duration-300 group-open:rotate-180">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+          </summary>
+          <div class="pb-5 pr-12">
+            <p class="text-gray-600 leading-relaxed mb-3">A. {item.answer}</p>
+            <a href="#contact" class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-500 hover:text-primary-600 transition-colors">
+              詳しくはお気軽にご相談ください
+            </a>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  details summary::-webkit-details-marker { display: none; }
+  details summary { list-style: none; }
+  details[open] > summary ~ div {
+    animation: faq-open 0.3s ease-in-out;
+  }
+  @keyframes faq-open {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

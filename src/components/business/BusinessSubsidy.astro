@@ -1,0 +1,73 @@
+---
+---
+
+<section class="py-16 md:py-24 bg-primary-600 text-white">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="bg-white rounded-2xl p-8 md:p-12 text-gray-800">
+      <div class="text-center mb-8">
+        <span class="inline-flex items-center gap-2 bg-accent-500 text-gray-900 font-bold px-4 py-1.5 rounded-full text-sm mb-4">
+          2026年 新設
+        </span>
+        <h2 class="text-2xl md:text-3xl font-bold">
+          <span class="text-primary-600">非住宅（事業所）</span>も<br class="md:hidden" />補助金の対象に
+        </h2>
+        <p class="text-gray-600 mt-2">店舗・クリニック・事務所・工場など、事業用建物の窓リフォームが補助対象です</p>
+      </div>
+
+      <!-- 補助金額 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-accent-50 border-2 border-accent-300 rounded-xl p-6 text-center">
+          <p class="text-sm text-gray-500 font-bold mb-1">240平米超の建物</p>
+          <p class="text-4xl font-bold text-accent-600">1,000<span class="text-lg">万円/棟</span></p>
+          <p class="text-xs text-gray-500 mt-1">補助上限</p>
+        </div>
+        <div class="bg-primary-50 rounded-xl p-6 text-center">
+          <p class="text-sm text-gray-500 font-bold mb-1">240平米以下の建物</p>
+          <p class="text-4xl font-bold text-primary-600">100<span class="text-lg">万円/棟</span></p>
+          <p class="text-xs text-gray-500 mt-1">補助上限</p>
+        </div>
+        <div class="bg-primary-50 rounded-xl p-6 text-center">
+          <p class="text-sm text-gray-500 font-bold mb-1">申請期限</p>
+          <p class="text-4xl font-bold text-primary-600">12/31<span class="text-lg">まで</span></p>
+          <p class="text-xs text-gray-500 mt-1">予算上限達成次第終了</p>
+        </div>
+      </div>
+
+      <!-- 対象業種 -->
+      <h3 class="text-lg font-bold text-gray-800 mb-4 text-center">こんな事業所が対象です</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        {['店舗・飲食店', 'クリニック・医院', '事務所・オフィス', '美容室・サロン', '塾・教室', '工場・倉庫', '介護施設', 'その他事業所'].map((type) => (
+          <div class="flex items-center gap-2 bg-gray-50 rounded-lg p-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary-600 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            <span class="text-sm font-medium text-gray-700">{type}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- 対象工事 -->
+      <h3 class="text-lg font-bold text-gray-800 mb-4 text-center">対象となる窓リフォーム</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        {[
+          { title: '内窓設置', desc: '既存窓の内側にもう一枚窓を追加' },
+          { title: '外窓交換', desc: 'カバー工法・はつり工法で窓を交換' },
+          { title: 'ガラス交換', desc: '既存サッシのガラスのみを断熱ガラスに' },
+        ].map((item) => (
+          <div class="border border-gray-200 rounded-xl p-4 text-center">
+            <p class="font-bold text-primary-600 text-lg">{item.title}</p>
+            <p class="text-sm text-gray-600 mt-1">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-accent-50 border-2 border-accent-400 rounded-xl p-4">
+        <p class="text-center font-bold text-gray-900">
+          <span class="text-accent-600">予算上限に達し次第終了</span> -- お早めにご相談ください
+        </p>
+      </div>
+
+      <p class="text-xs text-gray-400 mt-4 text-center">※補助額は要件により異なります。詳細はお問い合わせください。</p>
+    </div>
+  </div>
+</section>

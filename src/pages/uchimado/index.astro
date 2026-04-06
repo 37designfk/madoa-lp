@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import UchimadoHero from '../../components/uchimado/UchimadoHero.astro';
+import TrustBar from '../../components/TrustBar.astro';
+import UchimadoProblems from '../../components/uchimado/UchimadoProblems.astro';
+import MidCta from '../../components/MidCta.astro';
+import UchimadoBenefits from '../../components/uchimado/UchimadoBenefits.astro';
+import UchimadoSubsidy from '../../components/uchimado/UchimadoSubsidy.astro';
+import UchimadoReasons from '../../components/uchimado/UchimadoReasons.astro';
+import UchimadoFlow from '../../components/uchimado/UchimadoFlow.astro';
+import UchimadoFaq from '../../components/uchimado/UchimadoFaq.astro';
+import Cta from '../../components/Cta.astro';
+import Footer from '../../components/Footer.astro';
+import StickyContact from '../../components/StickyContact.astro';
+---
+
+<Layout
+  title="内窓リフォームで最大100万円の補助金 | 神戸のMADOA"
+  description="神戸の窓専門店MADOAの内窓リフォーム。先進的窓リノベ2026対応で最大100万円の補助金。結露・断熱・防音のお悩みを解決。補助金申請はすべて代行します。"
+>
+  <UchimadoHero />
+  <TrustBar />
+  <UchimadoProblems />
+  <MidCta />
+  <UchimadoBenefits />
+  <UchimadoSubsidy />
+  <MidCta />
+  <UchimadoReasons />
+  <UchimadoFlow />
+  <MidCta />
+  <UchimadoFaq />
+  <Cta />
+  <Footer />
+  <StickyContact />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section');
+    sections.forEach((section) => {
+      section.classList.add('scroll-fade-in');
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+  });
+</script>
