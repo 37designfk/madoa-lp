@@ -2,23 +2,33 @@
 ---
 
 <!-- Urgency bar - desktop top -->
-<div class="hidden md:block fixed top-0 left-0 right-0 z-50 bg-accent-500 text-gray-900 text-center py-2 text-sm font-bold shadow-sm" id="urgency-bar">
-  <span class="animate-pulse inline-block mr-2">&#9888;</span>
-  予算上限に達し次第、受付終了！お早めにご相談ください
-  <a href="#contact" class="ml-4 bg-primary-600 text-white px-4 py-1 rounded-full text-xs font-bold hover:bg-primary-700 transition-colors">
-    無料で対象チェック →
+<div class="hidden md:flex fixed top-0 left-0 right-0 z-50 bg-accent-500 text-gray-900 flex-nowrap items-center justify-center gap-2 lg:gap-3 py-2 px-4 text-xs lg:text-sm font-bold shadow-sm whitespace-nowrap overflow-hidden" id="urgency-bar">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 animate-pulse shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l6.518 11.59c.75 1.335-.213 2.98-1.742 2.98H3.48c-1.53 0-2.493-1.645-1.743-2.98L8.257 3.1zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+  </svg>
+  <span class="hidden xl:inline">予算上限に達し次第、受付終了！お早めにご相談ください</span>
+  <span class="hidden lg:inline xl:hidden">予算上限に達し次第、受付終了！</span>
+  <span class="lg:hidden">予算上限で受付終了</span>
+  <a href="tel:078-597-2722" class="shrink-0 bg-white text-accent-600 border border-accent-600 px-3 lg:px-4 py-1 rounded-full text-xs font-bold hover:bg-accent-50 transition-colors">
+    今すぐ電話
+  </a>
+  <a href="https://lin.ee/TODO" target="_blank" rel="noopener" class="shrink-0 bg-[#06c755] text-white px-3 lg:px-4 py-1 rounded-full text-xs font-bold hover:bg-[#05b04a] transition-colors">
+    LINEで相談
   </a>
 </div>
 
 <!-- Sticky CTA bar - mobile -->
 <div class="fixed bottom-0 left-0 right-0 z-50 md:hidden shadow-[0_-4px_12px_rgba(0,0,0,0.15)]" id="mobile-sticky">
-  <div class="bg-primary-700 text-white text-center py-1 text-xs font-bold">
-    <span class="animate-pulse inline-block mr-1">&#9888;</span> 補助金の予算残りわずか！
+  <div class="bg-primary-700 text-white flex items-center justify-center py-1 text-xs font-bold">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1 animate-pulse" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l6.518 11.59c.75 1.335-.213 2.98-1.742 2.98H3.48c-1.53 0-2.493-1.645-1.743-2.98L8.257 3.1zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+    </svg>
+    補助金の予算残りわずか！
   </div>
   <div class="flex">
     <a
       href="tel:078-597-2722"
-      class="flex items-center justify-center gap-2 w-1/2 bg-green-600 hover:bg-green-700 text-white font-bold py-4 transition-colors"
+      class="flex items-center justify-center gap-2 w-1/2 bg-accent-500 hover:bg-accent-600 text-gray-900 font-bold py-4 transition-colors"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
@@ -26,22 +36,21 @@
       今すぐ電話
     </a>
     <a
-      href="#contact"
-      class="flex items-center justify-center gap-2 w-1/2 bg-accent-500 hover:bg-accent-600 text-gray-900 font-bold py-4 transition-colors"
+      href="https://lin.ee/TODO"
+      target="_blank"
+      rel="noopener"
+      class="flex items-center justify-center gap-2 w-1/2 bg-[#06c755] hover:bg-[#05b04a] text-white font-bold py-4 transition-colors"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.318v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
       </svg>
-      30秒で対象チェック
+      LINEで相談
     </a>
   </div>
 </div>
 
 <!-- Spacer for mobile sticky -->
 <div class="h-20 md:hidden"></div>
-<!-- Spacer for desktop urgency bar -->
-<div class="hidden md:block h-10"></div>
 
 <style>
   @keyframes slideDown {

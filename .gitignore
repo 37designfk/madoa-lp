@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# raw photo originals (use public/images/ for served assets)
+photo/
+
+# Playwright MCP cache
+.playwright-mcp/
