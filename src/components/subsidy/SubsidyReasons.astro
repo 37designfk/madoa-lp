@@ -12,6 +12,7 @@ const reasons = [
     description: '神戸市全域で地域密着のサービスを展開。実店舗を構え、お客様との信頼関係を大切にしながら、一つひとつの工事を丁寧に行っています。',
     image: 'images/subsidy/reason-02.jpg',
     imageAlt: '株式会社三喜（madoa）の店舗外観と看板',
+    objectPosition: 'object-top',
   },
   {
     title: '素材手配をスムーズに行える体制',
@@ -38,7 +39,7 @@ const reasons = [
               src={`${base}${reason.image}`}
               alt={reason.imageAlt}
               loading="lazy"
-              class="w-full h-64 object-cover rounded-2xl"
+              class={`w-full h-64 object-cover ${reason.objectPosition ?? ''} rounded-2xl`}
             />
           </div>
           <div class="md:w-1/2">
