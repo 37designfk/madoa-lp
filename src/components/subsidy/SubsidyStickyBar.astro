@@ -2,17 +2,19 @@
 ---
 
 <!-- Urgency bar - desktop top -->
-<div class="hidden md:flex fixed top-0 left-0 right-0 z-50 bg-accent-500 text-gray-900 flex-nowrap items-center justify-center gap-2 lg:gap-3 py-2 px-4 text-xs lg:text-sm font-bold shadow-sm whitespace-nowrap overflow-hidden" id="urgency-bar">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 animate-pulse shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l6.518 11.59c.75 1.335-.213 2.98-1.742 2.98H3.48c-1.53 0-2.493-1.645-1.743-2.98L8.257 3.1zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-  </svg>
-  <span class="hidden xl:inline">予算上限に達し次第、受付終了！お早めにご相談ください</span>
-  <span class="hidden lg:inline xl:hidden">予算上限に達し次第、受付終了！</span>
-  <span class="lg:hidden">予算上限で受付終了</span>
-  <a href="tel:078-597-2722" class="shrink-0 bg-white text-accent-600 border border-accent-600 px-3 lg:px-4 py-1 rounded-full text-xs font-bold hover:bg-accent-50 transition-colors">
+<div class="hidden md:flex fixed top-0 left-0 right-0 z-50 bg-accent-500 text-gray-900 flex-nowrap items-center justify-center gap-2 lg:gap-3 py-2 px-4 text-xs lg:text-sm font-bold shadow-sm whitespace-nowrap" id="urgency-bar">
+  <span class="inline-flex items-center gap-2 leading-none">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 animate-pulse shrink-0 block" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l6.518 11.59c.75 1.335-.213 2.98-1.742 2.98H3.48c-1.53 0-2.493-1.645-1.743-2.98L8.257 3.1zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+    </svg>
+    <span class="hidden xl:inline">予算上限に達し次第、受付終了！お早めにご相談ください</span>
+    <span class="hidden lg:inline xl:hidden">予算上限に達し次第、受付終了！</span>
+    <span class="lg:hidden">予算上限で受付終了</span>
+  </span>
+  <a href="tel:078-597-2722" class="shrink-0 inline-flex items-center bg-white text-accent-600 border border-accent-600 px-3 lg:px-4 py-1 rounded-full text-xs font-bold hover:bg-accent-50 transition-colors">
     今すぐ電話
   </a>
-  <a href="https://lin.ee/TODO" target="_blank" rel="noopener" class="shrink-0 bg-[#06c755] text-white px-3 lg:px-4 py-1 rounded-full text-xs font-bold hover:bg-[#05b04a] transition-colors">
+  <a href="https://lin.ee/TODO" target="_blank" rel="noopener" class="shrink-0 inline-flex items-center bg-[#06c755] text-white px-3 lg:px-4 py-1 rounded-full text-xs font-bold hover:bg-[#05b04a] transition-colors">
     LINEで相談
   </a>
 </div>
