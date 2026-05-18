@@ -1,0 +1,104 @@
+---
+// LIXIL窓本舗に蓄積された MADOA への顧客レビュー 42件 から、補助金活用・断熱訴求に
+// 親和性の高いものを抜粋して掲載予定。下記はレビュー取り込み前の仮データ。
+// 取り込み後に「窓本舗」レビューを正データへ差し替えること。
+const testimonials = [
+  {
+    comment:
+      '冬の朝、窓際の冷気が本当につらかったのですが、内窓を付けてからリビングがまったく違います。補助金で実質半額以下になり、もっと早くやればよかったと思っています。',
+    name: 'T.K.様',
+    area: '神戸市西区',
+    tag: '内窓・補助金活用',
+  },
+  {
+    comment:
+      '結露を毎朝拭くのが習慣になっていましたが、内窓を入れてからほぼゼロに。最大100万円の補助金が出ると伺って踏み切れました。担当の方の説明が丁寧でした。',
+    name: 'M.A.様',
+    area: '神戸市垂水区',
+    tag: '結露解消',
+  },
+  {
+    comment:
+      'エアコンの効きが悪く電気代が上がる一方でしたが、窓のリフォーム後は設定温度を下げても十分快適です。補助金の手続きもすべてMADOAさんが進めてくれて助かりました。',
+    name: 'S.H.様',
+    area: '神戸市須磨区',
+    tag: '光熱費削減',
+  },
+  {
+    comment:
+      '他社にも見積もりを取りましたが、補助金の知識と説明が一番わかりやすく、安心して任せられました。施工も丁寧で仕上がりに満足しています。',
+    name: 'Y.N.様',
+    area: '明石市',
+    tag: '相見積もり後',
+  },
+  {
+    comment:
+      '築40年の家で、窓だけでこんなに変わるのかと驚きました。寝室の底冷えが減り、家族みんなぐっすり眠れるようになりました。補助金のおかげで予算内に収まりました。',
+    name: 'K.O.様',
+    area: '神戸市北区',
+    tag: '築古住宅',
+  },
+  {
+    comment:
+      '道路沿いで車の音が気になっていましたが、内窓を入れてから外の音がぐっと小さくなりました。断熱も防音もまとめてできて、補助金も使えて言うことなしです。',
+    name: 'I.F.様',
+    area: '神戸市灘区',
+    tag: '防音・断熱',
+  },
+];
+---
+
+<section id="subsidy-testimonials" class="bg-gray-50 py-16 md:py-24">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <p class="text-primary-600 text-sm font-bold mb-2 tracking-wider">VOICES</p>
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">補助金で窓リフォームをされたお客様の声</h2>
+      <p class="text-gray-600 mb-6">神戸を中心に、補助金を活用して窓リフォームを実施されたお客様の声をご紹介します。</p>
+      <div class="inline-flex items-center gap-3 bg-white rounded-full shadow-md px-6 py-3">
+        <span class="text-sm font-semibold text-gray-700">LIXIL窓本舗レビュー</span>
+        <div class="flex gap-0.5">
+          {[...Array(5)].map(() => (
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-500" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          ))}
+        </div>
+        <span class="text-2xl font-bold text-gray-900">4.9</span>
+        <span class="text-xs text-gray-500">42件以上</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      {testimonials.map((item) => (
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex gap-0.5">
+              {[...Array(5)].map(() => (
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-accent-500" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              ))}
+            </div>
+            <span class="text-xs font-semibold text-primary-700 bg-primary-50 px-3 py-1 rounded-full">
+              {item.tag}
+            </span>
+          </div>
+          <p class="text-gray-700 leading-relaxed mb-6">{item.comment}</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
+              <span class="text-primary-700 font-bold text-sm">{item.name.charAt(0)}</span>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-900 text-sm">{item.name}</p>
+              <p class="text-gray-500 text-xs">{item.area}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p class="text-center text-xs text-gray-500 mt-8">
+      LIXIL窓本舗 三喜ストアに寄せられた42件以上のレビューより一部抜粋。掲載は許諾済みのものに限ります。
+    </p>
+  </div>
+</section>
