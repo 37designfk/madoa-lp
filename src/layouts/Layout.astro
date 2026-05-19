@@ -22,6 +22,27 @@ const isProduction = import.meta.env.SITE === 'https://lp.madoa.co.jp';
     <link rel="preload" as="image" type="image/webp" href={`${base}images/mainimage.webp`} />
     <title>{title}</title>
     {isProduction && <script src="https://dashboard.37d.jp/api/tag/madoa-lp" defer></script>}
+    {isProduction && (
+      <Fragment>
+        <script is:inline>
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '971517092154665');
+          fbq('track', 'PageView');
+        </script>
+        <noscript>
+          <img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=971517092154665&ev=PageView&noscript=1"
+          />
+        </noscript>
+      </Fragment>
+    )}
   </head>
   <body class="font-sans text-gray-800 bg-white pb-16 md:pb-0">
     <!-- Header -->
@@ -55,5 +76,23 @@ const isProduction = import.meta.env.SITE === 'https://lp.madoa.co.jp';
     </header>
 
     <slot />
+
+    {isProduction && (
+      <script is:inline>
+        document.addEventListener('click', function(e){
+          var link = e.target && e.target.closest && e.target.closest('a');
+          if (!link || !window.fbq) return;
+          var href = link.href || '';
+          if (href.indexOf('lin.ee') !== -1 || href.indexOf('line.me') !== -1) {
+            fbq('track', 'Lead', { content_name: 'LINE Click' });
+          } else if (href.indexOf('tel:') === 0) {
+            fbq('track', 'Contact', { content_name: 'Phone Click' });
+          }
+        });
+        document.addEventListener('submit', function(){
+          if (window.fbq) fbq('track', 'Lead', { content_name: 'Contact Form' });
+        }, true);
+      </script>
+    )}
   </body>
 </html>
