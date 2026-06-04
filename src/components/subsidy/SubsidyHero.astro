@@ -2,19 +2,24 @@
 const base = import.meta.env.BASE_URL;
 ---
 
-<section class="relative text-white overflow-hidden min-h-[600px] md:min-h-[700px]">
+<section class="relative text-white overflow-hidden min-h-[600px] md:min-h-[700px]" data-track-location="hero">
   <div class="absolute inset-0">
-    <img src={`${base}images/subsidy/hero.jpg`} alt="内窓リフォーム施工例" class="w-full h-full object-cover object-center" width="1199" height="1600" fetchpriority="high" />
+    <img src={`${base}images/subsidy/case-bedroom-large.jpg`} alt="内窓リフォーム施工例" class="w-full h-full object-cover object-center" width="1024" height="768" fetchpriority="high" />
     <div class="absolute inset-0 bg-gradient-to-r from-primary-900/80 via-primary-900/50 to-primary-900/10"></div>
   </div>
 
   <div class="relative max-w-5xl mx-auto px-4 py-24 md:py-36">
     <div class="max-w-xl">
-      <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 animate-fade-in-up">
-        補助金で、窓から<br />暮らしの質を上げる。
+      <!-- LIXIL badge -->
+      <div class="inline-flex items-center gap-2 bg-white/15 border border-white/30 rounded-full px-4 py-2 mb-6 animate-fade-in-up backdrop-blur-sm">
+        <span class="text-white text-xs font-bold tracking-wider">LIXIL インプラス・リプラス 取扱い店</span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6 animate-fade-in-up">
+        窓リフォームに<br /><span class="text-accent-300 text-5xl md:text-7xl">最大100万円</span><br />の補助金が使えます。
       </h1>
       <p class="text-xl md:text-2xl text-white/90 mb-8 animate-fade-in-up animate-delay-100 leading-relaxed">
-        補助金を活用した窓リフォームで、<br />今の暮らしに合った、無理のない整え方を。
+        寒さ・暑さ・結露・騒音。<br />LIXILの窓で解決、補助金申請もまるごとお任せ。
       </p>
 
       <!-- Trust badges -->

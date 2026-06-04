@@ -79,17 +79,59 @@ const isProduction = import.meta.env.SITE === 'https://lp.madoa.co.jp';
 
     {isProduction && (
       <script is:inline>
+        // クリック位置の推測（data-track-location 優先、なければ section id / 親要素から推測）
+        function resolveLocation(el){
+          var marked = el.closest('[data-track-location]');
+          if (marked) return marked.getAttribute('data-track-location');
+          if (el.closest('header')) return 'header';
+          if (el.closest('footer')) return 'footer';
+          var sec = el.closest('section');
+          if (sec && sec.id) return sec.id;
+          return 'unknown';
+        }
+        // UTM クエリ取得（初回訪問時のみ sessionStorage 保存、以降は同セッション内で再利用）
+        function getUtmQuery(){
+          try {
+            var stored = sessionStorage.getItem('_lp_utm');
+            if (stored) return stored;
+            var qs = window.location.search || '';
+            if (qs.indexOf('utm_') !== -1) {
+              var params = new URLSearchParams(qs);
+              var keep = new URLSearchParams();
+              params.forEach(function(v,k){ if (k.indexOf('utm_') === 0 || k === 'gclid' || k === 'fbclid') keep.set(k,v); });
+              var s = keep.toString();
+              if (s) { sessionStorage.setItem('_lp_utm', s); return s; }
+            }
+          } catch(e) {}
+          return '';
+        }
+        // LINE リンクへ UTM を引き継ぐ
+        function appendUtm(url){
+          var utm = getUtmQuery();
+          if (!utm) return url;
+          return url + (url.indexOf('?') === -1 ? '?' : '&') + utm;
+        }
         document.addEventListener('click', function(e){
           var link = e.target && e.target.closest && e.target.closest('a');
-          if (!link || !window.fbq) return;
-          var href = link.href || '';
+          if (!link) return;
+          var href = link.getAttribute('href') || '';
+          var location = resolveLocation(link);
           if (href.indexOf('lin.ee') !== -1 || href.indexOf('line.me') !== -1) {
-            fbq('track', 'Lead', { content_name: 'LINE Click' });
+            // UTM 引き継ぎ（初回のみ書き換え、すでに utm_ が含まれていればスキップ）
+            if (href.indexOf('utm_') === -1) {
+              var newHref = appendUtm(href);
+              if (newHref !== href) link.setAttribute('href', newHref);
+            }
+            if (window.gtag) gtag('event', 'click_line', { location: location });
+            if (window.fbq) fbq('trackCustom', 'LineClick', { location: location });
           } else if (href.indexOf('tel:') === 0) {
-            fbq('track', 'Contact', { content_name: 'Phone Click' });
+            if (window.gtag) gtag('event', 'click_phone', { location: location });
+            if (window.fbq) fbq('trackCustom', 'PhoneClick', { location: location });
           }
         });
+        // フォーム送信完了（現状フォームなし、将来のフォーム設置時に発火）
         document.addEventListener('submit', function(){
+          if (window.gtag) gtag('event', 'generate_lead');
           if (window.fbq) fbq('track', 'Lead', { content_name: 'Contact Form' });
         }, true);
       </script>

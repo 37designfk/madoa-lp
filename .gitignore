@@ -15,7 +15,16 @@ pnpm-debug.log*
 
 # environment variables
 .env
+.env.*
 .env.production
+
+# 一時ファイル・作業用素材（リポジトリに含めない）
+download.html
+tmp_*.py
+urgency-bar-*.png
+public/images/subsidy/_backup/
+public/images/subsidy/hero-ai-backup.jpg
+public/images/subsidy/staff-old.jpg
 
 # macOS-specific files
 .DS_Store
