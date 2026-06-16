@@ -38,7 +38,7 @@ const isLine = variant === 'line';
         窓が割れた…<br class="md:hidden" />そんな時、<br />
         すぐ頼れる<span class="text-accent-400">安心のプロ</span>がいます。
       </h1>
-      <p class="text-lg md:text-xl text-primary-100 mb-8 animate-fade-in-up animate-delay-200">
+      <p class={`text-lg md:text-xl ${isLine ? 'text-white' : 'text-primary-100'} mb-8 animate-fade-in-up animate-delay-200`}>
         スピード対応・適正価格・神戸で<span class="font-bold">50年以上の実績</span>
       </p>
 
