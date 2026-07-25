@@ -22,9 +22,6 @@ pnpm-debug.log*
 download.html
 tmp_*.py
 urgency-bar-*.png
-public/images/subsidy/_backup/
-public/images/subsidy/hero-ai-backup.jpg
-public/images/subsidy/staff-old.jpg
 
 # macOS-specific files
 .DS_Store
