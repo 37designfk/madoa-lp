@@ -9,7 +9,7 @@ import urllib.request
 from pathlib import Path
 
 
-OUT_DIR = Path("public/images/ads/2026-05-08")
+OUT_DIR = Path("ad-assets/2026-05-08")
 SIZE = "1024x1024"
 QUALITY = "high"
 MODELS = ["gpt-image-2", "gpt-image-1"]

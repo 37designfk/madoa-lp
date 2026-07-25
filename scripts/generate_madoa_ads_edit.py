@@ -15,7 +15,7 @@ from pathlib import Path
 
 from PIL import Image
 
-OUT_DIR = Path("public/images/ads/2026-05-08")
+OUT_DIR = Path("ad-assets/2026-05-08")
 SRC_DIR = Path("public/images/subsidy")
 SIZE = "1024x1024"
 MODEL = "gpt-image-2"  # edit endpoint も同じモデル名で受理される想定。ダメなら gpt-image-1

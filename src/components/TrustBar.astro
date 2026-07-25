@@ -1,4 +1,8 @@
 ---
+interface Props {
+  items?: string[];
+}
+
 // デフォルトは割れ替えLP向け。内窓など即日対応が不自然なLPは items で上書きする
 const { items = ['見積無料', '調査無料', '最短即日', '追加費用なし'] } = Astro.props;
 ---

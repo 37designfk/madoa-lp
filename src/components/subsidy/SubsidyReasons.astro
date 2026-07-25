@@ -1,6 +1,13 @@
 ---
 const base = import.meta.env.BASE_URL;
-const reasons = [
+// objectPosition は写真ごとに見せたい位置がずれる場合に 'object-top' 等を指定する（省略時は中央）
+const reasons: Array<{
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  objectPosition?: string;
+}> = [
   {
     title: '窓の専門店としての技術力と50年以上の実績',
     description: '神戸で50年以上、窓ガラスのプロとして地域に根ざしたサービスを提供。年間リフォーム実績700件の経験と確かな技術で、安心・納得のリフォームをご提供します。',

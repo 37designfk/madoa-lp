@@ -5,12 +5,25 @@ interface Props {
   title: string;
   description?: string;
   variant?: 'mail' | 'line';
+  /** OGP画像。public/images/ogp/ 配下のファイル名。省略時は割れ替えLPの画像 */
+  ogImage?: string;
+  /** 検索エンジンに出したくないページ（重複ページ等）で true にする */
+  noindex?: boolean;
 }
 
-const { title, description = '窓ガラスの割れ替えなら神戸のMADOA（株式会社三喜）。最短即日対応・適正価格・50年以上の実績で安心の施工をお届けします。', variant = 'mail' } = Astro.props;
+const {
+  title,
+  description = '窓ガラスの割れ替えなら神戸のMADOA（株式会社三喜）。最短即日対応・適正価格・50年以上の実績で安心の施工をお届けします。',
+  variant = 'mail',
+  ogImage = 'warekae.jpg',
+  noindex = false,
+} = Astro.props;
 const isLine = variant === 'line';
 const base = import.meta.env.BASE_URL;
 const isProduction = import.meta.env.SITE === 'https://lp.madoa.co.jp';
+// canonical / OGP は絶対URLでないと効かないため Astro.site から組み立てる
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const ogImageUrl = new URL(`${base}images/ogp/${ogImage}`, Astro.site).href;
 ---
 
 <!doctype html>
@@ -19,10 +32,25 @@ const isProduction = import.meta.env.SITE === 'https://lp.madoa.co.jp';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    {!isProduction && <meta name="robots" content="noindex, nofollow" />}
+    {(!isProduction || noindex) && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <link rel="preload" as="image" type="image/webp" href={`${base}images/mainimage.webp`} />
     <title>{title}</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MADOA（株式会社三喜）" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
     {isProduction && <script src="https://dashboard.37d.jp/api/tag/madoa-lp" defer></script>}
     {isProduction && (
       <Fragment>

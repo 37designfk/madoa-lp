@@ -18,7 +18,7 @@ LPはフォームが無く、CV=電話タップ/LINEタップ。Pixelには `Pho
 - 計測基盤の現状: Pixel `971517092154665` / GA4 `G-1RZELJ5W9F` / Google広告 `AW-10849937805`(拡張CV) / Clarity すべてLP全ページに導入済み。Meta CAPIは未実装（フォーム無しモデルのため今回は不要）
 
 ## クリエイティブ（羽田野さん 2026-05-30 版・1080×1080）
-`public/images/ads/2026-05-30/`
+`ad-assets/2026-05-30/`
 - banner-01-subsidy.png（LINEで30秒見積もり・補助金対象）→ 補助金LP
 - banner-03-condensation.png（写真1枚で最短見積もり・結露対策）→ 補助金LP
 - banner-02-emergency.png → 割れ替えLP（第2弾）
@@ -67,7 +67,7 @@ UIの画像アップロードが自動化不可だったため、Marketing API �
   - 予算 ¥500/日 / age_min 18 / Advantage+オーディエンス ON
   - 地域: 神戸市北区を近似（Metaに区データ無し）→ custom_locations 2点: 鈴蘭台34.7466,135.1461/岡場・藤原台34.7965,135.1985 各6km。到達見込みMAU 約78-92万（2026-07-07更新）
 - 広告1: まどあ_補助金_窓を変えれば（ID 52541829368482・PAUSED）creative 1356734643228763 / image_hash 3d6d3206ce225c459024df26692d3b6f
-  - 2026-07-07 古田が作り直した新バナー（窓を変えれば、家が変わる／断熱3訴求／LINE CTA）に差し替え。元: public/images/ads/2026-07-07/banner-window-home.png
+  - 2026-07-07 古田が作り直した新バナー（窓を変えれば、家が変わる／断熱3訴求／LINE CTA）に差し替え。元: ad-assets/2026-07-07/banner-window-home.png
   - 旧banner01（creative 905522072608063 / hash ded83d42…）は差し替えで不使用
 - 広告2: まどあ_補助金_banner03（ID 52541829832082・PAUSED）creative 2244532082983795 / image_hash 5ee9b946bd24eba7dda6ea6038d4c1b3 ← 旧バナー。要判断（残す/削除）
 - ページ Madoa(169743000128858)。IGはページ既定（madoa.pres明示リンクは任意で後付け可）

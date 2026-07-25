@@ -25,6 +25,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      # 本番と同じ条件でスモークテストを回す。計測タグの silent failure・画像圧縮の
+      # 通し忘れ・拡張子と実体の不一致を検出する。失敗したらデプロイまで進めない
+      - run: npm run test:prod
+      # test:prod が production 設定でビルドし直すため、Pages 用に staging ビルドへ戻す
+      - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
