@@ -37,3 +37,7 @@ photo/
 
 # Playwright MCP cache
 .playwright-mcp/
+
+# Python cache
+__pycache__/
+*.pyc
