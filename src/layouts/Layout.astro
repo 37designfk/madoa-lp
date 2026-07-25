@@ -99,6 +99,13 @@ const isProduction = import.meta.env.SITE === 'https://lp.madoa.co.jp';
 
     {isProduction && (
       <script is:inline>
+        // gtag スタブ。タグローダー（dashboard.37d.jp）は gtag.js の読み込みと GA4 の config までは
+        // 行うが window.gtag 自体は定義しないため、これが無いと下の gtag('event', ...) が
+        // 毎回スキップされ GA4 のクリックイベントが 0 件になる（2026-07-25 実機検証で判明）
+        window.dataLayer = window.dataLayer || [];
+        if (typeof window.gtag !== 'function') {
+          window.gtag = function(){ window.dataLayer.push(arguments); };
+        }
         // クリック位置の推測（data-track-location 優先、なければ section id / 親要素から推測）
         function resolveLocation(el){
           var marked = el.closest('[data-track-location]');

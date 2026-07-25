@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test": "node scripts/smoke-test.mjs",
+    "test:prod": "DEPLOY_TARGET=production astro build && node scripts/smoke-test.mjs",
     "astro": "astro"
   },
   "dependencies": {
