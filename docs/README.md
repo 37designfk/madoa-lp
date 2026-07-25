@@ -41,7 +41,27 @@ Geminiの自動メモは**日時と数値を誤ることがある**ので、文�
 
 ## 環境
 
-- 本番: `lp.madoa.co.jp`（Xserver）。`DEPLOY_TARGET=production npm run build` → `rsync -avz --delete dist/ xserver:~/madoa.co.jp/public_html/lp.madoa.co.jp/`
-- ステージング: `37designfk.github.io/madoa-lp/`（GitHub Pages・main への push で自動デプロイ・noindex）
+本番のみ。`lp.madoa.co.jp`（Xserver）。
 
-**デプロイ前に `npm run test:prod` を通すこと。** CIには組み込み済みだが、本番のrsyncは手動なので忘れやすい。
+```bash
+DEPLOY_TARGET=production npm run build
+npm run test:prod   # 通ってからデプロイする
+rsync -avz --delete dist/ xserver:~/madoa.co.jp/public_html/lp.madoa.co.jp/
+```
+
+`--delete` を使うので、初回は `-n` を足してドライランで削除対象を確認すること。
+
+### CI（.github/workflows/test.yml）
+
+**デプロイはしない。検査だけ。** push と pull request で `npm run test:prod` を回し、
+「静かに壊れる」類の退行（計測タグの silent failure・画像圧縮の通し忘れ・拡張子と実体の不一致）を機械的に弾く。
+
+2026-07-26 まで GitHub Pages へステージングを自動デプロイしていたが、
+最後の更新が7/6で止まったまま古い世代を配信し続けていたため廃止した。
+本番は rsync 管理なのでデプロイ経路に影響はない。
+
+### ステージングが必要になったら
+
+`npm run build`（DEPLOY_TARGET なし）でステージング相当のビルドが作れる。
+`astro.config.mjs` に GitHub Pages 用の `site` / `base` 設定は残してあるので、
+Pages を再開したいときはワークフローにデプロイjobを戻せばよい。

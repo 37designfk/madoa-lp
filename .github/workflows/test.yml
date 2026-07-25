@@ -1,0 +1,31 @@
+name: Smoke Test
+
+# 本番デプロイは rsync 手動で行うため、CI はデプロイせず検査だけを担う。
+# 目的は「静かに壊れる」類の退行を push のたびに機械的に弾くこと。
+#   1. 計測タグの silent failure（window.gtag 未定義でイベントが破棄される）
+#   2. 画像圧縮パイプラインの通し忘れによるページ重量の肥大
+#   3. 拡張子と実体フォーマットの不一致
+#   4. LPから未参照の画像が配信対象に混入していないか
+# 検査内容の実体は scripts/smoke-test.mjs。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # test:prod は本番と同じ設定でビルドしてからスモークテストを回す
+      - run: npm run test:prod
