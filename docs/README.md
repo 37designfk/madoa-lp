@@ -28,6 +28,8 @@ Geminiの自動メモは**日時と数値を誤ることがある**ので、文�
 | `hatano-instructions-madoa-banner-2026-05-31.md` | 羽田野さんへのバナー制作指示 |
 | `mf-invoice-api-2026-07-25.md` | マネーフォワード請求書のAPI/MCP連携可否の調査結果 |
 | `2026-06-29-gemini-cli-mf-demo.md` | Gemini CLI / Anti-Gravity のデモ記録 |
+| `2026-08-01-claude-code-windows-setup.md` | **菊池様への配布用**。Windows への Claude Code 導入手順・初期設定・トラブル対処。印刷前提 |
+| `2026-08-01-claude-code-lecture-script.md` | 8/1 Claude Code 講座回の進行台本。事前チェック・タイムテーブル・デモ素材・フォールバック |
 | `subsidy-guidebook/outline.md` | 補助金ガイドブックの構成案 |
 
 ## リポジトリ内の他の置き場
