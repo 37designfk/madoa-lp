@@ -1,0 +1,374 @@
+---
+import {
+  QUESTION_HOUSE,
+  QUESTION_COUNT,
+  QUESTION_SIZE,
+  SHOW_SELF_PAY,
+  estimate,
+  buildShareText,
+  formatYen,
+} from '../../data/subsidy-estimate';
+import type { HouseType, WindowCountKey, WindowSizeKey } from '../../data/subsidy-estimate';
+
+// 全組み合わせをビルド時に計算して埋め込む。
+// クライアント側はキーで引くだけにして、計算ロジックの二重実装を避ける。
+type ResultView = {
+  headline: string;
+  body: string;
+  subsidyText: string | null;
+  selfPayText: string | null;
+  shareText: string;
+};
+
+const results: Record<string, ResultView> = {};
+for (const house of QUESTION_HOUSE.choices) {
+  for (const count of QUESTION_COUNT.choices) {
+    for (const size of QUESTION_SIZE.choices) {
+      const h = house.key as HouseType;
+      const c = count.key as WindowCountKey;
+      const s = size.key as WindowSizeKey;
+      const r = estimate(h, c, s);
+      results[`${h}_${c}_${s}`] = {
+        headline: r.headline,
+        body: r.body,
+        subsidyText: r.subsidy
+          ? `${formatYen(r.subsidy.min)} 〜 ${formatYen(r.subsidy.max)}`
+          : null,
+        selfPayText: r.selfPay
+          ? `${formatYen(r.selfPay.min)} 〜 ${formatYen(r.selfPay.max)}`
+          : null,
+        shareText: buildShareText(h, c, s, r),
+      };
+    }
+  }
+}
+
+const questions = [QUESTION_HOUSE, QUESTION_COUNT, QUESTION_SIZE];
+---
+
+<section id="diagnosis" class="bg-gray-50 py-8 md:py-12" data-track-location="diagnosis">
+  <div class="max-w-2xl mx-auto px-4">
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden scroll-mt-20" id="diag-card">
+      <!-- 導入 -->
+      <div id="diag-intro" class="p-6 md:p-10 text-center">
+        <p class="text-primary-600 text-sm font-bold mb-3">30秒・3問・無料</p>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 leading-tight">
+          あなたの家の窓は<br class="md:hidden" />補助金の対象？
+        </h2>
+        <p class="text-gray-600 text-sm mb-8">
+          3つ選ぶだけで、使える補助金の目安がその場でわかります。<br />
+          お名前や電話番号の入力はありません。
+        </p>
+        <button
+          type="button"
+          data-diag-start
+          class="w-full md:w-auto md:px-16 bg-accent-500 hover:bg-accent-600 text-gray-900 font-bold py-5 px-8 rounded-full text-lg md:text-xl transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
+        >
+          無料で診断をはじめる
+        </button>
+        <p class="text-gray-400 text-xs mt-4">診断だけのご利用でも構いません</p>
+      </div>
+
+      <!-- 質問 -->
+      {
+        questions.map((q, index) => (
+          <div id={`diag-step-${index}`} class="diag-step hidden p-6 md:p-10">
+            <div class="flex items-center justify-between mb-6">
+              <span class="text-primary-600 text-sm font-bold">
+                質問 {index + 1} / {questions.length}
+              </span>
+              {index > 0 && (
+                <button
+                  type="button"
+                  class="diag-back text-gray-400 hover:text-gray-600 text-sm underline"
+                  data-step={index}
+                >
+                  ひとつ前に戻る
+                </button>
+              )}
+            </div>
+
+            <div class="h-1.5 bg-gray-100 rounded-full mb-8 overflow-hidden">
+              <div
+                class="h-full bg-primary-500 rounded-full transition-all duration-300"
+                style={`width: ${((index + 1) / questions.length) * 100}%`}
+              />
+            </div>
+
+            <h2 class="text-xl md:text-2xl font-bold mb-6 text-center">{q.title}</h2>
+
+            <div class="flex flex-col gap-3">
+              {q.choices.map((choice) => (
+                <button
+                  type="button"
+                  class="diag-choice w-full border-2 border-gray-200 hover:border-primary-500 hover:bg-primary-50 rounded-xl py-4 px-5 text-left transition-all"
+                  data-question={q.id}
+                  data-value={choice.key}
+                  data-step={index}
+                >
+                  <span class="font-bold text-lg block">{choice.label}</span>
+                  {choice.hint && <span class="text-gray-500 text-sm">{choice.hint}</span>}
+                </button>
+              ))}
+            </div>
+
+            {q.aside && (
+              <p class="text-gray-400 text-xs text-center mt-6 leading-relaxed">{q.aside}</p>
+            )}
+          </div>
+        ))
+      }
+
+      <!-- 結果 -->
+      <div id="diag-result" class="hidden" aria-live="polite">
+        <div class="bg-primary-600 text-white p-6 md:p-8 text-center">
+          <p class="text-primary-100 text-sm mb-2">診断結果</p>
+          <h2 class="text-xl md:text-2xl font-bold leading-tight" id="diag-headline"></h2>
+        </div>
+
+        <div class="p-6 md:p-8">
+          <div id="diag-amount" class="hidden mb-6">
+            <div class="border-2 border-accent-400 rounded-xl p-5 text-center bg-accent-50">
+              <p class="text-gray-600 text-sm mb-1">受け取れる補助金の目安</p>
+              <p class="text-2xl md:text-3xl font-bold text-accent-600" id="diag-subsidy"></p>
+            </div>
+            <div id="diag-selfpay-wrap" class="hidden border border-gray-200 rounded-xl p-5 text-center mt-3">
+              <p class="text-gray-600 text-sm mb-1">補助金を差し引いたご負担の目安</p>
+              <p class="text-2xl font-bold text-primary-600" id="diag-selfpay"></p>
+            </div>
+          </div>
+
+          <p class="text-gray-600 text-sm leading-relaxed mb-8" id="diag-body"></p>
+
+          <!-- コピー -->
+          <div class="bg-gray-50 rounded-xl p-4 mb-6">
+            <p class="text-gray-700 text-sm font-bold mb-3 text-center">
+              この結果をLINEに貼り付けて送るだけ
+            </p>
+            <button
+              type="button"
+              id="diag-copy"
+              class="w-full border-2 border-primary-500 text-primary-600 hover:bg-primary-50 font-bold py-3 px-6 rounded-full text-sm transition-colors"
+            >
+              診断結果をコピーする
+            </button>
+            <p class="text-gray-400 text-xs text-center mt-3" id="diag-copy-note">
+              コピーしてからLINEを開くと、そのまま貼り付けられます
+            </p>
+          </div>
+
+          <!-- CTA -->
+          <a
+            href="https://lin.ee/ctpgq59"
+            target="_blank"
+            rel="noopener"
+            class="w-full bg-[#06c755] hover:bg-[#05b04a] text-white font-bold py-5 px-8 rounded-2xl text-lg transition-all shadow-lg text-center flex items-center justify-center gap-3 mb-3"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.318v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+            </svg>
+            <span>
+              <span class="block text-xl leading-tight">LINEで正確な金額を聞く</span>
+              <span class="text-xs font-medium opacity-90">窓の写真1枚でOK・採寸不要</span>
+            </span>
+          </a>
+
+          <a
+            href="tel:078-597-2722"
+            class="w-full border-2 border-accent-500 text-gray-900 hover:bg-accent-50 font-bold py-4 px-8 rounded-2xl transition-colors text-center flex items-center justify-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+            </svg>
+            <span>
+              <span class="block leading-tight">電話で聞く 078-597-2722</span>
+              <span class="text-xs font-medium text-gray-500">8:30〜17:30（土日祝休み）</span>
+            </span>
+          </a>
+
+          <p class="text-gray-400 text-xs text-center mt-5">
+            お見積もりのあと、こちらから追いかけてご連絡することはありません。
+          </p>
+
+          <button
+            type="button"
+            id="diag-restart"
+            class="w-full text-gray-400 hover:text-gray-600 text-sm underline mt-6"
+          >
+            もう一度診断する
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ results, showSelfPay: SHOW_SELF_PAY }}>
+  // gtag スタブ。Layout.astro も同じものを持つが、このコンポーネントは slot 内にあり
+  // Layout の script より先に評価されるため、こちらでも定義しておく（冪等）。
+  // if (window.gtag) 形式のガードだけに頼ると、定義が無いときエラーも出さずに
+  // 永久にスキップされる（docs/tracking.md「GA4のクリックイベントが3月から0件だった」）
+  window.dataLayer = window.dataLayer || [];
+  if (typeof window.gtag !== 'function') {
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
+  }
+
+  function track(name, params) {
+    var payload = params || {};
+    if (typeof window.gtag === 'function') window.gtag('event', name, payload);
+    if (typeof window.fbq === 'function') window.fbq('trackCustom', name, payload);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var card = document.getElementById('diag-card');
+    if (!card) return;
+
+    var intro = document.getElementById('diag-intro');
+    var steps = Array.prototype.slice.call(card.querySelectorAll('.diag-step'));
+    var resultEl = document.getElementById('diag-result');
+    var answers = {};
+    var shareText = '';
+
+    function show(el) {
+      intro.classList.add('hidden');
+      steps.forEach(function (s) {
+        s.classList.add('hidden');
+      });
+      resultEl.classList.add('hidden');
+      el.classList.remove('hidden');
+    }
+
+    // 画面が切り替わるとカードの高さが変わるので、上端が見えるところまで戻す。
+    // これをしないと、選択のたびにカードの途中が表示されて操作を見失う。
+    //
+    // getBoundingClientRect + scrollTo だと、smooth スクロールの最中に読んだ座標が
+    // 移動途中の値になり、素早く連続でタップされたときにズレが累積する。
+    // scrollIntoView は移動中でも正しい位置に着地する。上の余白は scroll-mt-20 で確保している
+    function scrollToCard() {
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // 開始ボタンは診断カード内だけでなく、ファーストビューにも置く。
+    // data 属性で拾うことで、Hero 側は id を知らずに開始ボタンを設置できる
+    document.querySelectorAll('[data-diag-start]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        track('diagnosis_start', { from: btn.getAttribute('data-diag-start') || 'card' });
+        show(steps[0]);
+        scrollToCard();
+      });
+    });
+
+    card.querySelectorAll('.diag-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var stepIndex = parseInt(btn.getAttribute('data-step'), 10);
+        var questionId = btn.getAttribute('data-question');
+        var value = btn.getAttribute('data-value');
+        answers[questionId] = value;
+        track('diagnosis_q' + (stepIndex + 1), { answer: value });
+
+        if (stepIndex + 1 < steps.length) {
+          show(steps[stepIndex + 1]);
+          scrollToCard();
+        } else {
+          renderResult();
+        }
+      });
+    });
+
+    card.querySelectorAll('.diag-back').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var stepIndex = parseInt(btn.getAttribute('data-step'), 10);
+        show(steps[stepIndex - 1]);
+        scrollToCard();
+      });
+    });
+
+    function renderResult() {
+      var key = answers.house + '_' + answers.count + '_' + answers.size;
+      var r = results[key];
+      if (!r) return;
+
+      document.getElementById('diag-headline').textContent = r.headline;
+      document.getElementById('diag-body').textContent = r.body;
+
+      var amountWrap = document.getElementById('diag-amount');
+      if (r.subsidyText) {
+        document.getElementById('diag-subsidy').textContent = r.subsidyText;
+        amountWrap.classList.remove('hidden');
+      } else {
+        amountWrap.classList.add('hidden');
+      }
+
+      var selfPayWrap = document.getElementById('diag-selfpay-wrap');
+      if (showSelfPay && r.selfPayText) {
+        document.getElementById('diag-selfpay').textContent = r.selfPayText;
+        selfPayWrap.classList.remove('hidden');
+      } else {
+        selfPayWrap.classList.add('hidden');
+      }
+
+      shareText = r.shareText;
+      track('diagnosis_complete', {
+        house: answers.house,
+        count: answers.count,
+        size: answers.size,
+      });
+
+      show(resultEl);
+      scrollToCard();
+    }
+
+    // Clipboard API は HTTPS でないと使えない。本番はHTTPSだが、
+    // ローカル確認で無言で失敗すると気付けないので textarea のフォールバックを持つ
+    function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      }
+      return new Promise(function (resolve, reject) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          var ok = document.execCommand('copy');
+          document.body.removeChild(ta);
+          ok ? resolve() : reject(new Error('execCommand failed'));
+        } catch (e) {
+          document.body.removeChild(ta);
+          reject(e);
+        }
+      });
+    }
+
+    var copyBtn = document.getElementById('diag-copy');
+    var copyNote = document.getElementById('diag-copy-note');
+    copyBtn.addEventListener('click', function () {
+      copyText(shareText).then(
+        function () {
+          track('diagnosis_copy');
+          copyBtn.textContent = 'コピーしました';
+          copyNote.textContent = 'LINEを開いて、そのまま貼り付けて送ってください';
+          setTimeout(function () {
+            copyBtn.textContent = '診断結果をコピーする';
+          }, 3000);
+        },
+        function () {
+          copyNote.textContent =
+            'コピーできませんでした。LINEで「窓の写真」を送っていただければ大丈夫です';
+        }
+      );
+    });
+
+    document.getElementById('diag-restart').addEventListener('click', function () {
+      answers = {};
+      shareText = '';
+      show(intro);
+      scrollToCard();
+    });
+  });
+</script>

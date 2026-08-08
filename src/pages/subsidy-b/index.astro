@@ -1,0 +1,89 @@
+---
+// 補助金LPのB案（診断ファースト型）。
+// A案（/subsidy/）は残したまま並行させ、広告のリンク先を切り替えて前後比較する。
+// 設計: docs/superpowers/specs/2026-08-08-subsidy-lp-b-design.md
+import Layout from '../../layouts/Layout.astro';
+import BStickyBar from '../../components/subsidy-b/BStickyBar.astro';
+import BHero from '../../components/subsidy-b/BHero.astro';
+import BDiagnosis from '../../components/subsidy-b/BDiagnosis.astro';
+import BNoSales from '../../components/subsidy-b/BNoSales.astro';
+import BWorkReality from '../../components/subsidy-b/BWorkReality.astro';
+import BPaperwork from '../../components/subsidy-b/BPaperwork.astro';
+import BCta from '../../components/subsidy-b/BCta.astro';
+import BTrust from '../../components/subsidy-b/BTrust.astro';
+import SubsidyPricing from '../../components/subsidy/SubsidyPricing.astro';
+import SubsidyCases from '../../components/subsidy/SubsidyCases.astro';
+import SubsidyTestimonials from '../../components/subsidy/SubsidyTestimonials.astro';
+import SubsidyFaq from '../../components/subsidy/SubsidyFaq.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout
+  title="窓の補助金リフォームなら神戸のMADOA | 30秒で対象チェック"
+  description="窓の断熱リフォームに使える補助金の対象かどうか、3問30秒でわかります。先進的窓リノベ2026対応。申請手続きはMADOAがすべて代行します。神戸市全域対応。"
+  variant="line"
+  ogImage="subsidy.jpg"
+  noindex={true}
+  preloadImage="images/subsidy/case-bedroom-large.jpg"
+>
+  <BStickyBar />
+  <BHero />
+  <BDiagnosis />
+  <BNoSales />
+  <BWorkReality />
+  <BPaperwork />
+  <BCta location="cta-mid" heading="診断の結果より正確な金額を知りたい方へ" />
+  <SubsidyPricing />
+  <BTrust />
+  <SubsidyCases />
+  <SubsidyTestimonials />
+  <SubsidyFaq />
+  <BCta location="cta-final" />
+  <Footer />
+  <!-- モバイル下部の固定CTAに隠れる分の余白。BStickyBar は自分では持たない -->
+  <div class="h-20 md:hidden"></div>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // スクロールでのフェードイン。
+    // 診断カードは JS で表示を切り替えるため、フェードインの対象から外す
+    // （is-visible が付く前に表示が切り替わると、透明のまま残る）
+    const sections = document.querySelectorAll('section:not(#diagnosis)');
+    sections.forEach((section) => {
+      section.classList.add('scroll-fade-in');
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px',
+      }
+    );
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+
+    // 上部の緊急バーはデスクトップ専用（hidden md:flex）で、ヒーローを過ぎてから出す。
+    // style.display を直接書くと Tailwind の hidden を上書きしてしまい、
+    // モバイルでもバーが出てしまうため、幅を見てから切り替える
+    const urgencyBar = document.getElementById('urgency-bar');
+    if (urgencyBar) {
+      const desktop = window.matchMedia('(min-width: 768px)');
+      const updateUrgencyBar = () => {
+        urgencyBar.style.display = desktop.matches && window.scrollY > 400 ? 'flex' : 'none';
+      };
+      updateUrgencyBar();
+      window.addEventListener('scroll', updateUrgencyBar);
+      desktop.addEventListener('change', updateUrgencyBar);
+    }
+  });
+</script>

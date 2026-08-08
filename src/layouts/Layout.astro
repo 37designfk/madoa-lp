@@ -9,6 +9,12 @@ interface Props {
   ogImage?: string;
   /** 検索エンジンに出したくないページ（重複ページ等）で true にする */
   noindex?: boolean;
+  /**
+   * ファーストビューで使う画像を preload する。public/ からの相対パス。
+   * 既定はトップページのメイン画像。FVの画像が違うページは自分の画像を渡す。
+   * 使わない画像を preload すると、その分だけFVの表示が遅れる
+   */
+  preloadImage?: string;
 }
 
 const {
@@ -17,6 +23,7 @@ const {
   variant = 'mail',
   ogImage = 'warekae.jpg',
   noindex = false,
+  preloadImage = 'images/mainimage.webp',
 } = Astro.props;
 const isLine = variant === 'line';
 const base = import.meta.env.BASE_URL;
@@ -35,7 +42,7 @@ const ogImageUrl = new URL(`${base}images/ogp/${ogImage}`, Astro.site).href;
     {(!isProduction || noindex) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-    <link rel="preload" as="image" type="image/webp" href={`${base}images/mainimage.webp`} />
+    <link rel="preload" as="image" href={`${base}${preloadImage}`} />
     <title>{title}</title>
 
     <meta property="og:type" content="website" />

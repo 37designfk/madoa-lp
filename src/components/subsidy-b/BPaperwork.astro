@@ -1,0 +1,76 @@
+---
+// 購入抵抗5「補助金の申請手続きが煩雑そう」を潰すセクション。
+// 分担の内容は現行LPの工事の流れ（SubsidyFlow）とFAQに書かれているものに揃えている。
+const customerTasks = [
+  '身分証明書のコピーなど、本人確認の書類をご用意いただく',
+  '工事の日にご在宅いただく',
+];
+
+const madoaTasks = [
+  '補助金の対象になるかを調べる',
+  '対象になる製品・工法を選ぶ',
+  '交付申請の書類をつくって提出する',
+  '工事中の写真を撮って記録に残す',
+  '工事完了後の実績報告を出す',
+];
+---
+
+<section class="bg-white py-14 md:py-20" data-track-location="paperwork">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <p class="text-primary-600 text-sm font-bold mb-2 tracking-wider">申請の手続き</p>
+      <h2 class="text-2xl md:text-3xl font-bold leading-tight">
+        補助金の申請は、<br class="md:hidden" />こちらで全部やります
+      </h2>
+      <p class="text-gray-600 mt-3">
+        MADOAは補助金事業の登録事業者です。申請の代行に費用はいただきません。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="border-2 border-accent-400 rounded-2xl overflow-hidden">
+        <div class="bg-accent-400 text-gray-900 py-3 px-5 text-center font-bold">
+          お客様にお願いすること
+        </div>
+        <ul class="p-5 flex flex-col gap-3">
+          {
+            customerTasks.map((task) => (
+              <li class="flex gap-3 items-start">
+                <span class="shrink-0 mt-1 w-5 h-5 rounded-full bg-accent-400 text-gray-900 text-xs font-bold flex items-center justify-center">
+                  ✓
+                </span>
+                <span class="text-gray-800 text-sm leading-relaxed">{task}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="text-gray-500 text-xs px-5 pb-5">この2つだけです。</p>
+      </div>
+
+      <div class="border border-gray-200 rounded-2xl overflow-hidden">
+        <div class="bg-primary-600 text-white py-3 px-5 text-center font-bold">
+          MADOAがやること
+        </div>
+        <ul class="p-5 flex flex-col gap-3">
+          {
+            madoaTasks.map((task) => (
+              <li class="flex gap-3 items-start">
+                <span class="shrink-0 mt-1 w-5 h-5 rounded-full bg-primary-600 text-white text-xs font-bold flex items-center justify-center">
+                  ✓
+                </span>
+                <span class="text-gray-700 text-sm leading-relaxed">{task}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="bg-gray-50 rounded-xl p-5 mt-6 text-center">
+      <p class="text-gray-700 text-sm leading-relaxed">
+        2026年度の交付申請は<strong class="font-bold">12月31日まで</strong>（予約申請は11月16日まで）。
+        ただし予算の上限に達した時点で受付が終わります。
+      </p>
+    </div>
+  </div>
+</section>

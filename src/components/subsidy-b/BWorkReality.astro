@@ -1,0 +1,64 @@
+---
+const base = import.meta.env.BASE_URL;
+
+// 購入抵抗4「工事が大掛かりで面倒そう」を潰すセクション。
+// 数字はすべて現行LPのFAQに載っているものを使う。ここで新しい事実を作らない。
+const facts = [
+  {
+    value: '30分〜1時間',
+    label: '窓1ヶ所あたりの工事時間',
+    note: '内窓の場合。採寸済みの製品を取り付けるだけです',
+  },
+  {
+    value: '多くは1日',
+    label: '複数ヶ所でも工事は1日で完了',
+    note: 'ヶ所数や現場の状況によって変わります',
+  },
+  {
+    value: '壊しません',
+    label: '壁も床もそのまま',
+    note: '内窓は、今ある窓の内側に取り付けます',
+  },
+];
+---
+
+<section class="bg-gray-50 py-14 md:py-20" data-track-location="work-reality">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <p class="text-primary-600 text-sm font-bold mb-2 tracking-wider">工事のこと</p>
+      <h2 class="text-2xl md:text-3xl font-bold leading-tight">
+        大掛かりな工事だと<br class="md:hidden" />思われがちですが、
+      </h2>
+      <p class="text-gray-600 mt-3">内窓の取り付けは、想像よりずっと短時間で終わります。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+      {
+        facts.map((fact) => (
+          <div class="bg-white rounded-xl p-6 text-center border border-gray-200">
+            <p class="text-2xl md:text-3xl font-bold text-primary-600 mb-2">{fact.value}</p>
+            <p class="font-bold text-gray-800 text-sm mb-2">{fact.label}</p>
+            <p class="text-gray-500 text-xs leading-relaxed">{fact.note}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden md:flex">
+      <img
+        src={`${base}images/subsidy/flow-04.jpg`}
+        alt="内窓の取り付け工事の様子"
+        loading="lazy"
+        class="w-full md:w-2/5 h-48 md:h-auto object-cover"
+      />
+      <div class="p-6 md:p-8">
+        <h3 class="font-bold text-lg mb-3">ただし、製品の製作にお時間をいただきます</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          内窓はお住まいの窓に合わせて1台ずつ作るため、採寸から2〜3週間ほど製作期間が必要です。
+          工事そのものは短くても、ご相談から完了までは1ヶ月前後を見ていただくのが安心です。
+          補助金には申請期限があるため、ご検討はお早めをおすすめします。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

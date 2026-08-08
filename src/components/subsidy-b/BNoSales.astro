@@ -1,0 +1,61 @@
+---
+// 購入抵抗3「問い合わせたら営業されそう」を潰すセクション。
+// 現行LPにも同趣旨の一文はあるが、最終CTAの中に埋もれていて読まれていない。
+const promises = [
+  {
+    title: 'こちらから追いかけてご連絡しません',
+    body: 'お見積もりのあと、営業の電話をかけ直すことはありません。ご検討はお客様のペースで進めてください。',
+  },
+  {
+    title: 'お断りのご連絡も不要です',
+    body: '「やめておきます」とお伝えいただく必要もありません。ご連絡がなければ、それでご縁がなかったということです。',
+  },
+  {
+    title: '診断・ご相談だけのご利用で構いません',
+    body: '「いくらくらいか知りたいだけ」で結構です。工事の予定がなくても、遠慮なくお使いください。',
+  },
+];
+---
+
+<section class="bg-white py-14 md:py-20" data-track-location="no-sales">
+  <div class="max-w-3xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <p class="text-primary-600 text-sm font-bold mb-2 tracking-wider">お約束</p>
+      <h2 class="text-2xl md:text-3xl font-bold leading-tight">
+        問い合わせたら<br class="md:hidden" />しつこく営業される。<br />
+        <span class="text-primary-600">それは、しません。</span>
+      </h2>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      {
+        promises.map((item) => (
+          <div class="flex gap-4 border border-gray-200 rounded-xl p-5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-primary-500 shrink-0 mt-0.5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <div>
+              <h3 class="font-bold text-gray-900 mb-1">{item.title}</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">{item.body}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="text-gray-500 text-sm leading-relaxed mt-8 text-center">
+      神戸で50年以上、地元のお客様に窓の仕事をいただいてきました。<br class="hidden md:inline" />
+      無理にご契約いただいても、この地域では続きません。
+    </p>
+  </div>
+</section>
