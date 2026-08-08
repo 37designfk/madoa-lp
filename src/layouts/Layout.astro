@@ -55,9 +55,15 @@ const ogImageUrl = new URL(`${base}images/ogp/${ogImage}`, Astro.site).href;
     {isProduction && (
       <Fragment>
         <script is:inline>
+          // 本番ホスト以外ではPixelを初期化しない。
+          // isProduction はビルド時の DEPLOY_TARGET で決まるため、本番ビルドの成果物が
+          // ステージング（madoa-lp.pages.dev 等）に置かれると素通りする。実際 2026-08-08 に
+          // pages.dev が本番と同じ Pixel ID を撃っているのを検出したので、実行時にも判定する。
+          // Pixel はGA4と違いホスト名でレポートを分離できないため、混ざると事後に分解できない
+          var _isProdHost = location.hostname === 'lp.madoa.co.jp';
           // 既知のAIクローラー・ボットはPixelを初期化しない
           var _botUA = /GPTBot|Claude-Web|anthropic-ai|cohere-ai|Meta-ExternalAgent|Bytespider|AhrefsBot|SemrushBot|PetalBot|DotBot|CCBot/i;
-          if (!_botUA.test(navigator.userAgent)) {
+          if (_isProdHost && !_botUA.test(navigator.userAgent)) {
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
