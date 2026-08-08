@@ -51,8 +51,11 @@
   </div>
 </div>
 
-<!-- Spacer for mobile sticky -->
-<div class="h-20 md:hidden"></div>
+<!--
+  下部固定CTAぶんのスペーサーはここに置かない。
+  このコンポーネントはページ先頭（Heroの前）に置かれるため、ここに置くと
+  モバイルのファーストビューが80px押し下げられる。スペーサーはページ末尾で入れる。
+-->
 
 <style>
   @keyframes slideDown {

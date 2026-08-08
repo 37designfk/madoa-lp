@@ -33,6 +33,8 @@ import Footer from '../../components/Footer.astro';
   <SubsidyFaq />
   <SubsidyForm />
   <Footer />
+  <!-- 下部固定CTAに最後のコンテンツが隠れないためのスペーサー。必ずページ末尾に置く -->
+  <div class="h-20 md:hidden"></div>
 </Layout>
 
 <script>
@@ -66,11 +68,10 @@ import Footer from '../../components/Footer.astro';
     if (urgencyBar) {
       urgencyBar.style.display = 'none';
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-          urgencyBar.style.display = 'block';
-        } else {
-          urgencyBar.style.display = 'none';
-        }
+        // 空文字にしてインラインスタイルを外す。'block' を入れると Tailwind の
+        // hidden md:flex を上書きしてしまい、モバイルでもデスクトップ用バーが
+        // （flexにならず崩れた状態で）出てしまう
+        urgencyBar.style.display = window.scrollY > 400 ? '' : 'none';
       });
     }
   });
