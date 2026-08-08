@@ -51,6 +51,26 @@ const ogImageUrl = new URL(`${base}images/ogp/${ogImage}`, Astro.site).href;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    {isProduction && (
+      <script is:inline>
+        // 関係者の端末を計測から外す仕組み。
+        // https://lp.madoa.co.jp/?internal=1 を一度開くとこのブラウザに印が残り、
+        // 以後 GA4 も Meta Pixel も送信しない（?internal=0 で解除）。
+        // IPベースの内部トラフィック除外と違い、回線やグローバルIPが変わっても効き続ける。
+        // このスクリプトはタグローダーより前に置くこと（gtag.js 読み込み前でないと ga-disable が効かない）
+        window._madoaInternal = false;
+        try {
+          var _p = new URLSearchParams(location.search);
+          if (_p.get('internal') === '1') localStorage.setItem('madoa_internal', '1');
+          if (_p.get('internal') === '0') localStorage.removeItem('madoa_internal');
+          window._madoaInternal = localStorage.getItem('madoa_internal') === '1';
+        } catch (e) {
+          // プライベートモード等で localStorage が使えない場合は素通り（計測される）
+        }
+        // GA4 の標準の送信停止スイッチ
+        if (window._madoaInternal) window['ga-disable-G-1RZELJ5W9F'] = true;
+      </script>
+    )}
     {isProduction && <script src="https://dashboard.37d.jp/api/tag/madoa-lp" defer></script>}
     {isProduction && (
       <Fragment>
@@ -63,7 +83,7 @@ const ogImageUrl = new URL(`${base}images/ogp/${ogImage}`, Astro.site).href;
           var _isProdHost = location.hostname === 'lp.madoa.co.jp';
           // 既知のAIクローラー・ボットはPixelを初期化しない
           var _botUA = /GPTBot|Claude-Web|anthropic-ai|cohere-ai|Meta-ExternalAgent|Bytespider|AhrefsBot|SemrushBot|PetalBot|DotBot|CCBot/i;
-          if (_isProdHost && !_botUA.test(navigator.userAgent)) {
+          if (_isProdHost && !window._madoaInternal && !_botUA.test(navigator.userAgent)) {
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
