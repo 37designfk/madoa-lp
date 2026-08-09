@@ -566,3 +566,47 @@ Worker の再デプロイも LP のビルドも要らない。
 cd ~/forms-endpoint && npx wrangler d1 execute forms_endpoint --remote --command \
 "SELECT created_at, site_id, name, status, error FROM submissions WHERE status='autoreply-failed' ORDER BY id DESC LIMIT 20;"
 ```
+
+<important>
+### フォーム基盤のスパム対策（2026-08-09 時点の状態と残課題）
+
+自動返信を足したことで、`/submit` は「送信者が指定したアドレスへ `noreply@37d.jp` から
+メールを送る」経路を持った。踏み台にされると、被害は madoa 1社では終わらない。
+`noreply@37d.jp` は吉市水産・Omoie・37design と共有する SES 送信元で、
+バウンス率・苦情率が閾値を超えると **4社すべてのフォーム通知が止まる**。
+
+**対処済み:** 自動返信は Origin 検証を通った正規のブラウザ送信のときだけ送る
+（`forms-endpoint/src/index.ts` の `originVerified`）。Origin ヘッダを付けない直POSTでは
+自動返信を送らない。通知メール（宛先は D1 の固定値）は従来どおり無条件に送る。
+
+注意: `allowed_origins` が空のサイトは `originVerified` が常に false になるため、
+**自動返信を設定しても永久に送られない。** エラーも出ないので気づきにくい。
+自動返信を使うクライアントには必ず `allowed_origins` を設定すること。
+
+**残課題（未実施）:** Cloudflare のレート制限ルールを `forms.37d.jp/submit` に1本入れる。
+目安は同一IPから 5 リクエスト/分。まっとうな利用者が1分に5回送ることはない。
+ダッシュボード操作のみでデプロイ不要、既存クライアントへの影響もない。
+`wrangler` の OAuth トークンは `zone (read)` しか持たないので CLI からは作れない。
+
+madoa-lp には Turnstile を入れていない（スパム対策はハニーポット1枚）。
+問題が出るようなら `forms-endpoint/examples/astro-form.astro` に仕組みがあるので移植する。
+</important>
+
+### 法人LP 構築後の残タスク（2026-08-09 時点）
+
+| 内容 | 誰が | いつまで |
+|---|---|---|
+| `sites.to_email` に三喜側の宛先を追加する | 古田 | 8/17（広告配信開始）まで |
+| 自動返信の「2営業日以内」を菊池様に確認する | 古田 | 同上 |
+| Cloudflare のレート制限を入れる | 古田 | 同上 |
+
+**通知先の件は落とせない。** 今のままだと法人リードは古田さんの受信箱にだけ入り、
+三喜さんには届かない。自動返信で訪問者に「担当者より2営業日以内にご連絡いたします」と
+約束しており、約束の主体は「まどあ／株式会社三喜」であって 37design ではない。
+
+移行期は2宛先で回すのが安全。
+
+```bash
+cd ~/forms-endpoint && npx wrangler d1 execute forms_endpoint --remote --command \
+"UPDATE sites SET to_email='<菊池様のアドレス>,ken.furuta@37design.co.jp' WHERE site_id='madoa-lp';"
+```
