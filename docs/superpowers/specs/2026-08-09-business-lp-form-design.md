@@ -134,6 +134,79 @@ fbq('track', 'Lead', { content_name: 'Business Estimate Form' });
 - **スパム**: ハニーポット `website` に値が入っていたら Worker 側で破棄（既存の実装）
 - **二重送信**: 送信ボタンを押した直後に disabled にする
 
+### 自動返信メール（共通基盤の改修を伴う）
+
+現在の `forms-endpoint` に自動返信機能はない。`/submit` は通知メールを `to_email` へ送るだけ。
+訪問者のメールアドレスは Reply-To に入れているのみで、訪問者宛には何も送っていない。
+
+`/send`（任意宛先へ送る汎用エンドポイント）は存在するが、**これをLPのフロントから叩く方式は採らない。**
+公開ページから任意宛先に送れるエンドポイントを呼ばせると、スパムの踏み台になる。
+
+#### 方針
+
+`/submit` の処理内で、通知メールの送信後に訪問者宛の自動返信をもう1通送る。
+文面は `sites` テーブルに持たせ、**NULL なら送らない**。これで既存クライアント（吉市など）には影響しない。
+
+```sql
+ALTER TABLE sites ADD COLUMN autoreply_subject TEXT;
+ALTER TABLE sites ADD COLUMN autoreply_body TEXT;
+```
+
+`src/index.ts` の `/submit` に追加する処理:
+
+```ts
+// 自動返信（設定があり、訪問者のメールアドレスが取れているときだけ）
+if (site.autoreply_subject && site.autoreply_body && email) {
+  const reply = await sesSend({
+    /* ...共通の認証情報... */
+    to: [email],
+    replyTo: site.to_email.split(",")[0].trim(),  // 返信は担当者へ届く
+    subject: site.autoreply_subject,
+    bodyText: site.autoreply_body.replace(/\{\{name\}\}/g, name),
+  });
+  // 自動返信の失敗で /submit 全体を失敗にしない。ログに残して 200 を返す
+  if (!reply.ok) await logSubmission(/* status: "autoreply-failed" */);
+}
+```
+
+**自動返信の失敗をフォーム送信の失敗にしない。** 通知メールが担当者に届いていれば商談は成立する。
+訪問者に「送信に失敗しました」と見せて二重送信させる方が損失が大きい。
+
+`{{name}}` だけ差し込みに対応する。テンプレート機能を作り込まない（YAGNI）。
+
+#### 文面（madoa-lp 用）
+
+件名: `【まどあ】お見積もりのご依頼を承りました`
+
+```
+{{name}} 様
+
+このたびは、まどあ（株式会社三喜）へお見積もりのご依頼をいただき
+ありがとうございます。
+
+内容を確認のうえ、担当者より2営業日以内にご連絡いたします。
+現地を確認させていただいたうえで、補助金がいくら使えるかを含めて
+お見積もりをお出しします。
+
+お急ぎの場合は、お電話でもご相談を承ります。
+　電話 078-597-2722（受付 8:30〜17:30 土日祝休み）
+
+--------------------------------------------------
+まどあ / 株式会社三喜
+〒651-1123 神戸市北区ひよどり台
+https://lp.madoa.co.jp/business/
+--------------------------------------------------
+※このメールは送信専用です。ご返信いただいた場合は担当者に届きます。
+```
+
+住所は本番投入前に正式表記を確認する。
+
+#### 影響範囲
+
+Worker の再デプロイは共通基盤全体にかかる（全クライアントのフォームが数秒止まる）。
+デプロイ前に `npx wrangler deploy --dry-run` で通ることを確認し、
+デプロイ後に既存クライアント1件で送信テストを行う。
+
 ### D1 への登録
 
 ```sql
@@ -144,9 +217,18 @@ VALUES ('madoa-lp', 'lp.madoa.co.jp', 'ken.furuta@37design.co.jp', '[まどあ]'
 
 実際のカラム構成は投入前に `PRAGMA table_info(sites);` で確認する。
 
-**既知の障害**: 現在 wrangler から D1 に権限エラー（code 7403、account `749d8afe...`）が出ている。
-アカウントの不一致が原因と思われる。`CLOUDFLARE_ACCOUNT_ID` の指定か再認証で解決を試みる。
-解決できない場合は古田さんに Cloudflare ダッシュボードでの手動 INSERT を依頼する。
+**既知の障害（着手前に解消が必要）**: wrangler から D1 に権限エラー（code 7403）が出る。
+
+原因はアカウントの不一致ではなく **OAuthトークンのスコープ不足**。
+`wrangler whoami` はアカウント `749d8afe...`（`ken.furuta@37design.co.jp`）で正しく認証されているが、
+権限が `account (read)` / `email_routing (write)` / `email_sending (write)` だけで **D1 が含まれていない**。
+
+このままでは `sites` への INSERT も、自動返信用の ALTER TABLE もできない。解消方法は2つ。
+
+1. **古田さんが `wrangler login` で再認証する**（D1 の権限を含めて許可する）。以後スクリプトから操作できる
+2. **Cloudflare ダッシュボードの D1 コンソールで手動実行**する。今回だけならこちらでも足りる
+
+1 を推奨する。この基盤は今後もクライアント追加のたびに触るため。
 
 ## テスト
 
