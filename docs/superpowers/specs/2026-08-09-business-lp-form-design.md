@@ -75,17 +75,32 @@ D1 の `sites.to_email` を1行 UPDATE すれば切り替わる（LP側の変更
 | 項目 | name | 必須 | 備考 |
 |---|---|---|---|
 | 法人名・店舗名 | `company` | 必須 | 会議で明示された項目 |
-| ご担当者名 | `name` | 必須 | |
-| 電話番号 | `tel` | 必須 | 会議で明示された項目 |
-| メールアドレス | `email` | **必須** | Reply-To に入る |
+| ご担当者名 | `name` | 必須 | Worker が必須扱い |
+| 電話番号 | `phone` | 必須 | 会議で明示された項目 |
+| メールアドレス | `email` | **必須** | Reply-To に入る。Worker が必須扱い |
 | 物件の所在地 | `address` | 任意 | 神戸市内かの判別に使う |
-| ご相談内容 | `message` | 任意 | |
+| ご相談内容 | `message` | 任意 | 下記「Worker 側の必須判定」参照 |
 | （ハニーポット） | `website` | — | 非表示。値が入っていたら弾く |
 
 必須は4つ。法人相手なので、電話がつながらないときの連絡手段としてメールを押さえておく。
 見積もりを送る宛先にもなる。所在地を任意で置くのは、神戸市外からの問い合わせを事前に見分けるため。
 
 メールは `type="email"` にしてブラウザ側で形式を検証する。
+
+`name` は必ず `name`、電話は必ず `phone` にする。Worker の `logSubmission` と通知メール本文は
+この2つの名前で専用カラム・専用行に振り分けており（`src/index.ts:170-192`）、
+`tel` のような別名で送ると「その他」欄に落ちて D1 の `phone` 列が空になる。
+
+#### Worker 側の必須判定（要変更）
+
+現在の `/submit` は `name` / `email` / `message` の3つが揃わないと 400 を返す（`src/index.ts:73`）。
+設計では「ご相談内容は任意」としているため、**このままでは相談内容を空欄にした人が全員弾かれる。**
+
+`message` を必須から外す（`name` と `email` のみ必須にする）。
+
+どの項目を必須にするかはフォームごとの要件であって、共通基盤が一律に強制するものではない。
+既存クライアント（吉市・Omoie・37design）のフォームは各自の HTML で `required` を付けているため、
+サーバー側の判定を緩めても実際の入力体験は変わらない。
 
 ### 文言
 
@@ -165,9 +180,19 @@ if (site.autoreply_subject && site.autoreply_body && email) {
     bodyText: site.autoreply_body.replace(/\{\{name\}\}/g, name),
   });
   // 自動返信の失敗で /submit 全体を失敗にしない。ログに残して 200 を返す
-  if (!reply.ok) await logSubmission(/* status: "autoreply-failed" */);
+  if (!reply.ok) {
+    await logSubmission(c.env, siteId, payload, ip, ua, null,
+                        "autoreply-failed", reply.error);
+  }
 }
 ```
+
+`logSubmission` の `status` は現在 `"sent" | "failed" | "spam"` の3値に固定されている
+（`src/index.ts:202`）。`"autoreply-failed"` を足す。`submissions.status` は TEXT なので
+DB スキーマの変更は要らない。
+
+**この行を「通知メール送信の成功ログ」より後ろに置く。** 先に置くと、
+自動返信だけ失敗したケースで `status: "sent"` の行に上書きされ、失敗が見えなくなる。
 
 **自動返信の失敗をフォーム送信の失敗にしない。** 通知メールが担当者に届いていれば商談は成立する。
 訪問者に「送信に失敗しました」と見せて二重送信させる方が損失が大きい。
@@ -217,20 +242,15 @@ VALUES ('madoa-lp', 'lp.madoa.co.jp', 'ken.furuta@37design.co.jp', '[まどあ]'
         'https://lp.madoa.co.jp');
 ```
 
-実際のカラム構成は投入前に `PRAGMA table_info(sites);` で確認する。
+D1 のデータベース名は **`forms_endpoint`**（ハイフンではなくアンダースコア）。
+`wrangler.toml` の `database_id` は `429cfcde-d460-4078-bcba-48dc79ac8bd4`。
 
-**既知の障害（着手前に解消が必要）**: wrangler から D1 に権限エラー（code 7403）が出る。
+`sites` の実カラムは確認済み。`site_id` / `domain` / `to_email` / `subject_prefix` /
+`allowed_origins` / `turnstile_site_key` / `turnstile_secret_key` / `enabled` /
+`created_at` / `updated_at`。Turnstile は既存3クライアントとも未設定なので madoa も NULL でよい。
 
-原因はアカウントの不一致ではなく **OAuthトークンのスコープ不足**。
-`wrangler whoami` はアカウント `749d8afe...`（`ken.furuta@37design.co.jp`）で正しく認証されているが、
-権限が `account (read)` / `email_routing (write)` / `email_sending (write)` だけで **D1 が含まれていない**。
-
-このままでは `sites` への INSERT も、自動返信用の ALTER TABLE もできない。解消方法は2つ。
-
-1. **古田さんが `wrangler login` で再認証する**（D1 の権限を含めて許可する）。以後スクリプトから操作できる
-2. **Cloudflare ダッシュボードの D1 コンソールで手動実行**する。今回だけならこちらでも足りる
-
-1 を推奨する。この基盤は今後もクライアント追加のたびに触るため。
+**D1 の権限エラー（code 7403）は 2026-08-09 に解消済み。** 古田さんが `wrangler login` で
+再認証し、トークンのスコープに `d1 (write)` が入った。スクリプトから操作できる。
 
 ## テスト
 
@@ -270,5 +290,10 @@ rsync -avz --delete dist/ xserver:~/madoa.co.jp/public_html/lp.madoa.co.jp/
 
 ## 残る判断（古田さん）
 
+- **「2営業日以内にご連絡します」と書いてよいか、菊池様に確認する。**
+  自動返信とサンクスページの両方に出る約束で、以後すべての依頼者に自動送信され続ける。
+  守れない場合は「3営業日以内」または期限を書かない文面に変える。
+  確認が取れるまでは実装を止めず、変更しやすいよう文面を D1 の1行（`autoreply_body`）に
+  閉じ込めておく。サンクスページ側は Astro の文字列1箇所
 - 通知先を菊池様のアドレスに切り替えるか（切り替えるなら D1 の1行 UPDATE のみ）
 - 広告のエリアを神戸市全体に広げるか（会議では「広げてよい」と話している。広告側の設定）
