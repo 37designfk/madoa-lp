@@ -65,6 +65,19 @@ const base = import.meta.env.BASE_URL;
   (function () {
     var GA4_ID = 'G-1RZELJ5W9F';
 
+    // リロードや再訪問での二重計上を防ぐ。モバイルの引っ張って更新は普通に起きるし、
+    // 送信できたか不安でもう一度開く人もいる。1セッション1回に絞る。
+    // 同一セッション内の2件目の依頼は同じ人なのでリードとしては1件でよい
+    var FIRED_KEY = 'madoa_lead_fired';
+    var alreadyFired = false;
+    try {
+      alreadyFired = sessionStorage.getItem(FIRED_KEY) === '1';
+      sessionStorage.setItem(FIRED_KEY, '1');
+    } catch (e) {
+      // プライベートモード等で sessionStorage が使えない場合は素通り（毎回撃つ）
+    }
+    if (alreadyFired) return;
+
     // Meta Pixel は読み込み前に呼んでも自前のキューで拾い直すのでそのまま撃つ
     if (window.fbq) fbq('track', 'Lead', { content_name: 'Business Estimate Form' });
 
@@ -74,15 +87,22 @@ const base = import.meta.env.BASE_URL;
     // 2026-08-09 の本番実機確認で、待たずに撃つと analytics.google.com へのリクエストが
     // 1件も出ないことを確認した（Meta だけが飛んでいた）。
     // 設定完了の印である google_tag_manager[GA4_ID] が生えるまで待ってから撃つ。
-    var waited = 0;
-    var timer = setInterval(function () {
-      waited += 100;
-      var ready = window.google_tag_manager && window.google_tag_manager[GA4_ID];
-      // 10秒待っても設定が終わらない場合も一度は撃つ。撃たないより取りこぼしが少ない
-      if (ready || waited >= 10000) {
-        clearInterval(timer);
-        if (window.gtag) gtag('event', 'generate_lead', { location: 'business-form' });
-      }
-    }, 100);
+    // 準備済みなら待たずに撃てるよう、ループの前に1回判定する
+    function fireGa4() {
+      if (window.gtag) gtag('event', 'generate_lead', { location: 'business-form' });
+    }
+    if (window.google_tag_manager && window.google_tag_manager[GA4_ID]) {
+      fireGa4();
+    } else {
+      var waited = 0;
+      var timer = setInterval(function () {
+        waited += 100;
+        // 10秒待っても設定が終わらない場合も一度は撃つ。撃たないより取りこぼしが少ない
+        if ((window.google_tag_manager && window.google_tag_manager[GA4_ID]) || waited >= 10000) {
+          clearInterval(timer);
+          fireGa4();
+        }
+      }, 100);
+    }
   })();
 </script>

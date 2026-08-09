@@ -108,7 +108,13 @@ const base = import.meta.env.BASE_URL;
         data.append('site_id', 'madoa-lp');
         // FormData をそのまま渡すと multipart/form-data になる。
         // これは CORS のセーフリスト対象なので preflight(OPTIONS)が発生しない
-        var res = await fetch('https://forms.37d.jp/submit', { method: 'POST', body: data });
+        // 電波の悪い場所で応答が返らないまま「送信中...」で固まるのを防ぐ。
+        // fetch には既定のタイムアウトが無く、放置すると catch にも入らないので
+        // 訪問者は押しても何も起きない画面のまま取り残される
+        var ctrl = new AbortController();
+        var timeoutId = setTimeout(function () { ctrl.abort(); }, 15000);
+        var res = await fetch('https://forms.37d.jp/submit', { method: 'POST', body: data, signal: ctrl.signal });
+        clearTimeout(timeoutId);
         var json = await res.json();
         if (!res.ok || !json.ok) throw new Error(json.error || 'send-failed');
         // 計測イベントはサンクスページ側で1回だけ撃つ。ここでは撃たない
