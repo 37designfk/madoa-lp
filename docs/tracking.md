@@ -456,3 +456,113 @@ curl -s -X POST "https://analyticsdata.googleapis.com/v1beta/properties/38378204
        "metrics":[{"name":"sessions"},{"name":"engagedSessions"},{"name":"averageSessionDuration"}],
        "dimensionFilter":{"filter":{"fieldName":"hostName","stringFilter":{"value":"lp.madoa.co.jp"}}}}'
 ```
+
+---
+
+## 法人LP（/business/）の計測（2026-08-09 構築）
+
+法人向け広告（8/17 配信開始予定）のために、見積もり依頼フォームと計測を新設した。
+設計は `docs/superpowers/specs/2026-08-09-business-lp-form-design.md`、
+手順は `docs/superpowers/plans/2026-08-09-business-lp-form.md` が正。
+
+### イベント
+
+| イベント | 発火場所 | パラメータ |
+|---|---|---|
+| `generate_lead`（GA4） | `/business/thanks/` 到達時 | `location: business-form` |
+| `Lead`（Meta） | `/business/thanks/` 到達時 | `content_name: Business Estimate Form` |
+
+**発火はサンクスページの1箇所だけ。** フォームの `submit` では撃たない。
+送信失敗やリダイレクト前の離脱を成果に数えないため。
+
+`Layout.astro` にあった全ページ共通の `submit` リスナーは削除した（コミット 2818848）。
+残すと送信時とサンクスページ到達時で2回発火して二重計上になる。
+`capture: true` で全フォームを拾う作りだったので、将来 LP に検索ボックスを置いても
+成果として記録されてしまう問題もあった。
+
+<important>
+### GA4 は gtag.js の設定完了を待ってから撃つこと（2026-08-09 に実バグとして発覚）
+
+サンクスページを作った当初、**GA4 の `generate_lead` が本番で1件も送信されていなかった。**
+Meta の `Lead` だけが飛んでいたので気づきにくかった。
+
+原因: 計測タグ `https://dashboard.37d.jp/api/tag/madoa-lp` は `defer` で読み込まれ、
+そこから `gtag/js?id=G-1RZELJ5W9F` が非同期で入る。ページ内の `is:inline` スクリプトは
+パース中に実行されるため、**gtag.js の `config` より先に走る。GA4 は config 前に
+積まれたイベントを捨てる。** Meta Pixel は `fbq` が自前のキューで拾い直すので影響を受けない。
+
+対処: 設定完了の印である `window.google_tag_manager['G-1RZELJ5W9F']` が生えるまで
+待ってから撃つ（`src/pages/business/thanks/index.astro`）。10秒待って駄目なら一度は撃つ。
+
+**ページ読み込み直後に GA4 イベントを撃つページを今後作るときは、必ず同じ待機を入れること。**
+クリック計測（`click_line` / `click_phone`）は利用者の操作が起点で読み込みより十分あとなので、
+この問題は起きない。
+
+検証方法: 本番ページを開き、ネットワークで
+`analytics.google.com/g/collect?...&en=generate_lead` が 204 を返すことを確認する。
+`dataLayer` に積まれているだけでは送信されたことにならない。
+</important>
+
+### Meta のカスタムコンバージョン（2026-08-09 作成）
+
+| 名前 | ID | 条件 |
+|---|---|---|
+| `見積もり依頼_法人LP` | 1870453323929091 | イベント `Lead` かつ URL contains `lp.madoa.co.jp/business/thanks` |
+| `LINEクリック_法人LP` | 2534601300387543 | イベント `LineClick` かつ URL contains `lp.madoa.co.jp/business` |
+| `電話クリック_法人LP` | 1039661632016385 | イベント `PhoneClick` かつ URL contains `lp.madoa.co.jp/business` |
+
+**広告の最適化目標には `見積もり依頼_法人LP` を使う。**
+
+既存の `LINEクリック_補助金LP` / `電話クリック_補助金LP` は URL contains `lp.madoa.co.jp/subsidy`
+なので `/business/` にはマッチしない。別に作る必要があった。
+`LINEクリック（全LP）` / `電話クリック（全LP）` は `lp.madoa.co.jp` 全体が対象で、
+個人向けと法人向けを分離できない。8/22 に「個人と法人どちらが良かったか」を比較するので、
+LP 別のものが要る。
+
+作成は Graph API で行った。**`event_source_id`（Pixel ID）が必須**で、これが無いと
+`(#100) The parameter event_source_id is required` で失敗する。
+
+```bash
+curl -s -X POST "https://graph.facebook.com/v21.0/act_2517872855340528/customconversions" \
+  -d "access_token=$META_ACCESS_TOKEN" \
+  -d "event_source_id=971517092154665" \
+  --data-urlencode "name=見積もり依頼_法人LP" \
+  --data-urlencode 'rule={"and":[{"event":{"eq":"Lead"}},{"or":[{"URL":{"i_contains":"lp.madoa.co.jp/business/thanks"}}]}]}' \
+  -d "custom_event_type=LEAD"
+```
+
+### フォームの送信先
+
+`https://forms.37d.jp/submit`（Cloudflare Worker + D1 + Amazon SES。リポジトリは `~/forms-endpoint`）。
+`site_id` は `madoa-lp`。D1 のデータベース名は `forms_endpoint`。
+
+**フィールド名の `name` と `phone` は変えないこと。** Worker はこの2つだけを
+`submissions` の専用カラムへ振り分ける。`tel` のような別名で送ると `phone` 列が空になる。
+
+通知先は D1 の `sites.to_email`。菊池様のアドレスに切り替えるときは次の1行だけでよい
+（LP のビルドもデプロイも不要）。
+
+```bash
+cd ~/forms-endpoint && npx wrangler d1 execute forms_endpoint --remote --command \
+"UPDATE sites SET to_email='<新しいアドレス>' WHERE site_id='madoa-lp';"
+```
+
+### 自動返信メール
+
+訪問者宛の自動返信は `sites.autoreply_subject` / `sites.autoreply_body` に文面を持たせ、
+**両方そろっているサイトだけ**送る。既存クライアント（吉市・Omoie・37design）は NULL なので送らない。
+本文の `{{name}}` が送信者の氏名に置き換わる。
+
+**「2営業日以内にご連絡いたします」は菊池様の確認待ちの文言。** 変更が要る場合は
+`migrations/2026-08-09-autoreply.sql` の UPDATE を打ち直すだけでよい。
+Worker の再デプロイも LP のビルドも要らない。
+
+自動返信の送信に失敗しても `/submit` 全体は成功として返す。通知メールが担当者に届いていれば
+商談は成立するので、訪問者に送信失敗を見せて二重送信させる方が損失が大きい。
+失敗は `submissions.status = 'autoreply-failed'` に残る。
+
+```bash
+# 自動返信が失敗していないかの確認
+cd ~/forms-endpoint && npx wrangler d1 execute forms_endpoint --remote --command \
+"SELECT created_at, site_id, name, status, error FROM submissions WHERE status='autoreply-failed' ORDER BY id DESC LIMIT 20;"
+```
