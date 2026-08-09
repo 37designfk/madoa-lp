@@ -1,0 +1,122 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<section id="estimate-form" class="bg-gray-50 py-16 md:py-24" data-track-location="estimate-form">
+  <div class="max-w-2xl mx-auto px-4">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+        無料でお見積もりに伺います
+      </h2>
+      <p class="text-gray-600 text-lg">
+        現地を確認させていただいたうえで、補助金がいくら使えるかを含めてお出しします。
+      </p>
+      <p class="text-gray-500 text-sm mt-2">
+        ご依頼いただいても、その場での契約をお願いすることはありません。
+      </p>
+    </div>
+
+    <!-- novalidate は付けない。必須チェックはブラウザ標準に任せる（JSに依存させない） -->
+    <form id="business-estimate-form" class="bg-white rounded-2xl shadow-lg p-6 md:p-8 space-y-5">
+      <!-- 送信失敗時にだけ出す。行き止まりにせず電話へ逃がす -->
+      <div id="form-error" class="hidden rounded-lg bg-red-50 border border-red-200 p-4 text-sm text-red-800">
+        送信できませんでした。通信状況をご確認のうえ、もう一度お試しください。<br />
+        お急ぎの場合は <a href="tel:078-597-2722" class="font-bold underline">078-597-2722</a> へお電話ください。
+      </div>
+
+      <div>
+        <label for="f-company" class="block font-bold text-gray-900 mb-1.5">
+          法人名・店舗名 <span class="text-red-600 text-sm">必須</span>
+        </label>
+        <input type="text" id="f-company" name="company" required autocomplete="organization"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 focus:outline-none" />
+      </div>
+
+      <div>
+        <label for="f-name" class="block font-bold text-gray-900 mb-1.5">
+          ご担当者名 <span class="text-red-600 text-sm">必須</span>
+        </label>
+        <input type="text" id="f-name" name="name" required autocomplete="name"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 focus:outline-none" />
+      </div>
+
+      <div>
+        <label for="f-phone" class="block font-bold text-gray-900 mb-1.5">
+          電話番号 <span class="text-red-600 text-sm">必須</span>
+        </label>
+        <input type="tel" id="f-phone" name="phone" required autocomplete="tel" inputmode="tel"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 focus:outline-none" />
+      </div>
+
+      <div>
+        <label for="f-email" class="block font-bold text-gray-900 mb-1.5">
+          メールアドレス <span class="text-red-600 text-sm">必須</span>
+        </label>
+        <input type="email" id="f-email" name="email" required autocomplete="email"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 focus:outline-none" />
+        <p class="text-gray-500 text-sm mt-1.5">お見積もりの送付先になります。</p>
+      </div>
+
+      <div>
+        <label for="f-address" class="block font-bold text-gray-900 mb-1.5">物件の所在地</label>
+        <input type="text" id="f-address" name="address" placeholder="神戸市北区..."
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 focus:outline-none" />
+      </div>
+
+      <div>
+        <label for="f-message" class="block font-bold text-gray-900 mb-1.5">ご相談内容</label>
+        <textarea id="f-message" name="message" rows="4" placeholder="窓の枚数、お困りごとなど（分かる範囲で構いません）"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 focus:outline-none"></textarea>
+      </div>
+
+      <!-- ハニーポット。人間には見えない。botが埋めるとWorker側が破棄する -->
+      <div class="absolute w-px h-px overflow-hidden -m-px" aria-hidden="true">
+        <label for="f-website">ウェブサイト</label>
+        <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <button type="submit" id="form-submit"
+        class="w-full bg-accent-500 hover:bg-accent-600 disabled:opacity-60 disabled:cursor-not-allowed text-black font-bold py-4 px-8 rounded-full text-lg transition-all shadow-lg hover:shadow-xl">
+        無料見積もりを依頼する
+      </button>
+
+      <p class="text-gray-500 text-sm text-center">
+        しつこい営業は一切いたしません。
+      </p>
+    </form>
+  </div>
+</section>
+
+<script is:inline define:vars={{ thanksUrl: `${base}business/thanks/` }}>
+  (function () {
+    var form = document.getElementById('business-estimate-form');
+    if (!form) return;
+    var button = document.getElementById('form-submit');
+    var errorBox = document.getElementById('form-error');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      errorBox.classList.add('hidden');
+      // 二重送信の防止。押した直後に落とす
+      button.disabled = true;
+      button.textContent = '送信中...';
+
+      try {
+        var data = new FormData(form);
+        data.append('site_id', 'madoa-lp');
+        // FormData をそのまま渡すと multipart/form-data になる。
+        // これは CORS のセーフリスト対象なので preflight(OPTIONS)が発生しない
+        var res = await fetch('https://forms.37d.jp/submit', { method: 'POST', body: data });
+        var json = await res.json();
+        if (!res.ok || !json.ok) throw new Error(json.error || 'send-failed');
+        // 計測イベントはサンクスページ側で1回だけ撃つ。ここでは撃たない
+        location.href = thanksUrl;
+      } catch (err) {
+        errorBox.classList.remove('hidden');
+        errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        button.disabled = false;
+        button.textContent = '無料見積もりを依頼する';
+      }
+    });
+  })();
+</script>
