@@ -217,11 +217,12 @@ const ogImageUrl = new URL(`${base}images/ogp/${ogImage}`, Astro.site).href;
             if (window.fbq) fbq('trackCustom', 'PhoneClick', { location: location });
           }
         });
-        // フォーム送信完了（現状フォームなし、将来のフォーム設置時に発火）
-        document.addEventListener('submit', function(){
-          if (window.gtag) gtag('event', 'generate_lead');
-          if (window.fbq) fbq('track', 'Lead', { content_name: 'Contact Form' });
-        }, true);
+        // フォーム送信の計測はここでは行わない。
+        // 送信完了の判定はサンクスページ（/business/thanks/）への到達で行い、
+        // generate_lead と Lead はそこで1回だけ撃つ。
+        // ここに submit リスナーを置くと、送信ボタンを押した時点とサンクスページ
+        // 到達時の2回発火して二重計上になる。加えて capture:true で全フォームを
+        // 拾うため、検索ボックスのような無関係なフォームでも成果として記録される
       </script>
     )}
   </body>
