@@ -548,10 +548,14 @@ Expected: `submit` リスナーと `generate_lead` がそれぞれ1箇所ずつ�
 - [ ] **Step 3: 他に generate_lead を撃つ箇所が無いことを確認する**
 
 ```bash
-cd /Users/kenfuruta/madoa-lp && grep -rn "generate_lead" src/
+cd /Users/kenfuruta/madoa-lp && grep -rn "gtag('event', 'generate_lead'" src/
 ```
 
 Expected: 出力なし（この時点ではサンクスページがまだ無いため）
+
+**単に `generate_lead` を grep しないこと。** Step 2 で置いたコメントの本文に
+`generate_lead` という文字列が含まれるため、必ず1件ヒットして誤判定になる。
+判定したいのは「実際に撃つコードが残っていないか」なので、呼び出しの形で検索する。
 
 - [ ] **Step 4: ビルドとスモークテストを通す**
 
@@ -706,12 +710,16 @@ Expected: `generate_lead', { location: 'business-form' }` が出て、`fbevents.
 - [ ] **Step 5: 法人LP本体では generate_lead が撃たれないことを確認する**
 
 ```bash
-cd /Users/kenfuruta/madoa-lp && grep -c "generate_lead" dist/business/index.html
+cd /Users/kenfuruta/madoa-lp && grep -c "gtag('event', 'generate_lead'" dist/business/index.html
 ```
 
 Expected: `0`
 
 1以上なら Task 3 の削除が反映されていない。二重計上の状態なので Task 3 に戻る。
+
+**単に `generate_lead` を grep すると 1 が返る。** Task 3 で置いたコメントが
+`is:inline` スクリプト内にあり、本番ビルドの出力にそのまま残るため
+（`dist/business/index.html:180` 付近）。撃っているかどうかは呼び出しの形で判定する。
 
 - [ ] **Step 6: スモークテストを通す**
 
@@ -962,10 +970,12 @@ Expected: `thanksUrl` に `/business/thanks/` が入っていること（本番�
 - [ ] **Step 6: 法人LPで generate_lead が撃たれないままであることを再確認する**
 
 ```bash
-cd /Users/kenfuruta/madoa-lp && grep -c "generate_lead" dist/business/index.html
+cd /Users/kenfuruta/madoa-lp && grep -c "gtag('event', 'generate_lead'" dist/business/index.html
 ```
 
 Expected: `0`
+
+Task 4 Step 5 と同じ理由で、呼び出しの形で検索する。
 
 - [ ] **Step 7: ローカルで実際に送信してみる**
 
