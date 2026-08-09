@@ -1,0 +1,68 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Footer from '../../../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Layout
+  title="お見積もりのご依頼を受け付けました | 神戸のMADOA"
+  description="お見積もりのご依頼を受け付けました。担当者より2営業日以内にご連絡いたします。"
+  variant="line"
+  ogImage="business.jpg"
+  noindex={true}
+  preloadImage="images/logo.svg"
+>
+  <section class="bg-gradient-to-br from-primary-700 to-primary-900 py-20 md:py-28">
+    <div class="max-w-2xl mx-auto px-4 text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-white" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+        </svg>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-bold text-white mb-4">
+        お見積もりのご依頼を<br class="sm:hidden" />受け付けました
+      </h1>
+
+      <p class="text-white text-lg mb-2">
+        担当者より2営業日以内にご連絡いたします。
+      </p>
+      <p class="text-primary-200 mb-10">
+        ご入力いただいたメールアドレス宛に、受付確認のメールをお送りしました。<br />
+        届かない場合は迷惑メールフォルダをご確認ください。
+      </p>
+
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8">
+        <p class="text-white font-bold mb-3">お急ぎの場合はお電話でも承ります</p>
+        <a
+          href="tel:078-597-2722"
+          class="inline-flex items-center gap-3 bg-[#0080c4] hover:bg-[#0073ad] text-white font-bold py-4 px-8 rounded-full text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+          </svg>
+          078-597-2722
+        </a>
+        <p class="text-primary-200 text-sm mt-3">受付時間: 8:30〜17:30（土日祝休み）</p>
+      </div>
+
+      <a href={`${base}business/`} class="text-primary-100 underline hover:text-white transition-colors">
+        法人向けのご案内に戻る
+      </a>
+    </div>
+  </section>
+
+  <Footer variant="line" />
+</Layout>
+
+<script is:inline>
+  // 見積もり依頼の完了イベント。発火はこのページの1箇所だけ。
+  // フォーム側の submit で撃つと、送信失敗やリダイレクト前の離脱でも成果に
+  // なってしまうため、実際に完了ページへ着いたことを条件にしている。
+  // window.gtag のスタブと Meta Pixel は Layout が本番ビルドのときだけ用意する。
+  // 関係者の印（?internal=1）が付いた端末では window.fbq 自体が存在せず、
+  // GA4 も ga-disable で止まるため、ここは素通りして何も送られない
+  if (window.gtag) gtag('event', 'generate_lead', { location: 'business-form' });
+  if (window.fbq) fbq('track', 'Lead', { content_name: 'Business Estimate Form' });
+</script>
