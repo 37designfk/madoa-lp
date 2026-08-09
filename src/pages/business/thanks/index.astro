@@ -60,9 +60,29 @@ const base = import.meta.env.BASE_URL;
   // 見積もり依頼の完了イベント。発火はこのページの1箇所だけ。
   // フォーム側の submit で撃つと、送信失敗やリダイレクト前の離脱でも成果に
   // なってしまうため、実際に完了ページへ着いたことを条件にしている。
-  // window.gtag のスタブと Meta Pixel は Layout が本番ビルドのときだけ用意する。
   // 関係者の印（?internal=1）が付いた端末では window.fbq 自体が存在せず、
-  // GA4 も ga-disable で止まるため、ここは素通りして何も送られない
-  if (window.gtag) gtag('event', 'generate_lead', { location: 'business-form' });
-  if (window.fbq) fbq('track', 'Lead', { content_name: 'Business Estimate Form' });
+  // GA4 も ga-disable で止まるため、どちらも素通りして何も送られない
+  (function () {
+    var GA4_ID = 'G-1RZELJ5W9F';
+
+    // Meta Pixel は読み込み前に呼んでも自前のキューで拾い直すのでそのまま撃つ
+    if (window.fbq) fbq('track', 'Lead', { content_name: 'Business Estimate Form' });
+
+    // GA4 は gtag.js の config が終わる前に積まれたイベントを捨てる。
+    // 計測タグは dashboard.37d.jp を defer で読み、そこから gtag.js が非同期で入るため、
+    // このスクリプトが走る時点では設定が終わっていない。
+    // 2026-08-09 の本番実機確認で、待たずに撃つと analytics.google.com へのリクエストが
+    // 1件も出ないことを確認した（Meta だけが飛んでいた）。
+    // 設定完了の印である google_tag_manager[GA4_ID] が生えるまで待ってから撃つ。
+    var waited = 0;
+    var timer = setInterval(function () {
+      waited += 100;
+      var ready = window.google_tag_manager && window.google_tag_manager[GA4_ID];
+      // 10秒待っても設定が終わらない場合も一度は撃つ。撃たないより取りこぼしが少ない
+      if (ready || waited >= 10000) {
+        clearInterval(timer);
+        if (window.gtag) gtag('event', 'generate_lead', { location: 'business-form' });
+      }
+    }, 100);
+  })();
 </script>
