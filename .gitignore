@@ -35,6 +35,9 @@ photo/
 # Playwright MCP cache
 .playwright-mcp/
 
+# サブエージェント実行の作業場（台帳・レビュー用の差分ファイル等の一時置き場）
+.superpowers/
+
 # Python cache
 __pycache__/
 *.pyc
